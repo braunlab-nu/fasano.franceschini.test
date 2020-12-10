@@ -1,16 +1,22 @@
 Package: fasano.franceschini.test
-Title: What the Package Does (One Line, Title Case)
+Title: An R implementation of the 2-D Kolmogorov-Smirnov (KS) two-sample test as defined by Fasano and Franceschini (1987). This is a variant of the 2-D two-sample KS test as originally defined by Peacock (1983).
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Elan",
+           family = "Ness-Cohn",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "elan.ness-cohn2017@u.northwestern.edu",
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
+Imports: 
+    stats,
+    parallel
+Suggests: 
+    tidyverse
+URL: https://github.com/nesscoder/fasano.franceschini.test
+BugReports: https://github.com/nesscoder/fasano.franceschini.test/issues
