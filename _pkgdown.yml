@@ -1,0 +1,18 @@
+authors:
+  Elan Ness-Cohn:
+    href: "https://sites.northwestern.edu/elannesscohn/"
+  Rosemary Braun:
+    href: "https://sites.northwestern.edu/braunlab/"
+
+development:
+  mode: auto
+
+reference:
+- title: "Main Test Function"
+- contents:
+  - fasano.franceschini.test
+- title: "Internal Helper Functions"
+- contents:
+  - get_d_stat
+  - ksCDF
+  - quadCount
