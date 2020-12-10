@@ -18,3 +18,4 @@
 *.csv
 *.txt
 docs
+.Rproj.user

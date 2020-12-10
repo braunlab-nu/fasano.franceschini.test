@@ -8,10 +8,9 @@
 #' @param S2 a [n by 2] `data.frame` of x and y coordinates of sample 2
 #' @param nBootstrap a `numeric` defining the number of bootstrapped samples to be generated for computing the empirical p-value (note this procedure is slow and computationally expensive on the order of nBootStrap*O(n^2). Default is set to 0.
 #' If nBootstrap is 0, the Fasano Franceschini distributional approximation is used for defining the p-value. See Fasano and Franceschini test (1987) for details.
-#' @param cores a `numeric` defining the number of cores to use of processing
+#' @param cores a `numeric` defining the number of cores to use for processing
 #'
 #' @return the 2-D ks statistic and p-value
-#' @export
 #'
 #' @references{
 #' \itemize{
@@ -22,6 +21,29 @@
 #' }
 #'
 #' @examples
+#' #Underlying distributions are different
+#' #set seed for reproducible example
+#' set.seed(123)
+#'
+#' #create 2-D samples with different underlying distributions
+#' sample1Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 3), y = rnorm(n = 100,mean = 0, sd = 1))
+#' sample2Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1), y = rnorm(n = 100,mean = 0, sd = 3))
+#'
+#' fasano.franceschini.test(sample1Data,sample2Data)
+#'
+#'
+#' #Underlying distributions are the same
+#' #set seed for reproducible example
+#' set.seed(123)
+#'
+#' #create 2-D samples with the same underlying distributions
+#' sample1Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1), y = rnorm(n = 100,mean = 0, sd = 1))
+#' sample2Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1), y = rnorm(n = 100,mean = 0, sd = 1))
+#'
+#' fasano.franceschini.test(sample1Data,sample2Data)
+#'
+#' @export
+
 fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 2) {
   start <- Sys.time()
   # determine number of samples in each data set
@@ -57,8 +79,13 @@ fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 2) {
     # count the number of bootstrapped d stats that are larger than the observed
     pval <- sum(unlist(d) > D) / nBootstrap
     ksStat <- D
-    print(Sys.time() - start)
-    return(list(ksStat = ksStat, epval = pval))
+
+    new("Fasano Franceschini Test",
+        list(ksStat = ksStat,
+             pval = pval,
+             time = Sys.time() - start,
+             S1 = deparse(substitute(S1)),
+             S2 = deparse(substitute(S2))))
   } else {
     # Use the fasano.franceschini distributional approximation
     # average Rsquared
@@ -70,7 +97,24 @@ fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 2) {
     n <- n1 * n2 / (n1 + n2)
     ksStat <- sqrt(n) * D / (1 + sqrt(1 - rr) * (0.25 - 0.75 / sqrt(n)))
     pval <- ksCDF(ksStat)
-    print(Sys.time() - start)
-    return(list(ksStat = ksStat, pval = pval))
+    new("Fasano Franceschini Test",
+        list(ksStat = ksStat,
+             pval = pval,
+             time = Sys.time() - start,
+             S1 = deparse(substitute(S1)),
+             S2 = deparse(substitute(S2))))
   }
 }
+
+setClass( "Fasano Franceschini Test", representation("list"))
+
+
+setMethod("show", "Fasano Franceschini Test", function(object) {
+  cat("\n")
+  cat("\t2-D Two-sample Kolmogorov-Smirnov Test\n")
+  cat("\n")
+  cat("Fasano Franceschini Test (1987)\n")
+  cat("Data: ", object$S1, "and", object$S2,"\n")
+  cat("D-stat = ", object$ksStat,", p-value = ", object$pval,"\n")
+  cat("Run Time (s) = ", object$time,"\n")
+})

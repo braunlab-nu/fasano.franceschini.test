@@ -14,7 +14,7 @@ fasano.franceschini.test(S1, S2, nBootstrap = 0, cores = 2)
 \item{nBootstrap}{a \code{numeric} defining the number of bootstrapped samples to be generated for computing the empirical p-value (note this procedure is slow and computationally expensive on the order of nBootStrap*O(n^2). Default is set to 0.
 If nBootstrap is 0, the Fasano Franceschini distributional approximation is used for defining the p-value. See Fasano and Franceschini test (1987) for details.}
 
-\item{cores}{a \code{numeric} defining the number of cores to use of processing}
+\item{cores}{a \code{numeric} defining the number of cores to use for processing}
 }
 \value{
 the 2-D ks statistic and p-value
@@ -24,6 +24,29 @@ Computes the 2-D Kolmogorov-Smirnov two-sample test as described by Fasano and F
 }
 \details{
 Code adapted from Press, W. H., Teukolsky, S. A., Vetterling, W. T.,, Flannery, B. P. (2007). Numerical Recipes 3rd Edition: The Art of Scientific Computing. Cambridge University Press. ISBN: 0521880688
+}
+\examples{
+#Underlying distributions are different
+#set seed for reproducible example
+set.seed(123)
+
+#create 2-D samples with different underlying distributions
+sample1Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 3), y = rnorm(n = 100,mean = 0, sd = 1))
+sample2Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1), y = rnorm(n = 100,mean = 0, sd = 3))
+
+fasano.franceschini.test(sample1Data,sample2Data)
+
+
+#Underlying distributions are the same
+#set seed for reproducible example
+set.seed(123)
+
+#create 2-D samples with the same underlying distributions
+sample1Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1), y = rnorm(n = 100,mean = 0, sd = 1))
+sample2Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1), y = rnorm(n = 100,mean = 0, sd = 1))
+
+fasano.franceschini.test(sample1Data,sample2Data)
+
 }
 \references{
 {

@@ -36,16 +36,34 @@ devtools::install_github("nesscoder/fasano.franceschini.test")
 ```
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+#### Underlying Distributions Are Different
 
-```{r example}
+```{r}
 library(fasano.franceschini.test)
-## basic example code
 
+#set seed for reproducible example
+set.seed(123)
+
+#create 2-D samples with the different underlying distributions
 sample1Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 3),
                           y = rnorm(n = 100,mean = 0, sd = 1))
 sample2Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1),
                           y = rnorm(n = 100,mean = 0, sd = 3))
+
+fasano.franceschini.test(sample1Data,sample2Data)
+```
+
+#### Underlying Distributions Are The Same
+
+```{r}
+#set seed for reproducible example
+set.seed(123)
+
+#create 2-D samples with the same underlying distributions
+sample1Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1),
+                          y = rnorm(n = 100,mean = 0, sd = 1))
+sample2Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1),
+                          y = rnorm(n = 100,mean = 0, sd = 1))
 
 fasano.franceschini.test(sample1Data,sample2Data)
 ```

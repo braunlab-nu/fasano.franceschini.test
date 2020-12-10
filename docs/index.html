@@ -84,22 +84,50 @@
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
+<div id="underlying-distributions-are-different" class="section level4">
+<h4 class="hasAnchor">
+<a href="#underlying-distributions-are-different" class="anchor"></a>Underlying Distributions Are Different</h4>
 <div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">library</span>(fasano.franceschini.test)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="co">## basic example code</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>sample1Data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">100</span>,<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">3</span>),</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>                          <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">100</span>,<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>))</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>sample2Data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">100</span>,<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>),</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>                          <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">100</span>,<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">3</span>))</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a><span class="kw">fasano.franceschini.test</span>(sample1Data,sample2Data)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a><span class="co">#&gt; Time difference of 0.06168318 secs</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a><span class="co">#&gt; $ksStat</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a><span class="co">#&gt; [1] 1.762259</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="co">#set seed for reproducible example</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a><span class="co">#create 2-D samples with the different underlying distributions</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>sample1Data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">100</span>,<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">3</span>),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>                          <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">100</span>,<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>sample2Data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">100</span>,<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>                          <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">100</span>,<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">3</span>))</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a><span class="kw">fasano.franceschini.test</span>(sample1Data,sample2Data)</span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a><span class="co">#&gt; </span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a><span class="co">#&gt; $pval</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a><span class="co">#&gt; [1] 0.004014012</span></span></code></pre></div>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a><span class="co">#&gt;  2-D Two-sample Kolmogorov-Smirnov Test</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a><span class="co">#&gt; Fasano Franceschini Test (1987)</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a><span class="co">#&gt; Data:  sample1Data and sample2Data </span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a><span class="co">#&gt; D-stat =  1.854669 , p-value =  0.002057127 </span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a><span class="co">#&gt; Run Time (s) =  0.04109406</span></span></code></pre></div>
+</div>
+<div id="underlying-distributions-are-the-same" class="section level4">
+<h4 class="hasAnchor">
+<a href="#underlying-distributions-are-the-same" class="anchor"></a>Underlying Distributions Are The Same</h4>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="co">#set seed for reproducible example</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="co">#create 2-D samples with the same underlying distributions</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>sample1Data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">100</span>,<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>                          <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">100</span>,<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>sample2Data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">100</span>,<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>),</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>                          <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">100</span>,<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>))</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a><span class="kw">fasano.franceschini.test</span>(sample1Data,sample2Data)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a><span class="co">#&gt;  2-D Two-sample Kolmogorov-Smirnov Test</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true"></a><span class="co">#&gt; Fasano Franceschini Test (1987)</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a><span class="co">#&gt; Data:  sample1Data and sample2Data </span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true"></a><span class="co">#&gt; D-stat =  0.8655121 , p-value =  0.4420642 </span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true"></a><span class="co">#&gt; Run Time (s) =  0.02943492</span></span></code></pre></div>
+</div>
 </div>
 </div>
   </div>

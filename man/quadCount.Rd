@@ -24,9 +24,3 @@ Counts the frequency of points in the four quadrants - starting from the upper r
 \details{
 Code adapted from Press, W. H., Teukolsky, S. A., Vetterling, W. T.,, Flannery, B. P. (2007). Numerical Recipes 3rd Edition: The Art of Scientific Computing. Cambridge University Press. ISBN: 0521880688
 }
-\references{
-{
-\itemize{
-\item{Press, W. H., Teukolsky, S. A., Vetterling, W. T.,, Flannery, B. P. (2007). Numerical Recipes 3rd Edition: The Art of Scientific Computing. Cambridge University Press. ISBN: 0521880688}}
-}
-}

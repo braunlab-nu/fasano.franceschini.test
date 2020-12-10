@@ -13,14 +13,8 @@
 #' @return a `vector` of frequencies of the number of points in each of the four quadrants defined by the origin point
 #' @export
 #'
-#' @references{
-#' \itemize{
-#'    \item{Press, W. H., Teukolsky, S. A., Vetterling, W. T.,, Flannery, B. P. (2007). Numerical Recipes 3rd Edition: The Art of Scientific Computing. Cambridge University Press. ISBN: 0521880688}}
-#' }
 #'
 #'
-#'
-#' @examples
 quadCount <- function(x_origin, y_origin, x, y) {
   n <- length(x)
   nq1 <- 0
@@ -69,7 +63,6 @@ quadCount <- function(x_origin, y_origin, x, y) {
 #' @return a `numeric` defining the D stat with the largest difference between the quad frequencies, after checking each point as the origin
 #' @export
 #'
-#' @examples
 get_d_stat <- function(originSamples, S1, S2, cores = 1) {
 
   d <- 0
@@ -100,7 +93,6 @@ get_d_stat <- function(originSamples, S1, S2, cores = 1) {
 #' @return a `numeric` defining the p-value of observing the given 2-D KS stat
 #' @export
 #'
-#' @examples
 ksCDF <- function(lambda) {
   eps1 <- 0.001
   eps2 <- 1E-8

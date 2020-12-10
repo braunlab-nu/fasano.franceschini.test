@@ -28,20 +28,44 @@ And the development version from [GitHub](https://github.com/) with:
 Example
 -------
 
-This is a basic example which shows you how to solve a common problem:
+#### Underlying Distributions Are Different
 
     library(fasano.franceschini.test)
-    ## basic example code
 
+    #set seed for reproducible example
+    set.seed(123)
+
+    #create 2-D samples with the different underlying distributions
     sample1Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 3),
                               y = rnorm(n = 100,mean = 0, sd = 1))
     sample2Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1),
                               y = rnorm(n = 100,mean = 0, sd = 3))
 
     fasano.franceschini.test(sample1Data,sample2Data)
-    #> Time difference of 0.06168318 secs
-    #> $ksStat
-    #> [1] 1.762259
     #> 
-    #> $pval
-    #> [1] 0.004014012
+    #>  2-D Two-sample Kolmogorov-Smirnov Test
+    #> 
+    #> Fasano Franceschini Test (1987)
+    #> Data:  sample1Data and sample2Data 
+    #> D-stat =  1.854669 , p-value =  0.002057127 
+    #> Run Time (s) =  0.04109406
+
+#### Underlying Distributions Are The Same
+
+    #set seed for reproducible example
+    set.seed(123)
+
+    #create 2-D samples with the same underlying distributions
+    sample1Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1),
+                              y = rnorm(n = 100,mean = 0, sd = 1))
+    sample2Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1),
+                              y = rnorm(n = 100,mean = 0, sd = 1))
+
+    fasano.franceschini.test(sample1Data,sample2Data)
+    #> 
+    #>  2-D Two-sample Kolmogorov-Smirnov Test
+    #> 
+    #> Fasano Franceschini Test (1987)
+    #> Data:  sample1Data and sample2Data 
+    #> D-stat =  0.8655121 , p-value =  0.4420642 
+    #> Run Time (s) =  0.02943492
