@@ -13,6 +13,8 @@ ksCDF(lambda)
 a \code{numeric} defining the p-value of observing the given 2-D KS stat
 }
 \description{
-p-value of getting the specified 2-D KS stat
+p-value of getting the specified 2-D KS stat.
+}
+\details{
 Code adapted from Press, W. H., Teukolsky, S. A., Vetterling, W. T.,, Flannery, B. P. (2007). Numerical Recipes 3rd Edition: The Art of Scientific Computing. Cambridge University Press. ISBN: 0521880688
 }

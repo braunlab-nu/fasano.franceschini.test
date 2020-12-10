@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-fasano.franceschini.test
+Fasano Franceschini Test
 ========================
 
 <!-- badges: start -->
@@ -39,9 +39,9 @@ This is a basic example which shows you how to solve a common problem:
                               y = rnorm(n = 100,mean = 0, sd = 3))
 
     fasano.franceschini.test(sample1Data,sample2Data)
-    #> Time difference of 0.05070114 secs
+    #> Time difference of 0.06168318 secs
     #> $ksStat
-    #> [1] 1.885351
+    #> [1] 1.762259
     #> 
     #> $pval
-    #> [1] 0.00163527
+    #> [1] 0.004014012

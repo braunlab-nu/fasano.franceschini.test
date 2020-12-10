@@ -1,11 +1,12 @@
 #' Fasano Franceschini Test
 #'
 #' Computes the 2-D Kolmogorov-Smirnov two-sample test as described by Fasano and Franceschini (1987).
+#'
 #' Code adapted from Press, W. H., Teukolsky, S. A., Vetterling, W. T.,, Flannery, B. P. (2007). Numerical Recipes 3rd Edition: The Art of Scientific Computing. Cambridge University Press. ISBN: 0521880688
 #'
 #' @param S1 a [n by 2] `data.frame` of x and y coordinates of sample 1
 #' @param S2 a [n by 2] `data.frame` of x and y coordinates of sample 2
-#' @param nBootstrap `numeric` number of bootstrapped samples to be generated for computing the empirical p-value (note this procedure is slow and computationally expensive on the order of nBootStrap*O(n^2). Default is set to 0.
+#' @param nBootstrap a `numeric` defining the number of bootstrapped samples to be generated for computing the empirical p-value (note this procedure is slow and computationally expensive on the order of nBootStrap*O(n^2). Default is set to 0.
 #' If nBootstrap is 0, the Fasano Franceschini distributional approximation is used for defining the p-value. See Fasano and Franceschini test (1987) for details.
 #' @param cores a `numeric` defining the number of cores to use of processing
 #'
@@ -14,9 +15,10 @@
 #'
 #' @references{
 #' \itemize{
-#' \item{Fasano, G., Franceschini, A. (1987)<DOI:10.1093/mnras/225.1.155>. A multidimensional version of the Kolmogorov-Smirnov test. Monthly Notices of the Royal Astronomical Society 225:155-170.}}
-#' \item{Peacock J.A. (1983) <DOI:10.1093/mnras/202.3.615>. Two-dimensional goodness-of-fit testing in astronomy. Monthly Notices of the Royal Astronomical Society 202:615-627.}}
-#' \item{Press, W. H., Teukolsky, S. A., Vetterling, W. T.,, Flannery, B. P. (2007). Numerical Recipes 3rd Edition: The Art of Scientific Computing. Cambridge University Press. ISBN: 0521880688}}
+#' \item{Fasano, G., Franceschini, A. (1987)<DOI:10.1093/mnras/225.1.155>. A multidimensional version of the Kolmogorov-Smirnov test. Monthly Notices of the Royal Astronomical Society 225:155-170.}
+#' \item{Peacock J.A. (1983) <DOI:10.1093/mnras/202.3.615>. Two-dimensional goodness-of-fit testing in astronomy. Monthly Notices of the Royal Astronomical Society 202:615-627.}
+#' \item{Press, W. H., Teukolsky, S. A., Vetterling, W. T.,, Flannery, B. P. (2007). Numerical Recipes 3rd Edition: The Art of Scientific Computing. Cambridge University Press. ISBN: 0521880688}
+#' }
 #' }
 #'
 #' @examples

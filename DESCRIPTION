@@ -2,11 +2,16 @@ Package: fasano.franceschini.test
 Title: An R implementation of the 2-D Kolmogorov-Smirnov (KS) two-sample test as defined by Fasano and Franceschini (1987). This is a variant of the 2-D two-sample KS test as originally defined by Peacock (1983).
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Elan",
+    c(person(given = "Elan",
            family = "Ness-Cohn",
            role = c("aut", "cre"),
-           email = "elan.ness-cohn2017@u.northwestern.edu",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "elanness-cohn2017@u.northwestern.edu",
+           comment = c(ORCID = "0000-0002-3935-6667")),
+	person(given = "Rosemary",
+		family = "Braun", 
+		email = "rbraun@northwestern.edu",
+		role = "ctb",
+		comment = c(ORCID = "0000-0001-9668-9866")))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8

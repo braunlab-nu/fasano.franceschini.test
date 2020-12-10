@@ -90,7 +90,8 @@ get_d_stat <- function(originSamples, S1, S2, cores = 1) {
 
 #' KS probability
 #'
-#' p-value of getting the specified 2-D KS stat
+#' p-value of getting the specified 2-D KS stat.
+#'
 #' Code adapted from Press, W. H., Teukolsky, S. A., Vetterling, W. T.,, Flannery, B. P. (2007). Numerical Recipes 3rd Edition: The Art of Scientific Computing. Cambridge University Press. ISBN: 0521880688
 #'
 #'
