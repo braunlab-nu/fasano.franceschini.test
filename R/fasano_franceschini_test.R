@@ -52,9 +52,9 @@ fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 2) {
 
   # is there a better way to do the S1 from outer to inner function?
   # determine max difference assuming first sample as origins
-  d1 <- get_d_stat(originSamples = S1, S1 = S1, S2 = S2, cores = cores)
+  d1 <- getDstat(originSamples = S1, S1 = S1, S2 = S2, cores = cores)
   # determine max difference assuming second sample as origins
-  d2 <- get_d_stat(originSamples = S2, S1 = S1, S2 = S2, cores = cores)
+  d2 <- getDstat(originSamples = S2, S1 = S1, S2 = S2, cores = cores)
 
   # average KS stat
   D <- (d1 + d2) / 2
@@ -73,7 +73,7 @@ fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 2) {
         x = sample(x = x_marg, size = n2, replace = T),
         y = sample(x = y_marg, size = n2, replace = T)
       )
-      get_d_stat(originSamples = S1_resample, S1 = S1_resample, S2 = S2_resample, cores = 1)
+      getDstat(originSamples = S1_resample, S1 = S1_resample, S2 = S2_resample, cores = 1)
     })
 
     # count the number of bootstrapped d stats that are larger than the observed

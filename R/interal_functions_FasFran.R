@@ -63,7 +63,7 @@ quadCount <- function(x_origin, y_origin, x, y) {
 #' @return a `numeric` defining the D stat with the largest difference between the quad frequencies, after checking each point as the origin
 #' @export
 #'
-get_d_stat <- function(originSamples, S1, S2, cores = 1) {
+getDstat <- function(originSamples, S1, S2, cores = 1) {
 
   d <- 0
   n <- dim(originSamples)[1]

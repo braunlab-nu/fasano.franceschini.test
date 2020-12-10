@@ -13,6 +13,6 @@ reference:
   - fasano.franceschini.test
 - title: "Internal Helper Functions"
 - contents:
-  - get_d_stat
+  - getDstat
   - ksCDF
   - quadCount
