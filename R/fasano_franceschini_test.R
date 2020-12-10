@@ -40,7 +40,7 @@ fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 2) {
     x_marg <- c(S1[, 1], S2[, 1])
     y_marg <- c(S1[, 2], S2[, 2])
 
-    d <- mclapply(X = 1:nBootstrap, mc.cores = cores, FUN = function(i) {
+    d <- parallel::mclapply(X = 1:nBootstrap, mc.cores = cores, FUN = function(i) {
       S1_resample <- data.frame(
         x = sample(x = x_marg, size = n1, replace = T),
         y = sample(x = y_marg, size = n1, replace = T)

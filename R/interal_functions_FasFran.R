@@ -74,7 +74,7 @@ get_d_stat <- function(originSamples, S1, S2, cores = 1) {
 
   d <- 0
   n <- dim(originSamples)[1]
-  dList <- mclapply(X = 1:n, mc.cores = cores, FUN = function(j){
+  dList <- parallel::mclapply(X = 1:n, mc.cores = cores, FUN = function(j){
     quadct_S1 <- quadCount(originSamples[j, 1], originSamples[j, 2], S1[, 1], S1[, 2])
     quadct_S2 <- quadCount(originSamples[j, 1], originSamples[j, 2], S2[, 1], S2[, 2])
     d <- max(
