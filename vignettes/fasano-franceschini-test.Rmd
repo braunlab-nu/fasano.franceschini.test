@@ -1,0 +1,241 @@
+---
+title: "Fasano Franceschini Test - Theory and Usage"
+vignette: >
+  %\VignetteIndexEntry{Fasano Franceschini Test - Theory and Usage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+output: 
+  bookdown::html_document2:
+    toc: yes
+    toc_depth: 2
+    number_sections: FALSE
+pkgdown:
+  as_is: true
+---
+
+> The following vignette for the `fasano.franceschini.test` R package we will attempt to answer the following questions related to theory and usage:
+
+Theory
+
+-   What is the Kolmogorov--Smirnov (**KS**) test?
+-   What is the issue for higher dimensional KS tests?
+-   What are the proposed solutions by Fasano & Franceschini / Peacock to solve the issue?
+-   How does the Fasano Franceschini test intuitively work?
+
+Usage
+
+-   What is the Computational Efficiency of the Fasano Franceschini test?
+-   How do I use the Fasano Franceschini test?
+-   How do I use the Bootstrapped version of the Fasano Franceschini test?
+
+```{=html}
+<style>
+p.caption{
+  font-size: 2.5em;
+}
+
+h5 {
+  text-align: center;
+}
+</style>
+```
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center"
+)
+```
+
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+## Theory
+
+### 1-D Kolmogorov--Smirnov Test
+
+The Kolmogorov--Smirnov (KS) test is a non--parametric method for determining where a sample is consistent with a given probability distribution. While a complete discussion of the 1-D KS test can be elsewhere ([Wiki](https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test)), we will present a brief overview as motivation for the basis and intuition of the 2-D KS test.
+
+The 1-D KS test can be divided into to variants of the same statistical procedure:
+
+> **The One-Sample Test**
+> 
+> * Compares the data to an analytical distribution.
+>
+> **The Two-Sample Test**
+>
+> * Compares two data samples to determine if they are drawn from the same underlying probability distribution.
+
+In both cases, the KS test works as follows:
+
+The Kolmogorov-Smimov statistic (**D**) is the defined by the maximum difference between the cumulative density functions of the data and model (one-sample), or between the two data sets (two-sample). In the following example, the orange and blue curve in the left panel represents the underlying distribution (pdf) for sample1 and sample2, respectively. The eCDF is then defined by data drawn from these underlying distribution, and the **D**-stat is the computed as the largest between difference between the eCDF (black dotted line) in the right panel.
+
+```{r, echo=F, out.width="90%", fig.cap=" ", out.extra='style="border: 0px;"'}
+
+knitr::include_graphics(path="./../docs/reference/figures/pdfvsCDF.png")
+                       
+```
+
+***
+
+Kolmogorov and Smimov work defined the cumulative distribution for a random **D**-stat as: 
+
+\begin{equation}
+Q_{KS}(\lambda) = 2 \sum_{j=1}^{\infty} -1^{j-1}e^{-2j^2\lambda^2}
+(\#eq:1)
+\end{equation}
+
+and thus allows for $p$-value hypothesis testing to determine if there is a significance difference between the cumulative density functions of the data and model (one-sample), or between the two data sets (two-sample).
+
+***
+
+**For the 1-Sample case**, the $p$-value probability of a given **D**-stat is defined by
+
+\begin{equation}
+Prob(D > observed) = Q_{KS} ( D\sqrt{N})
+(\#eq:2)
+\end{equation}
+
+where $N$ is the number of data points sampled. A $p$-value $< 0.05$, indicates a significant difference between the samples.
+
+***
+
+**In the 2-Sample case**, the $p$-value probability of a given **D**-stat is defined by
+\begin{equation}
+Prob(D > observed) = Q_{KS} ( D\sqrt{\frac{n_1n_2}{n_1+n_2}})
+(\#eq:3)
+\end{equation}
+
+where $n1$ and $n2$ is the number of data points in the first and second samples respectively. A $p$-value $< 0.05$, indicates a significant difference between the samples.
+
+***
+
+### Higher Dimensional KS Test
+
+Similar to the 1-D KS test, the obvious solution to extend the theory into higher dimensional would be to define the maximal cumulative difference between the two 2-D distributions. This however, presents an issue as the commutative distribution function is not well defined in more than one dimension (CITE?).
+
+#### Peacock Test (1983) & Fasano Franceschini Test (1987)
+
+The Peacock test was the original generalization of the 1-D KS test to higher dimensions. Peacock solved the higher dimensionality issue by using the total intergrated probability -- i.e. fraction of data -- in each of the four quadrants around all possible points in the data. For example, for an given $n$ points in a two-dimensional space, the cumulative distribution functions is calculated in the $4n^2$ quadrants of the plane defined by all pairs ($X_i$ ,$Y_j$), $X_i$ and $Y_j$ being coordinates of any pairs of points in the given sample. By ranging over all possible pairs of data points and quadrants, the 2-D **D**-stat is defined by the maximal difference of the integrated probabilities between samples. 
+
+The slight variation defined by Fasano and Franceschini was to only consider quadrants centered in each point of the given samples to compute the cumulative distribution functions. e.g, rather than looking over all ($X_i$ ,$Y_j$; where $i,j={1,n}$), only use the detected points ($X_i$ ,$Y_i$; where $i={1,n}$). Thus for an given $n$ points in a two-dimensional space, those $n$ points define $4n$ quadrants.
+
+The 2-D two sampleFasano and Franceschini test is illustrated in the following example to compare the 2-D distributions of orange vs blue points.
+
+```{r, echo=F, out.width="75%", fig.cap=" ", out.extra='style="border: 0px;"'}
+
+knitr::include_graphics(path="./../docs/reference/figures/fftest2.gif")
+                       
+```
+
+The algorithm loops through each point in the orange sample in turn to define the origin of 4 quadrants (grey dotted line). The fraction of orange and blue points in each quadrant is computed (corners of plot) and the quadrant with the maximal difference is designated the current maximum for the specified origin. By ranging over all pairs of data points and quadrants, the 2-D **D**-stat is defined by the maximal difference of the integrated probabilities between samples. In this case using the orange point as the origin, the maximal difference is $D = 0.35$.
+
+```{r, echo=F, out.width="75%", fig.cap=" ", out.extra='style="border: 0px;"'}
+
+knitr::include_graphics(path="./../docs/reference/figures/slide_19.png")
+                       
+```
+
+This process is repeated using the blue points as the origins to compute the maximal **D**-stat. Finally, both maximal **D**-stats using the orange and blue points as origins are then averaged to compute the overall **D**-stat for hypothesis testing.
+
+#### Defining the Fasano and Franceschini Null Distribution
+
+Using Monte Carlo simulation, Fasano and Franceschini approximated the distribution of **D** for significance testing -- as a function of $D$, the sample size $N$, and the coefficient of correlation $r$.
+
+**For the 1-Sample case**
+
+\begin{equation}
+Prob(D > observed) = Q_{KS} ( \frac{D\sqrt{N}}{1+\sqrt{1-r^2}(0.25-0.75/\sqrt{N})})
+(\#eq:4)
+\end{equation}
+
+**The 2-Sample case**
+
+Uses the same formula as above, but with the slight variation where
+
+\begin{equation}
+N = \frac{n_1n_2}{n_1+n_2}
+(\#eq:5)
+\end{equation}
+
+In both cases, $r$ is defined by: 
+
+\begin{equation}
+r = \frac{\sum_{i}^{}(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i}^{}(x_i-\bar{x})^2}\sqrt{\sum_{i}^{}(y_i-\bar{y})^2}}
+(\#eq:6)
+\end{equation}
+
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+## Usage
+
+### Computational Efficiency
+
+The main distinction between the Peacock and Fasano Franceschini test comes down to compute time. For a benchmarking of the algorithms see [Lopes et.al, 2007](https://bura.brunel.ac.uk/bitstream/2438/1166/1/acat2007.pdf)
+
+In Summary:
+
+* The **Fasano Franceschini** runs in runs in **$O(n^2)$** time, and is advantageous to the Peacock test as dataset sizes scale.
+
+* The **Peacock test** is more computationally expensive, and runs in **$O(n^3)$** time. 
+
+See the `Peacock.test` and `Peacock.test::peacock2()` function for R implementation of the Peacock test.
+
+### Fasano Franceschini Estimated Null Distribution
+
+In their paper, Fasano and Franceschini use Monte Carlo simulation to approximate the distribution of **D** as a function of $D$, the sample size $N$, and the coefficient of correlation $r$. The resultant distributional approximation -- as described above in equations \@ref(eq:4) -- can be used to test the significance levels for the two-dimensional K-S test.
+
+Note that the above formulas are accurate enough when $N \geq 20$, and when the indicated probability (significance level) is less than (more significant than) 0.20 or so. When the indicated probability is \> 0.20, its value may not be accurate, but the implication that the data and model (or two data sets) are not significantly different is certainly correct.
+
+```{r}
+library(fasano.franceschini.test)
+
+#set seed for reproducible example
+set.seed(123)
+
+#create 2-D samples with the same underlying distributions
+sample1Data <- data.frame(
+  x = rnorm(n = 100, mean = 0, sd = 1),
+  y = rnorm(n = 100, mean = 0, sd = 1)
+)
+sample2Data <- data.frame(
+  x = rnorm(n = 100, mean = 0, sd = 1),
+  y = rnorm(n = 100, mean = 0, sd = 1)
+)
+
+fasano.franceschini.test(sample1Data,sample2Data)
+```
+
+------------------------------------------------------------------------
+
+### Bootstrap Null Distribution
+
+Some arguments have been made to the validity of the \>1-D KS tests as not being distribution-free [(Feigelson and Babu, 2006)](https://asaip.psu.edu/Articles/beware-the-kolmogorov-smirnov-test/).
+
+To combat these accretions, one can bootstrap the significance levels for the particular multidimensional statistic directly from the particular data set under study. As Fasano and Franceschini's paper was originally released in 1987, this approach was unfeasible at scale. However, as we are currently in the age of high-performance computers -- a null distribution of D-stats can be bootstrapped from the data to test significance.
+
+The `fasano.franceschini.test` R package, implements a parallelized bootstrapping procedure. The marginal distribution from 2-dimensional data set is resampled with replacements to generate randomized 2-dimensional data set `nBootStrap` times. The frequency count by quadrant is performed for each bootstrapped resampling as described above to compute the D-stats. The observed D-stat is then compared to the bootstrapped D-stats to compute a p-value. See `fasano.franceschini.test()` for source code details and implementation.
+
+Note, bootstrapping may significantly increase run time performance. To improve run time, adjust the `cores` parameter to specify the number of parallel operations to run. See the R `parrellel` package and the `mclapply()` function for further details.
+
+```{r}
+
+#set seed for reproducible example
+set.seed(123)
+
+#create 2-D samples with the same underlying distributions
+sample1Data <- data.frame(
+  x = rnorm(n = 100, mean = 0, sd = 1),
+  y = rnorm(n = 100, mean = 0, sd = 1)
+)
+sample2Data <- data.frame(
+  x = rnorm(n = 100, mean = 0, sd = 1),
+  y = rnorm(n = 100, mean = 0, sd = 1)
+)
+
+fasano.franceschini.test(S1 = sample1Data, S2 = sample2Data, nBootstrap = 1000, cores = 6)
+
+```

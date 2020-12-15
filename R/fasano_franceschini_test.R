@@ -78,10 +78,9 @@ fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 2) {
 
     # count the number of bootstrapped d stats that are larger than the observed
     pval <- sum(unlist(d) > D) / nBootstrap
-    ksStat <- D
 
     new("Fasano Franceschini Test",
-        list(ksStat = ksStat,
+        list(D = D,
              pval = pval,
              time = Sys.time() - start,
              S1 = deparse(substitute(S1)),
@@ -95,10 +94,10 @@ fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 2) {
 
     # compute KS stat
     n <- n1 * n2 / (n1 + n2)
-    ksStat <- sqrt(n) * D / (1 + sqrt(1 - rr) * (0.25 - 0.75 / sqrt(n)))
-    pval <- ksCDF(ksStat)
+    lambda <- sqrt(n) * D / (1 + sqrt(1 - rr) * (0.25 - 0.75 / sqrt(n)))
+    pval <- ksCDF(lambda)
     new("Fasano Franceschini Test",
-        list(ksStat = ksStat,
+        list(D = D,
              pval = pval,
              time = Sys.time() - start,
              S1 = deparse(substitute(S1)),
@@ -111,10 +110,10 @@ setClass( "Fasano Franceschini Test", representation("list"))
 
 setMethod("show", "Fasano Franceschini Test", function(object) {
   cat("\n")
-  cat("\t2-D Two-sample Kolmogorov-Smirnov Test\n")
+  cat("\t\t2-D Two-sample Kolmogorov-Smirnov Test\n")
   cat("\n")
   cat("Fasano Franceschini Test (1987)\n")
   cat("Data: ", object$S1, "and", object$S2,"\n")
-  cat("D-stat = ", object$ksStat,", p-value = ", object$pval,"\n")
+  cat("D-stat = ", object$D,", p-value = ", object$pval,"\n")
   cat("Run Time (s) = ", object$time,"\n")
 })

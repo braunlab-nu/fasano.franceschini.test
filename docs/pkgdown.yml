@@ -1,6 +1,7 @@
 pandoc: 2.10.1
 pkgdown: 1.6.1
 pkgdown_sha: ~
-articles: {}
-last_built: 2020-12-10T20:37Z
+articles:
+  fasano-franceschini-test: fasano-franceschini-test.html
+last_built: 2020-12-15T22:28Z
 

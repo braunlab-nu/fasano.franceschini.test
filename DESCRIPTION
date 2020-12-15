@@ -10,7 +10,7 @@ Authors@R:
 	person(given = "Rosemary",
 		family = "Braun", 
 		email = "rbraun@northwestern.edu",
-		role = "ctb",
+		role = c("ctb","ths"),
 		comment = c(ORCID = "0000-0001-9668-9866")))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
@@ -22,6 +22,9 @@ Imports:
     stats,
     parallel
 Suggests: 
-    tidyverse
+    tidyverse,
+    knitr,
+    rmarkdown
 URL: https://github.com/nesscoder/fasano.franceschini.test
 BugReports: https://github.com/nesscoder/fasano.franceschini.test/issues
+VignetteBuilder: knitr

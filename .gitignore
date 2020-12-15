@@ -19,3 +19,4 @@
 *.txt
 docs
 .Rproj.user
+inst/doc

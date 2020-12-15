@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The fasano.franceschini.test package is an R implementation of the 2-D Kolmogorov-Smirnov (KS) two-sample test as defined by Fasano and Franceschini (1987). This is a variant of the 2-D two-sample KS test as originally defined by Peacock (1983).
+The fasano.franceschini.test package is an R implementation of the 2-D Kolmogorov-Smirnov (**KS**) two-sample test as defined by Fasano and Franceschini (1987). This is a variant of the 2-D two-sample KS test as originally defined by Peacock (1983).
 
 ## Installation
 
@@ -45,10 +45,14 @@ library(fasano.franceschini.test)
 set.seed(123)
 
 #create 2-D samples with the different underlying distributions
-sample1Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 3),
-                          y = rnorm(n = 100,mean = 0, sd = 1))
-sample2Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1),
-                          y = rnorm(n = 100,mean = 0, sd = 3))
+sample1Data <- data.frame(
+  x = rnorm(n = 100, mean = 0, sd = 3),
+  y = rnorm(n = 100, mean = 0, sd = 1)
+)
+sample2Data <- data.frame(
+  x = rnorm(n = 100, mean = 0, sd = 1),
+  y = rnorm(n = 100, mean = 0, sd = 3)
+)
 
 fasano.franceschini.test(sample1Data,sample2Data)
 ```
@@ -60,10 +64,14 @@ fasano.franceschini.test(sample1Data,sample2Data)
 set.seed(123)
 
 #create 2-D samples with the same underlying distributions
-sample1Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1),
-                          y = rnorm(n = 100,mean = 0, sd = 1))
-sample2Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1),
-                          y = rnorm(n = 100,mean = 0, sd = 1))
+sample1Data <- data.frame(
+  x = rnorm(n = 100, mean = 0, sd = 1),
+  y = rnorm(n = 100, mean = 0, sd = 1)
+)
+sample2Data <- data.frame(
+  x = rnorm(n = 100, mean = 0, sd = 1),
+  y = rnorm(n = 100, mean = 0, sd = 1)
+)
 
 fasano.franceschini.test(sample1Data,sample2Data)
 ```
