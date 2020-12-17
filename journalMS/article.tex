@@ -93,7 +93,7 @@ Rosemary Braun\\
 % Python <- Implementation
 % C <- Implementation
 
-The Kolmogorov--Smirnov (KS) is a non--parametric method for determining whether a sample is consistent with a given probability distribution. First derived by Kolmogorov and Smirnov \citep{Kolmogorov1933,Smirnov1948}, the was developed in 1-D. There is still a desire to be able to test 2-D and higher distributions against eachother. As a result, the first 2-D KS test was articulated by Peacock \citep{Peacock1983}.
+The Kolmogorov--Smirnov (KS) is a non--parametric method for determining whether a sample is consistent with a given probability distribution. First derived by Kolmogorov and Smirnov in a series of papers~\citep{Kolmogorov1933,Kolmogorov1933a,Smirnov1936,Smirnov1937,Smirnov1939,Smirnov1944,Smirnov1948}, the was developed in 1-D. There is still a desire to be able to test 2-D and higher distributions against eachother. As a result, the first 2-D KS test was articulated by Peacock \citep{Peacock1983}.
 
 The \pkg{fasano.franceschini.test} package is an \proglang{R} implementation of the 2-D two-sample KS test as defined by Fasano and Franceschini \citep{Fasano1987}. This is a variant of the 2-D two-sample KS test as originally defined by Peacock \citep{Peacock1983}. In \proglang{R} \citep{R}, the only current implementation of the 2-D two-sample KS test is available in the \pkg{Peacock.test} package via the \fct{peacock2} function. The manuscript that this document is based on \citep{Fasano1987} then introduced hurdle. A \proglang{C} implementation of the Fasano Franceschini test is available in \citep{numericalRecipes}; however does not offer a bootstrapping procedure nor has been documentation for easy of use in \proglang{R} community.
 
@@ -158,7 +158,7 @@ The \pkg{fasano.franceschini.test} package is an \proglang{R} implementation of 
 
 \subsection{1-D Kolmogorov--Smirnov Test}
 
-The Kolmogorov--Smirnov (KS) test is a non--parametric method for determining where a sample is consistent with a given probability distribution. While a comprehensive discussion and intracies of the 1-D KS test can be found elsewhere\citep{Stephens1992}, we will present a brief overview as motivation for the basis and intuition of the 2-D KS test.
+The Kolmogorov--Smirnov (KS) test is a non--parametric method for determining where a sample is consistent with a given probability distribution. While a comprehensive discussion pertaining the intracies of the 1-D KS test can be found elsewhere~\citep{Stephens1992}, we will present a brief overview as motivation for the basis and intuition of the 2-D KS test.
 
 The 1-D KS test can be divided into to variants of the same statistical procedure:
 
