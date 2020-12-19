@@ -158,7 +158,7 @@ The \pkg{fasano.franceschini.test} package is an \proglang{R} implementation of 
 
 \subsection{1-D Kolmogorov--Smirnov Test}
 
-The Kolmogorov--Smirnov (KS) test is a non--parametric method for determining where a sample is consistent with a given probability distribution. While a comprehensive discussion pertaining the intracies of the 1-D KS test can be found elsewhere~\citep{Stephens1992}, we will present a brief overview as motivation for the basis and intuition of the 2-D KS test.
+The Kolmogorov--Smirnov (KS) test is a non--parametric method for determining where a sample is consistent with a given probability distribution. While a comprehensive discussion pertaining the intracies of the 1-D KS test can be found elsewhere~\citep{Stephens1992a}, we will present a brief overview as motivation for the basis and intuition of the 2-D KS test.
 
 The 1-D KS test can be divided into to variants of the same statistical procedure:
 
@@ -187,7 +187,7 @@ from school.}
 Kolmogorov and Smimov work defined the cumulative distribution for a random D-stat as:
 
 \begin{equation} \label{eq:1}
-Q_{KS}(\lambda) = 2 \sum_{j=1}^{\infty} -1^{j-1}e^{-2j^2\lambda^2}
+\Phi(\lambda) = 2 \sum_{k=1}^{\infty} -1^{k-1}e^{-2k^2\lambda^2}
 \end{equation}
 
 and thus allows for $p$-value hypothesis testing to determine if there is a significance difference between the cumulative density functions of the data and model (one-sample), or between the two data sets (two-sample).
@@ -195,14 +195,14 @@ and thus allows for $p$-value hypothesis testing to determine if there is a sign
 \textbf{For the 1-Sample case}, the $p$-value probability of a given D-stat is defined by
 
 \begin{equation} \label{eq:2}
-Prob(D > observed) = Q_{KS} ( D\sqrt{N})
+Prob(D > observed) = \Phi ( D\sqrt{N})
 \end{equation}
 
 where $N$ is the number of data points sampled. A $p$-value $< 0.05$, indicates a significant difference between the samples.
 
 \textbf{In the 2-Sample case}, the $p$-value probability of a given D-stat is defined by
 \begin{equation} \label{eq:3}
-Prob(D > observed) = Q_{KS} ( D\sqrt{\frac{n_1n_2}{n_1+n_2}})
+Prob(D > observed) = \Phi ( D\sqrt{\frac{n_1n_2}{n_1+n_2}})
 \end{equation}
 
 where $n1$ and $n2$ is the number of data points in the first and second samples respectively. A $p$-value $< 0.05$, indicates a significant difference between the samples.
@@ -236,7 +236,7 @@ Using Monte Carlo simulation, Fasano and Franceschini approximated the distribut
 \textbf{For the 1-Sample case}
 
 \begin{equation} \label{eq:4}
-Prob(D > observed) = Q_{KS} ( \frac{D\sqrt{N}}{1+\sqrt{1-r^2}(0.25-0.75/\sqrt{N})})
+Prob(D > observed) = \Phi ( \frac{D\sqrt{N}}{1+\sqrt{1-r^2}(0.25-0.75/\sqrt{N})})
 \end{equation}
 
 \textbf{The 2-Sample cas}
