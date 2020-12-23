@@ -209,10 +209,15 @@ where $n1$ and $n2$ is the number of data points in the first and second samples
 
 \subsection{Higher Dimensional KS Test}
 
-Similar to the 1-D KS test, the obvious solution to extend the theory into higher dimensional would be to define the maximal cumulative difference between the two 2-D distributions. This however, presents an issue as the commutative distribution function is not well defined in more than one dimension. In N dimensional space there are $2^{N}-1$ independant ways of defining the cumlative distribution function\citep{Peacock1983}.
+Similar to the 1-D KS test, the obvious solution to extend the theory into higher dimensional would be to define the maximal cumulative difference between the two 2-D distributions. This however, presents an issue as the commutative distribution function is not well defined in more than one dimension. In 2-D, there are 4 ways (3 independent ways) of defining the cummaltive distribution (\textbf{Figure \ref{fig:kstest2Dissue}}). In N dimensional space there are $2^{N}-1$ independant ways of defining the cumlative distribution function\citep{Peacock1983}.
 
-ADD FIGURE for showing the 4 ways (3 independent ways) of defining the cummaltive distribution in 2-D.
-$P(x < X, y < Y) = 1 - P(x > X, y > Y); P(x < X, y > Y); P(x > X, y < Y)$
+
+\begin{figure}[t!]
+\centering
+\includegraphics{CDF2Dissue}
+\caption{\label{fig:kstest2Dissue} 4 ways (3 independent ways) of defining the cummaltive distribution for a given point in 2-D.
+$P(x < X, y < Y) = 1 - P(x > X, y > Y); P(x < X, y > Y); P(x > X, y < Y)$}
+\end{figure}
 
 \subsection{Peacock Test (1983) and Fasano Franceschini Test (1987)}
 The Peacock test was the original generalization of the 1-D KS test to higher dimensions. Peacock solved the higher dimensionality issue by using the total intergrated probability -- i.e. fraction of data -- in each of the four quadrants around all possible points in the data. For example, for an given $n$ points in a two-dimensional space, the cumulative distribution functions is calculated in the $4n^2$ quadrants of the plane defined by all pairs ($X_i$ ,$Y_j$), $X_i$ and $Y_j$ being coordinates of any pairs of points in the given sample. By ranging over all possible pairs of data points and quadrants, the 2-D D-stat is defined by the maximal difference of the integrated probabilities between samples.
