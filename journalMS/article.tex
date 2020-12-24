@@ -239,7 +239,7 @@ This process is repeated using the blue points as the origins to compute the max
 
 \subsection{Defining the Fasano and Franceschini Null Distribution}
 
-Using Monte Carlo simulation, Fasano and Franceschini approximated the distribution of D for significance testing -- as a function of $D$, the sample size $N$, and the coefficient of correlation $r$.
+Using Monte Carlo simulation, Fasano and Franceschini created a series of critical value look up tables of values of D -- as a function of $D$, the sample size $N$, and the coefficient of correlation $r$. Teukolsky and Press later defined an approximate fit to this data in equation \ref{eq:4} for quick computaion \cite{numericalRecipes}.
 
 \textbf{For the 1-Sample case}
 
@@ -365,9 +365,9 @@ r = \frac{\sum_{i}^{}(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i}^{}(x_i-\bar{x})^
 
 \subsection{Fasano Franceschini Test Usage}
 
-In their paper, Fasano and Franceschini use Monte Carlo simulation to approximate the distribution of D as a function of $D$, the sample size $N$, and the coefficient of correlation $r$. The resultant distributional approximation -- as described above in equation \ref{eq:4} -- can be used to test the significance levels for the two-dimensional K-S test.
+In their paper, Fasano and Franceschini use Monte Carlo simulation to approximate the distribution of D as a function of $D$, the sample size $N$, and the coefficient of correlation $r$. The resultant distributional approximation fit by Teukolsky and Press-- as described above in equation \ref{eq:4} -- can be used to test the significance levels for the two-dimensional K-S test.
 
-Note that the above formulas are accurate enough when $N \geq 20$, and when the indicated probability (significance level) is less than (more significant than) 0.20 or so. When the indicated probability is $> 0.20$, its value may not be accurate, but the implication that the data and model (or two data sets) are not significantly different is certainly correct.
+Note that the above formulas are accurate when $N \geq 20$, and when the indicated probability (significance level) is less than (more significant than) $\sim 0.20$. When the indicated probability is $> 0.20$, its value may not be accurate, but the implication that the two data sets are not significantly different is certainly correct.
 
 \begin{CodeChunk}
 \begin{CodeInput}
