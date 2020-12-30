@@ -1,6 +1,12 @@
 ## Package and options
+library(devtools)
+load_all()
 library("fasano.franceschini.test")
 library("parallel")
+library("ggplot2")
+library(viridis)
+library(mvtnorm)
+library(gridExtra)
 
 #-------------------------------------#
 #    fasano.franceschini.test Usage
@@ -144,9 +150,6 @@ dev.off()
 #-------------------------------------#
 # Visualization - 2-D KS issue
 #-------------------------------------#
-library(viridis)
-library(mvtnorm)
-library(gridExtra)
 m <- c(0,0)
 sigma <- matrix(c(1,0,0,1), nrow=2)
 data.grid <- expand.grid(x = seq(-3, 3, length.out=200), y = seq(-3, 3, length.out=200))
@@ -170,13 +173,14 @@ p1 <- ggplot(data, aes(x=x, y=y)) +
 p2 <- ggplot(data, aes(x=x, y=y)) +
   geom_raster(aes(fill = prob)) +
   coord_fixed(xlim = c(-3, 3), ylim = c(-3, 3), ratio = 1)+
-  annotate(geom = "rect",xmin=-1, xmax=3, ymin=-1, ymax=3, fill = recFill, alpha = 0.5)+
+  annotate(geom = "rect",xmin=-3, xmax=-1, ymin=-3, ymax=3, fill = recFill, alpha = 0.5)+
+  annotate(geom = "rect", xmin=-1, xmax=3, ymin=-3, ymax=-1, fill = recFill, alpha = 0.5)+
   annotate(geom = "segment",x = -1, y = -1, xend = 3, yend = -1, colour = "black")+
   annotate(geom = "segment",x = -1, y = -1, xend = -1, yend = 3, colour = "black")+
   annotate(geom = "point", x=-1, y=-1, size = 3, pch = 21, fill="orange") +
   scale_fill_gradientn(colours = viridis(10)) +
   theme(legend.position = "none",panel.background = element_blank())+
-  ggtitle("P(x > X, y > Y)")
+  ggtitle("1 - P(x > X, y > Y)")
 
 p3 <- ggplot(data, aes(x=x, y=y)) +
   geom_raster(aes(fill = prob)) +
