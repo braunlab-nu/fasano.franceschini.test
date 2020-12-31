@@ -7,6 +7,7 @@ library("ggplot2")
 library(viridis)
 library(mvtnorm)
 library(gridExtra)
+library(ggpubr)
 
 #-------------------------------------#
 #    fasano.franceschini.test Usage
@@ -166,6 +167,13 @@ p1 <- ggplot(data, aes(x=x, y=y)) +
   annotate(geom = "segment",x = -3, y = -1, xend = -1, yend = -1, colour = "black")+
   annotate(geom = "segment",x = -1, y = -3, xend = -1, yend = -1, colour = "black")+
   annotate(geom = "point", x=-1, y=-1, size = 3, pch = 21, fill="orange") +
+  annotate(geom = "point", x=-0.7, y=0.2, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=-1.3, y=-1.5, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=0.4, y=0.6, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=-1.4, y=-0.3, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=0.1, y=-0.1, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=0.8, y=-0.5, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=0.5, y=-1.7, size = 3, pch = 21, fill=S2col) +
   scale_fill_gradientn(colours = viridis(10)) +
   theme(legend.position = "none",panel.background = element_blank())+
   ggtitle("P(x < X, y < Y)")
@@ -178,6 +186,13 @@ p2 <- ggplot(data, aes(x=x, y=y)) +
   annotate(geom = "segment",x = -1, y = -1, xend = 3, yend = -1, colour = "black")+
   annotate(geom = "segment",x = -1, y = -1, xend = -1, yend = 3, colour = "black")+
   annotate(geom = "point", x=-1, y=-1, size = 3, pch = 21, fill="orange") +
+  annotate(geom = "point", x=-0.7, y=0.2, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=-1.3, y=-1.5, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=0.4, y=0.6, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=-1.4, y=-0.3, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=0.1, y=-0.1, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=0.8, y=-0.5, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=0.5, y=-1.7, size = 3, pch = 21, fill=S2col) +
   scale_fill_gradientn(colours = viridis(10)) +
   theme(legend.position = "none",panel.background = element_blank())+
   ggtitle("1 - P(x > X, y > Y)")
@@ -189,6 +204,13 @@ p3 <- ggplot(data, aes(x=x, y=y)) +
   annotate(geom = "segment",x = -3, y = -1, xend = -1, yend = -1, colour = "black")+
   annotate(geom = "segment",x = -1, y = -1, xend = -1, yend = 3, colour = "black")+
   annotate(geom = "point", x=-1, y=-1, size = 3, pch = 21, fill="orange") +
+  annotate(geom = "point", x=-0.7, y=0.2, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=-1.3, y=-1.5, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=0.4, y=0.6, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=-1.4, y=-0.3, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=0.1, y=-0.1, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=0.8, y=-0.5, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=0.5, y=-1.7, size = 3, pch = 21, fill=S2col) +
   scale_fill_gradientn(colours = viridis(10)) +
   theme(legend.position = "none",panel.background = element_blank())+
   ggtitle("P(x < X, y > Y)")
@@ -200,6 +222,13 @@ p4 <- ggplot(data, aes(x=x, y=y)) +
   annotate(geom = "segment", x = -1, y = -1, xend = 3, yend = -1, colour = "black")+
   annotate(geom = "segment", x = -1, y = -3, xend = -1, yend = -1, colour = "black")+
   annotate(geom = "point", x=-1, y=-1, size = 3, pch = 21, fill="orange") +
+  annotate(geom = "point", x=-0.7, y=0.2, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=-1.3, y=-1.5, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=0.4, y=0.6, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=-1.4, y=-0.3, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=0.1, y=-0.1, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=0.8, y=-0.5, size = 3, pch = 21, fill=S2col) +
+  annotate(geom = "point", x=0.5, y=-1.7, size = 3, pch = 21, fill=S2col) +
   scale_fill_gradientn(colours = viridis(10)) +
   theme(legend.position = "none",panel.background = element_blank())+
   ggtitle("P(x > X, y < Y)")
