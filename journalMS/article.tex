@@ -4,6 +4,7 @@
 
 %% recommended packages
 \usepackage{thumbpdf,lmodern}
+\usepackage{amssymb}
 
 %% another package (only for this demo article)
 \usepackage{framed}
@@ -180,7 +181,7 @@ As described previously, the 1-D KS test can be divided into two variants of the
 
 In both cases, the KS test works as follows:
 
-The Kolmogorov-Smirnov statistic (D) is the defined by the maximum absolute difference between the cumulative density functions of the data and model (one--sample), or between the two data sets (two--sample). In the following example, the orange and blue curve in the left panel represents the underlying distribution (pdf) for sample1 and sample2, respectively (\textbf{Figure \ref{fig:kstest1D}}). The eCDF is then defined by data drawn from these underlying distribution, and the D--stat is the computed as the largest between difference between the eCDF (black dotted line) in the right panel.
+The Kolmogorov-Smirnov statistic ($D_{KS}$) is the defined by the maximum absolute difference between the cumulative density functions of the data and model (one--sample), or between the two data sets (two--sample). In the following example, the orange and blue curve in the left panel represents the underlying distribution (pdf) for sample1 and sample2, respectively (\textbf{Figure \ref{fig:kstest1D}}). The eCDF is then defined by data drawn from these underlying distribution, and the D--stat is the computed as the largest between difference between the eCDF (black dotted line) in the right panel.
 
 \begin{figure}[t!]
 \centering
@@ -189,15 +190,15 @@ The Kolmogorov-Smirnov statistic (D) is the defined by the maximum absolute diff
 }
 \end{figure}
 
-Kolmogorov and Smirnov work mathematically defined the distribution for D to be distribution free, and further derived a table of critical values for hypothesis testing. Kolmogorov and Smirnov work was later refined by Kendall and Stuart ~\citep{Kendall1946} to define the integrated probability distribution for large values of n  ($n \geq 80$), having the asymptotic expression:
+Kolmogorov and Smirnov work mathematically defined the distribution for $D_{KS}$ to be distribution free, and further derived a table of critical values for hypothesis testing. Kolmogorov and Smirnov work was later refined by Kendall and Stuart ~\citep{Kendall1946} to define the integrated probability distribution for large values of n  ($n \geq 80$), having the asymptotic expression:
 
 \begin{equation} \label{eq:1}
 \Phi(\lambda) = 2 \sum_{k=1}^{\infty} -1^{k-1}e^{-2k^2\lambda^2}
 \end{equation}
 
-Given the maximum absolute difference (D) and \textbf{Equation~\ref{eq:1}}, one can  compute a $p$-value for  hypothesis testing to determine if there is a significance difference between the cumulative density functions of the data and model (one-sample), or between the two data sets (two-sample).
+Given the maximum absolute difference ($D_{KS}$) and \textbf{Equation~\ref{eq:1}}, one can  compute a $p$-value for  hypothesis testing to determine if there is a significance difference between the cumulative density functions of the data and model (one-sample), or between the two data sets (two-sample).
 
-\textbf{For the 1-Sample case}, the $p$-value probability of a given D-stat is defined by
+\textbf{For the 1-Sample case}, the $p$-value probability of a given D is defined by
 
 \begin{equation} \label{eq:2}
 Prob(D > observed) = \Phi ( D\sqrt{N})
@@ -205,7 +206,7 @@ Prob(D > observed) = \Phi ( D\sqrt{N})
 
 where $N$ is the number of data points sampled. A $p$-value $< 0.05$, indicates a significant difference between the samples.
 
-\textbf{In the 2-Sample case}, the $p$-value probability of a given D-stat is defined by
+\textbf{In the 2-Sample case}, the $p$-value probability of a given D is defined by
 \begin{equation} \label{eq:3}
 Prob(D > observed) = \Phi ( D\sqrt{\frac{n_1n_2}{n_1+n_2}})
 \end{equation}
@@ -234,17 +235,17 @@ The 2-D two sample Fasano and Franceschini test is illustrated in the following 
 \begin{figure}[t!]
 \centering
 \includegraphics{fftestOutput}
-\caption{\label{fig:kstest2D} Illustration of the Fasano Franceschini algorithmic search for the maximal difference (D) between sample 2-D eCDFs. Looping through each point in the sampled data to define a unique origin (grey dotted line), the fraction of orange and blue points in each quadrants are computed (plot corners). For each origin, the quadrant which maximizes the absolute difference in the integrated probabilities is indicated. The origin which maximizes the overall absolute difference in the integrated probabilities between samples is highlighted by the orange box.
+\caption{\label{fig:kstest2D} Illustration of the Fasano Franceschini algorithmic search for the maximal difference ($D_{FF}$) between sample 2-D eCDFs. Looping through each point in the sampled data to define a unique origin (grey dotted line), the fraction of orange and blue points in each quadrants are computed (plot corners). For each origin, the quadrant which maximizes the absolute difference in the integrated probabilities is indicated. The origin which maximizes the overall absolute difference in the integrated probabilities between samples is highlighted by the orange box.
 }
 \end{figure}
 
-The algorithm loops through each point in the orange sample in turn to define the origin of 4 quadrants (grey dotted line). The fraction of orange and blue points in each quadrant is computed (corners of plot) and the quadrant with the maximal difference is designated with the current maximum for the specified origin. By ranging over all pairs of data points and quadrants, the 2-D D-stat is defined by the maximal difference of the integrated probabilities between samples. In this case using the orange point as the origin, the maximal difference is $D = 0.60$.
+The algorithm loops through each point in the orange sample in turn to define the origin of 4 quadrants (grey dotted line). The fraction of orange and blue points in each quadrant is computed (corners of plot) and the quadrant with the maximal difference is designated with the current maximum for the specified origin. By ranging over all pairs of data points and quadrants, the 2-D $D_{FF}$ is defined by the maximal difference of the integrated probabilities between samples. In this case using the orange point as the origin, the maximal difference is $D = 0.60$.
 
-This process is repeated using the blue points as the origins to compute the maximal D-stat. Finally, both maximal D-stats using the orange and blue points as origins are then averaged to compute the overall D-stat for hypothesis testing.
+This process is repeated using the blue points as the origins to compute the maximal $D_{FF}$. Finally, both maximal D-stats using the orange and blue points as origins are then averaged to compute the overall $D_{FF}$ for hypothesis testing.
 
 \subsection{Defining the Fasano and Franceschini Null Distribution}
 
-Using Monte Carlo simulation, Fasano and Franceschini created a series of critical value look up tables of values of D -- as a function of $D$, the sample size $N$, and the coefficient of correlation $r$. Teukolsky and Press later defined an approximate fit to this data in equation \ref{eq:4} for quick computation \cite{numericalRecipes}.
+Using Monte Carlo simulation, Fasano and Franceschini created a series of critical value look up tables of values of $D_{FF}$ -- as a function of $D_{FF}$, the sample size $N$, and the coefficient of correlation $r$. Teukolsky and Press later defined an approximate fit to this data in equation \ref{eq:4} for quick computation \cite{numericalRecipes}.
 
 \textbf{For the 1-Sample case}
 
@@ -370,7 +371,7 @@ r = \frac{\sum_{i}^{}(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i}^{}(x_i-\bar{x})^
 
 \subsection{Fasano Franceschini Test Usage}
 
-In their paper, Fasano and Franceschini use Monte Carlo simulation to approximate the distribution of D as a function of $D$, the sample size $N$, and the coefficient of correlation $r$. Unlike the 1-D KS test, the 2-D KS test is not rigorously true that the distribution of D is independent of the shape of the 2-D distribution. Fasano and Franceschini reasoned that the coefficient of correlation between the two-dimensional distributions is what governs the resultant distribution of D. For example, if the data sets are perfectly correlated ($r = 1$), the 2-D plane flattens to a single line and thus a 1-D KS test could be used. If the data sets are perfectly uncorrelated ($r = 0$), the 2-D distribution is independent in the x and y directions and thus one could use a 1-D KS test on the marginal x or y distribution of the 2-D plane.
+In their paper, Fasano and Franceschini use Monte Carlo simulation to approximate the distribution of D as a function of $D$, the sample size $N$, and the coefficient of correlation $r$. Unlike the 1-D KS test, the 2-D KS test is not rigorously true that the distribution of $D_{FF}$ is independent of the shape of the 2-D distribution. Fasano and Franceschini reasoned that the coefficient of correlation between the two-dimensional distributions is what governs the resultant distribution of $D_{FF}$. For example, if the data sets are perfectly correlated ($r = 1$), the 2-D plane flattens to a single line and thus a 1-D KS test could be used. If the data sets are perfectly uncorrelated ($r = 0$), the 2-D distribution is independent in the x and y directions and thus one could use a 1-D KS test on the marginal x or y distribution of the 2-D plane.
 Results from Monte Carlo simulation support these assumptions -- showing that the distribution of D is nearly identical for varying distributions, assuming they have the same coefficient of correlation r ~\citep{Fasano1987}. The resultant distributional approximation fit by Teukolsky and Press -- as described above in equation \ref{eq:4} -- can be used to test the significance levels for the 2-D K-S test using the following code.
 
 \begin{CodeChunk}
@@ -402,11 +403,13 @@ R> fasano.franceschini.test(sample1Data,sample2Data)
 
 \subsection{Bootstrap Version of the Fasano Franceschini Test}
 
-As a caveat, to the fit produced by Teukolsky and Press are accurate when $N \geq 20$, and the $p$-value is less than (more significant than) $\sim 0.20$. For $p$-value that are $> 0.20$, the distributional approximation may not be accurate. While the assertion the two data sets are \textit{not} significantly different is surely correct; analysis looking to compare $p$-value across experiments conditions -- such as if one was to do a cross study concordant analysis comparing rank order $p$-value (Cite bmal1 science Article or TimeTrial) -- would not be possible with the Teukolsky and Press approximate fit. Moreover, additional arguments have been made to the validity of the $>1$-D KS tests as not being distribution-free \citep{Babu2006}.
+As a caveat, to the fit produced by Teukolsky and Press are accurate when $N \gtrsim 20$, and the $p$-value is less than (more significant than) $\sim 0.20$. For $p$-value that are $> 0.20$, the distributional approximation may not be accurate. While the assertion the two data sets are \textit{not} significantly different is surely correct; analysis looking to compare $p$-value across experiments conditions -- such as if one was to do a cross study concordant analysis comparing rank order $p$-value \cite{Ness}
+%(Cite bmal1 science Article or TimeTrial)
+-- would not be possible with the Teukolsky and Press approximate fit. Moreover, additional arguments have been made to the validity of the $>1$-D KS tests as not being distribution-free \citep{Babu2006}.
 
-To combat these accretions, one can bootstrap the significance levels for the particular multidimensional statistic directly from the particular data set under study. As Fasano and Franceschini's paper was originally released in 1987, this approach was unfeasible at scale. However, as we are currently in the age of high-performance computers -- a null distribution of D-stats can be bootstrapped from the data to test significance.
+To combat these accretions, one can bootstrap the significance levels for the particular multidimensional statistic directly from the particular data set under study. As Fasano and Franceschini's paper was originally released in 1987, this approach was unfeasible at scale. However, as we are currently in the age of high-performance computers -- a null distribution of $D_{FF}$ can be bootstrapped from the data to test significance.
 
-The \pkg{fasano.franceschini.test} R package, implements a parallelized bootstrapping procedure. The marginal distribution from 2-dimensional data set is resampled with replacements to generate randomized 2-dimensional data sets \code{nBootStrap} times. The frequency count by quadrant is performed for each bootstrapped resampling as described above to compute the D-stats. The observed D-stat is then compared to the distribution of bootstrapped D-stats to compute a $p$-value. The bootstrapped version of the Fasano Franceschini test can be implemented with the following lines of code -- see \fct{fasano.franceschini.test} for further source code details and implementation.
+The \pkg{fasano.franceschini.test} R package, implements a parallelized bootstrapping procedure. The marginal distribution from 2-dimensional data set is resampled with replacements to generate randomized 2-dimensional data sets \code{nBootStrap} times. The frequency count by quadrant is performed for each bootstrapped resampling as described above to compute the $D_{FF}$. The observed $D_{FF}$ is then compared to the distribution of bootstrapped $D_{FF}$ to compute a $p$-value. The bootstrapped version of the Fasano Franceschini test can be implemented with the following lines of code -- see \fct{fasano.franceschini.test} for further source code details and implementation.
 
 \begin{CodeChunk}
 \begin{CodeInput}
