@@ -16,28 +16,31 @@
 #'
 #'
 quadCount <- function(x_origin, y_origin, x, y) {
-  n <- length(x)
-  nq1 <- 0
-  nq2 <- 0
-  nq3 <- 0
-  nq4 <- 0
 
-  # think about less than or equal to?
-  # i.e. ties
-  for (k in 1:n) {
-    if (y[k] >= y_origin) {
-      if (x[k] >= x_origin) {
-        nq1 <- nq1 + 1
-      } else {
-        nq2 <- nq2 + 1
-      }
-    } else {
-      if (x[k] >= x_origin) {
-        nq4 <- nq4 + 1
-      } else {
-        nq3 <- nq3 + 1
-      }
-    }
+  # sum number of points in each quadrant (counter clockwise from 1 to 4)
+  nq1 <- sum(y > y_origin & x > x_origin)
+  nq2 <- sum(y > y_origin & x < x_origin)
+  nq4 <- sum(y < y_origin & x > x_origin)
+  nq3 <- sum(y < y_origin & x < x_origin)
+
+  #origin point is never taken into account in the previous logic operations
+  #remove all points that fall on the origin
+  n <- length(x) - sum(y == y_origin & x == x_origin)
+
+  #if there are any ties that are NOT the origin
+  #i.e. a point is exactly on the line between two quadrants
+  #split the point count equally between the quadrants
+  if(any(xor(x == x_origin, y == y_origin))){
+    yties_12 <- sum(y > y_origin & x == x_origin)
+    yties_34 <- sum(y < y_origin & x == x_origin)
+
+    xties_14 <- sum(y == y_origin & x > x_origin)
+    xties_23 <- sum(y == y_origin & x < x_origin)
+
+    nq1 <- nq1 + 0.5*xties_14 + 0.5*yties_12
+    nq2 <- nq2 + 0.5*xties_23 + 0.5*yties_12
+    nq4 <- nq4 + 0.5*xties_14 + 0.5*yties_34
+    nq3 <- nq3 + 0.5*xties_23 + 0.5*yties_34
   }
 
   freqQuad1 <- nq1 / n
@@ -47,6 +50,7 @@ quadCount <- function(x_origin, y_origin, x, y) {
 
   return(c(freqQuad1, freqQuad2, freqQuad3, freqQuad4))
 }
+
 
 #' Get KS Stat
 #'
@@ -64,10 +68,9 @@ quadCount <- function(x_origin, y_origin, x, y) {
 #' @export
 #'
 getDstat <- function(originSamples, S1, S2, cores = 1) {
-
   d <- 0
   n <- dim(originSamples)[1]
-  dList <- parallel::mclapply(X = 1:n, mc.cores = cores, FUN = function(j){
+  dList <- parallel::mclapply(X = 1:n, mc.cores = cores, FUN = function(j) {
     quadct_S1 <- quadCount(originSamples[j, 1], originSamples[j, 2], S1[, 1], S1[, 2])
     quadct_S2 <- quadCount(originSamples[j, 1], originSamples[j, 2], S2[, 1], S2[, 2])
     d <- max(
