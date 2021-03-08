@@ -17,20 +17,28 @@
 #'
 quadCount <- function(x_origin, y_origin, x, y) {
 
+  #number of points being checked
+  n <- length(x)
+
   # sum number of points in each quadrant (counter clockwise from 1 to 4)
   nq1 <- sum(y > y_origin & x > x_origin)
   nq2 <- sum(y > y_origin & x < x_origin)
   nq4 <- sum(y < y_origin & x > x_origin)
   nq3 <- sum(y < y_origin & x < x_origin)
 
-  #origin point is never taken into account in the previous logic operations
-  #remove all points that fall on the origin
-  n <- length(x) - sum(y == y_origin & x == x_origin)
+  #origin point is divided equally across the four quadrants
+  #as well as any other point they may be tied with the origin
+  origin <- 0.25*sum(x == x_origin & y == y_origin)
+  nq1 <- nq1 + origin
+  nq2 <- nq2 + origin
+  nq3 <- nq3 + origin
+  nq4 <- nq4 + origin
 
   #if there are any ties that are NOT the origin
   #i.e. a point is exactly on the line between two quadrants
   #split the point count equally between the quadrants
   if(any(xor(x == x_origin, y == y_origin))){
+    #add warning message
     yties_12 <- sum(y > y_origin & x == x_origin)
     yties_34 <- sum(y < y_origin & x == x_origin)
 
@@ -50,6 +58,73 @@ quadCount <- function(x_origin, y_origin, x, y) {
 
   return(c(freqQuad1, freqQuad2, freqQuad3, freqQuad4))
 }
+# quadCount2 <- function(x_origin, y_origin, x, y) {
+#   n <- length(x)
+#   nq1 <- 0
+#   nq2 <- 0
+#   nq3 <- 0
+#   nq4 <- 0
+#   org <- 0
+#
+#   # think about less than or equal to?
+#   # i.e. ties
+#   # for (k in 1:n) {
+#   #     if (y[k] >= y_origin) {
+#   #       if (x[k] >= x_origin) {
+#   #         nq1 <- nq1 + 1
+#   #       } else {
+#   #         nq2 <- nq2 + 1
+#   #       }
+#   #     } else {
+#   #       if (x[k] >= x_origin) {
+#   #         nq4 <- nq4 + 1
+#   #       } else {
+#   #         nq3 <- nq3 + 1
+#   #       }
+#   #     }
+#   # }
+#   for (k in 1:n) {
+#     if (y[k] > y_origin) {
+#       if (x[k] > x_origin) {
+#         nq1 <- nq1 + 1
+#       } else if (x[k] < x_origin) {
+#         nq2 <- nq2 + 1
+#       } else {
+#         nq1 <- nq1 + 0.5
+#         nq2 <- nq2 + 0.5
+#       }
+#     } else if (y[k] < y_origin) {
+#       if (x[k] > x_origin) {
+#         nq4 <- nq4 + 1
+#       } else if (x[k] < x_origin) {
+#         nq3 <- nq3 + 1
+#       } else {
+#         nq3 <- nq3 + 0.5
+#         nq4 <- nq4 + 0.5
+#       }
+#     } else {
+#       if (y[k] == y_origin) {
+#         if (x[k] > x_origin) {
+#           nq1 <- nq1 + 0.5
+#           nq4 <- nq4 + 0.5
+#         } else if (x[k] < x_origin) {
+#           nq2 <- nq2 + 0.5
+#           nq3 <- nq3 + 0.5
+#         } else {
+#           org <- org + 1
+#         }
+#       }
+#     }
+#   }
+#
+#   n <- n - org
+#   freqQuad1 <- nq1 / n
+#   freqQuad2 <- nq2 / n
+#   freqQuad3 <- nq3 / n
+#   freqQuad4 <- nq4 / n
+#
+#   return(c(freqQuad1, freqQuad2, freqQuad3, freqQuad4))
+# }
 
 
 #' Get KS Stat
