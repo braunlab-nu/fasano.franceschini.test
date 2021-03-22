@@ -216,10 +216,11 @@ in the two-sample case, the $p$-value is given by
 %
 %\textbf{In the 2-Sample case}, the $p$-value probability of a given D is defined by
 \begin{equation} \label{eq:3}
-\mathbb{P}(D > observed) = \Phi ( D\sqrt{\frac{n_1n_2}{n_1+n_2}})\,.
+\mathbb{P}(D > observed) = \Phi \left( D\sqrt{\frac{n_1n_2}{n_1+n_2}} \right)\,.
 \end{equation}
 %
 %where $n_1$ and $n_2$ is the number of data points in the first and second samples respectively. A $p$-value $< 0.05$, indicates a significant difference between the samples.
+\RBnote{Note usage of left( and right) [alternatively, or amsmath big( ] to make bigger parens}
 
 \subsection{Higher Dimensional KS Test}
 
@@ -260,7 +261,7 @@ Using Monte Carlo simulation, Fasano and Franceschini created a look-up table of
 
 For the 1-Sample case,
 \begin{equation} \label{eq:4}
-Prob(D > observed) = \Phi ( \frac{D\sqrt{N}}{1+\sqrt{1-r^2}(0.25-0.75/\sqrt{N})}) \, .
+\mathbb{P}(D > observed) = \Phi \left( \frac{D\sqrt{N}}{1+\sqrt{1-r^2}(0.25-0.75/\sqrt{N})} \right) \, .
 \end{equation}
 The 2-Sample case uses the same formula as above, but with the slight variation where
 \begin{equation} \label{eq:5}
