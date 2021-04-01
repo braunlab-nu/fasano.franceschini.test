@@ -1,0 +1,63 @@
+test_that("FF test uses validated inputs", {
+  S1 <- data.frame(
+    x = c(1, 1),
+    y = c(1, -1)
+  )
+  S2 <- data.frame(
+    x = c(0, 1),
+    y = c(0, -1)
+  )
+
+  expect_error(fasano.franceschini.test(S1 = NULL, S2 = S2, cores = 1), "S1 and S2 must be a `data.frame`")
+  expect_error(fasano.franceschini.test(S1 = NULL, S2 = NULL, cores = 1), "S1 and S2 must be a `data.frame`")
+  expect_error(fasano.franceschini.test(S1 = S1, S2 = NULL, cores = 1), "S1 and S2 must be a `data.frame`")
+  expect_error(fasano.franceschini.test(S1 = as.matrix(S1), S2 = S2, cores = 1), "S1 and S2 must be a `data.frame`")
+  expect_error(fasano.franceschini.test(S1 = S1, S2 = as.matrix(S2), cores = 1), "S1 and S2 must be a `data.frame`")
+  expect_error(fasano.franceschini.test(S1 = as.matrix(S1), S2 = as.matrix(S2), cores = 1), "S1 and S2 must be a `data.frame`")
+  expect_error(fasano.franceschini.test(S1 = S1, S2 = S2, nBootstrap = -1, cores = 1), "nBootstrap must be a positive value")
+})
+
+
+
+test_that("FF test computes with bootstrap", {
+
+  # sample 1 - 30 points in quad 1
+  S1 <- data.frame(
+    x = c(rep(1, 30), rep(-1, 4), rep(-1, 3), rep(1, 2), 0),
+    y = c(rep(1, 30), rep(1, 4), rep(-1, 3), rep(-1, 2), 0)
+  )
+  # sample 2 - 1 points in quad 1
+  S2 <- data.frame(
+    x = c(1, rep(-1, 4), rep(-1, 3), rep(1, 2)),
+    y = c(1, rep(1, 4), rep(-1, 3), rep(-1, 2))
+  )
+
+  set.seed(123)
+
+  output <- fasano.franceschini.test(S1 = S1, S2 = S2, nBootstrap = 1000, cores = 1)
+  expect_equal(output$pval, 0.001)
+  expect_equal(output$D, 0.525)
+})
+
+
+
+test_that("FF test computes with Press and Teukolsky model fit", {
+
+  # sample 1 - 30 points in quad 1
+  S1 <- data.frame(
+    x = c(rep(1, 30), rep(-1, 4), rep(-1, 3), rep(1, 2), 0),
+    y = c(rep(1, 30), rep(1, 4), rep(-1, 3), rep(-1, 2), 0)
+  )
+
+  # sample 2 - 1 points in quad 1
+  S2 <- data.frame(
+    x = c(1, rep(-1, 4), rep(-1, 3), rep(1, 2)),
+    y = c(1, rep(1, 4), rep(-1, 3), rep(-1, 2))
+  )
+
+  set.seed(123)
+
+  output <- fasano.franceschini.test(S1 = S1, S2 = S2, cores = 1)
+  expect_equal(output$pval, 0.02138126793)
+  expect_equal(output$D, 0.525)
+})
