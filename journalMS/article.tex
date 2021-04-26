@@ -1,4 +1,5 @@
 \documentclass[codesnippet]{jss}
+%\documentclass[nojss]{jss}
 
 %% -- LaTeX packages and custom commands ---------------------------------------
 
@@ -34,9 +35,9 @@
 
 %% - \Abstract{} almost as usual
 \Abstract{
-\RBnote{Are citations allowed in the abstract (per journal style)?}
-The \pkg{fasano.franceschini.test} package is an  \proglang{R} implementation of the 2-D Kolmogorov-Smirnov (KS) two--sample test as defined by Fasano and Franceschini \citep{Fasano1987}. This is a variant of the 2-D two-sample KS test as originally defined by Peacock \citep{Peacock1983}, previously implemented in \proglang{R} in the \pkg{Peacock.test} package \citep{Xiao2016}. The \pkg{fasano.franceschini.test} package provides two improvements over the current 2-D KS test on the Comprehensive \proglang{R} Archive Network (CRAN): (i) the Fasano and Franceschini test has been shown to run in $O(n^2)$ versus the Peacock implementation which runs in $O(n^3)$; and (ii) the package implements a  bootstrapping procedure for improved significance testing. 
-\RBnote{Summarize what the paper will cover.}
+\RBnote{Are citations allowed in the abstract (per journal style)? - Yes, citation are found in the abstract both in the style guide template and also from checking published articles }
+The versatility of the univariate Kolmogorov-Smirnov (KS) test has made it a cornerstone of statistical analysis and is commonly used across the scientific disciplines. Nonetheless, a generalization of the KS test as proposed by Kolmogorov and Smirnov does not naturally extend when working with data in more than one dimension. Here, we present the \pkg{fasano.franceschini.test} package, an  \proglang{R} implementation of the 2-D KS two--sample test as defined by Fasano and Franceschini~\citep{Fasano1987}. The \pkg{fasano.franceschini.test} package provides three improvements over the current 2-D KS test on the Comprehensive \proglang{R} Archive Network (CRAN): (i) the Fasano and Franceschini test has been shown to run in $O(n^2)$ versus the Peacock implementation which runs in $O(n^3)$; (ii) the package implements a procedure for handling ties in the data; and (iii) the package implements a parallelized bootstrapping procedure for improved significance testing. Ultimately, the \pkg{fasano.franceschini.test} package presents a robust statistical test for analysing random samples defined in 2-dimensions.
+\RBnote{Summarize what the paper will cover. - ENC: Rewrote abstract}
 }
 
 %% - \Keywords{} with LaTeX markup, at least one required
@@ -58,7 +59,7 @@ The \pkg{fasano.franceschini.test} package is an  \proglang{R} implementation of
   Northwestern University\\
   Evanston, IL 60208\\
   E-mail: \email{elan.ness-cohn@northwestern.edu}\\
-  URL: \url{https://sites.northwestern.edu/elannesscohn/}\\
+  URL: \url{https://www.nesscoder.com}\\
 
 Rosemary Braun\\
   Department of Molecular Biosciences,\\
@@ -74,7 +75,6 @@ Rosemary Braun\\
 
 }
 \begin{document}
-
 
 %% -- Introduction -------------------------------------------------------------
 
@@ -95,15 +95,15 @@ Rosemary Braun\\
 % Python <- Implementation
 % C <- Implementation
 
-\RBnote{Please use nonbreaking spaces (tilde rather than space) before all cite commands}
+\RBnote{Please use nonbreaking spaces (tilde rather than space) before all cite commands - ENC: tilde has be added before each cite, removing all spaces}
 
 The Kolmogorov--Smirnov (KS) is a non--parametric, univariate statistical test designed to assess whether a set of data is consistent with a given probability distribution. First derived by Kolmogorov and Smirnov in a series of papers~\citep{Kolmogorov1933,Kolmogorov1933a,Smirnov1936,Smirnov1937,Smirnov1939,Smirnov1944,Smirnov1948}, the one-sample KS test defines the distribution of the quantity $D_{KS}$, the maximal absolute difference between the empirical cumulative distribution function (CDF) of a set of values and a reference probability distribution. Kolmogorov and Smirnov's key insight was proving the distribution of $D_{KS}$ was independent of the CDFs being tested. Thus, the test can effectively be used to compare any univariate empirical data distribution to any continuous univariate reference distribution. A two-sample KS test could further be used to compare any two univariate empirical data distributions against each other to determine if they are drawn from the same underlying univariate distribution.
 
-The versatility of the univariate KS test has made it a cornerstone of statistical analysis and is commonly used across the scientific disciplines \RBnote{highlighting your note: (Cite uses in a broad range of field)}. Nonetheless, a generalization of the KS test as proposed by Kolmogorov and Smirnov does not naturally extend when working with data in more than one dimension. Fortunately, a solution to the dimensionality issue was articulated by Peacock~\citep{Peacock1983} and later extended by Fasano and Franceschini~\citep{Fasano1987}.
+The versatility of the univariate KS test has made it a cornerstone of statistical analysis and is commonly used across the scientific disciplines~\citep{Atasoy2017,Chiang2018,Hahne2018,Hargreaves2020,Wong2020,Kaczanowska2021} \RBnote{ENC: Cited a broad range of fields (neuropharmacology, climate change, covid-19, sustainable nutrition, robotic prostetics, cancer therapeutics)}. Nonetheless, a generalization of the KS test as proposed by Kolmogorov and Smirnov does not naturally extend when working with data in more than one dimension. Fortunately, a solution to the dimensionality issue was articulated by Peacock~\citep{Peacock1983} and later extended by Fasano and Franceschini~\citep{Fasano1987}.
 
-Currently, only the Peacock implementation of the 2-D two-sample KS test is available in \proglang{R}~\citep{R} with the \pkg{Peacock.test} package via the \fct{peacock2} function, but this has been shown to be markedly slower than the Fasano and Franceschini algorithm\citep{Lopes2007}. A \proglang{C} implementation of the Fasano--Franceschini test is available in \citep{numericalRecipes}; however, arguments have been made to the validity of the implementation of the test not being distribution-free\citep{Babu2006}. Furthermore, the \proglang{C} implementation statistical testing is based on a fit to Monte Carlo Simulation and is only valid for significance levels $\alpha \lessapprox 0.20$, which may present potential issues in some analysis.
+Currently, only the Peacock implementation of the 2-D two-sample KS test is available in \proglang{R}~\citep{R} with the \pkg{Peacock.test} package via the \fct{peacock2} function, but this has been shown to be markedly slower than the Fasano and Franceschini algorithm~\citep{Lopes2007}. A \proglang{C} implementation of the Fasano--Franceschini test is available in~\citep{numericalRecipes}; however, arguments have been made to the validity of the implementation of the test not being distribution-free~\citep{Babu2006}. Furthermore, the \proglang{C} implementation statistical testing is based on a fit to Monte Carlo Simulation and is only valid for significance levels $\alpha \lessapprox 0.20$, which may present potential issues in some analysis.
 
-Here we present the \pkg{fasano.franceschini.test} package as an \proglang{R} implementation of the 2-D two-sample KS test as defined by Fasano and Franceschini \citep{Fasano1987} The \pkg{fasano.franceschini.test} package provides two improvements over the current 2-D KS test on the Comprehensive \proglang{R} Archive Network (CRAN): (i) the Fasano and Franceschini test has been shown to run in $O(n^2)$ versus the Peacock implementation which runs in $O(n^3)$; and (ii) the package implements a bootstrapping procedure for improved significance testing and mitigates the concerns over the distribution-free nature of the test brought up by~\citep{Babu2006}.
+Here we present the \pkg{fasano.franceschini.test} package as an \proglang{R} implementation of the 2-D two-sample KS test as defined by Fasano and Franceschini~\citep{Fasano1987} The \pkg{fasano.franceschini.test} package provides two improvements over the current 2-D KS test on the Comprehensive \proglang{R} Archive Network (CRAN): (i) the Fasano and Franceschini test has been shown to run in $O(n^2)$ versus the Peacock implementation which runs in $O(n^3)$; and (ii) the package implements a bootstrapping procedure for improved significance testing and mitigates the concerns over the distribution-free nature of the test brought up by~\citep{Babu2006}.
 
 
 % \begin{leftbar}
@@ -186,7 +186,7 @@ The Kolmogorov--Smirnov (KS) test is a non--parametric method for determining wh
 %
 %In both cases, the KS test works as follows:
 %
-In one dimension, 
+In one dimension,
 the Kolmogorov-Smirnov statistic ($D_{KS}$) is the defined by the maximum absolute difference between the cumulative density functions of the data and model (one--sample), or between the two data sets (two--sample),
 as illustrated in (\textbf{Figure~\ref{fig:kstest1D}}).
 %. In the following example, the orange and blue curve in the left panel represents the underlying distribution (pdf) for sample1 and sample2, respectively (\textbf{Figure \ref{fig:kstest1D}}). The eCDF is then defined by data drawn from these underlying distribution, and the D--stat is the computed as the largest between difference between the eCDF (black dotted line) in the right panel.
@@ -200,18 +200,18 @@ as illustrated in (\textbf{Figure~\ref{fig:kstest1D}}).
 
 %Kolmogorov and Smirnov work mathematically defined the distribution for $D_{KS}$ to be distribution free, and further derived a table of critical values for hypothesis testing. Kolmogorov and Smirnov work was later refined by Kendall and Stuart ~\citep{Kendall1946} to define the integrated probability distribution for large values of n  ($n \geq 80$), having the asymptotic expression:
 
-In the large--sample limit ($n \geq 80$), it can be shown~\citep{Kendall1946} that $D_{KS}$ converges in distribution to 
+In the large--sample limit ($n \geq 80$), it can be shown~\citep{Kendall1946} that $D_{KS}$ converges in distribution to
 \begin{equation} \label{eq:1}
 \Phi(\lambda) = 2 \sum_{k=1}^{\infty} -1^{k-1}e^{-2k^2\lambda^2} \,.
 \end{equation}
 %Given the maximum absolute difference ($D_{KS}$) and \textbf{Equation~\ref{eq:1}}, one can  compute a $p$-value for  hypothesis testing to determine if there is a significance difference between the cumulative density functions of the data and model (one-sample), or between the two data sets (two-sample).
 %
 %\textbf{For the 1-Sample case}, the $p$-value probability of a given D is defined by
-In the one-sample case, the $p$-value is given by 
+In the one-sample case, the $p$~value is given by
 \begin{equation} \label{eq:2}
 \mathbb{P}(D > observed) = \Phi ( D\sqrt{n})\,;
 \end{equation}
-in the two-sample case, the $p$-value is given by
+in the two-sample case, the $p$~value is given by
 %where $N$ is the number of data points sampled. A $p$-value $< 0.05$, indicates a significant difference between the samples.
 %
 %\textbf{In the 2-Sample case}, the $p$-value probability of a given D is defined by
@@ -245,15 +245,17 @@ The 2-D two sample Fasano and Franceschini test is illustrated in the following 
 \begin{figure}[t!]
 \centering
 \includegraphics{fftestOutput}
-\caption{\label{fig:kstest2D} Illustration of the Fasano--Franceschini algorithmic search for the maximal difference ($D_{FF}$) between sample 2-D eCDFs. Looping through each point in the sampled data to define a unique origin (grey dotted line), the fraction of orange and blue points in each quadrants are computed (plot corners). For each origin, the quadrant which maximizes the absolute difference in the integrated probabilities is indicated. The origin which maximizes the overall absolute difference in the integrated probabilities between samples is highlighted by the orange box. 
+\caption{\label{fig:kstest2D} Illustration of the Fasano--Franceschini algorithmic search for the maximal difference ($D_{FF,1}$) between sample 2-D eCDFs. Looping through each point in the sampled data to define a unique origin (grey dotted line), the fraction of orange and blue points in each quadrants are computed (plot corners). For each origin, the quadrant which maximizes the absolute difference in the integrated probabilities is indicated. The origin which maximizes the overall absolute difference in the integrated probabilities between samples is highlighted by the orange box.
 }
 \end{figure}
 
-The algorithm loops through each point in the orange sample in turn to define the origin of 4 quadrants (grey dotted line). The fraction of orange and blue points in each quadrant is computed (corners of plot) and the quadrant with the maximal difference is designated with the current maximum for the specified origin. By iterating over all pairs of data points and quadrants, the $D_{FF}$ is defined by the maximal difference of the integrated probabilities between samples. In this case using the orange point as the origin, the maximal difference is $D_{FF} = 0.52$.
-\RBnote{How are tied values counted? Describe that here.  Also discuss the treatment of the origin.}
+The algorithm loops through each point in the orange sample in turn to define the origin of 4 quadrants (grey dotted line). The fraction of orange and blue points in each quadrant is computed (corners of plot) and the quadrant with the maximal difference is designated with the current maximum for the specified origin. By iterating over all pairs of data points and quadrants, the $D_{FF,1}$ is defined by the maximal difference of the integrated probabilities between samples. In this case using the orange point as the origin, the maximal difference is $D_{FF,1} = 0.52$.
+\RBnote{How are tied values counted? Describe that here.  Also discuss the treatment of the origin. - ENC: Discussion Added below}
 
-\RBnote{Since $D_{FF}$ from one sample isn't the final $D_{FF}$, you should note it appropriately (eg, $D_{FF,1}$ and $D_{FF,2}$).}
-This process is repeated using the blue points as the origins to compute the maximal $D_{FF}$. Finally, both maximal $D_{FF}$ statistics using the orange and blue points as origins are then averaged to compute the overall $D_{FF}$ for hypothesis testing.
+\RBnote{Since $D_{FF}$ from one sample isn't the final $D_{FF}$, you should note it appropriately (eg, $D_{FF,1}$ and $D_{FF,2}$). - ENC: Text has been updated accordingly}
+This process is repeated using the blue points as the origins to compute the maximal $D_{FF,2}$. Finally, both maximal $D_{FF,1}$ and $D_{FF,2}$ statistics using the orange and blue points as origins are averaged to compute the overall $D_{FF}$ for hypothesis testing.
+
+Note that in real data, it is possible for some points to be tied with the X and/or Y coordinates of the origin -- creating an ambuguity when computing the fraction of points in each quadrant. Since the Fransono Francheschini test attempts to define the maximal difference of the integrated probabilities, a natural solution would be to treat a point that is tied with the current X and/or Y coordinates of the origin as equally likely to have been drawn from any of the tied quadrants. In doing so, the integrated probability of the given point is exactly evenly distributed across the tied quadrants. For example, any data point sharing the same X or Y coordianted as the current origin is evenly distributed across the tied quadrants, with each of the two quadrants recieveing half a count. Any data point sharing the same X and Y coordiantes as the current origin  -- the origin included -- is evenly distributed across all quadrants, with all four quadrants recieveing a quarter count.
 
 \subsection{Defining the Fasano and Franceschini null distribution}
 
@@ -383,7 +385,7 @@ In their paper, Fasano and Franceschini use Monte Carlo simulation to
 approximate the distribution of $D$ as a function of the sample
 size $N$ and the coefficient of correlation $r$. Unlike the 1-D KS
 test, the distribution of
-$D_{FF}$ is not independent of the shape of the 2-D distribution of the 
+$D_{FF}$ is not independent of the shape of the 2-D distribution of the
 underlying data. Fasano
 and Franceschini reasoned that the correlation between
 the two-dimensional distributions governs the resultant
@@ -397,7 +399,7 @@ distributions on the 2-D plane.
 Results from Monte Carlo simulation support these assumptions, showing
 that the distribution of $D$ is nearly identical for varying
 distributions with the same correlation coefficient~\citep{Fasano1987}.
-The approximation 
+The approximation
 by Teukolsky and Press (Eq~\ref{eq:4}--\ref{eq:5})
 can be used to test the significance levels for the 2-D K-S test using
 the following code:
@@ -425,19 +427,20 @@ R> fasano.franceschini.test(sample1Data,sample2Data)
  Fasano--Franceschini Test (1987)
  Data:  sample1Data and sample2Data
  D-stat =  0.14 , p-value =  0.4420642
- Run Time (s) =  0.04288507
+ Run Time (s) =  0.06367922
 \end{CodeOutput}
 \end{CodeChunk}
 
 \subsection{Bootstrap Version of the Fasano--Franceschini Test}
 
-As a caveat, to the fit produced by Teukolsky and Press are accurate when $N \gtrsim 20$, and the $p$-value is less than (more significant than) $\sim 0.20$. For $p > 0.20$, the distributional approximation may not be accurate. While this inaccuracy still allows a simple rejection decision to be made, it is sometimes useful to accurately quantify $p$ (such as if one was to do a cross-ctudy concordance analysis comparing $p$ values between studies as in~\citep{Ness-Cohn2020}). 
+As a caveat, to the fit produced by Teukolsky and Press are accurate when $N \gtrsim 20$, and the $p$-value is less than (more significant than) $\sim 0.20$. For $p > 0.20$, the distributional approximation may not be accurate. While this inaccuracy still allows a simple rejection decision to be made, it is sometimes useful to accurately quantify $p$ (such as if one was to do a cross-ctudy concordance analysis comparing $p$~values between studies as in~\citep{Ness-Cohn2020}).
 %
-\RBnote{I'm not sure what this next sentence is getting at; elaborate or cut.} Moreover, additional arguments have been made to the validity of the $>1$-D KS tests as not being distribution-free \citep{Babu2006}.
+\RBnote{I'm not sure what this next sentence is getting at; elaborate or cut. - ENC: removed the next line}
+%Moreover, additional arguments have been made to the validity of the $>1$-D KS tests as not being distribution-free \citep{Babu2006}.
 
 To address these limitations, one can bootstrap the significance levels for the particular multidimensional statistic directly from the particular data set under study. As Fasano and Franceschini's paper was originally released in 1987, this approach was unfeasible at scale.  Today, modern computers can rapidly compute a bootstrapped null distribution of $D_{FF}$ from the data to test significance.
 
-The \pkg{fasano.franceschini.test} R package implements a parallelized bootstrapping procedure. The marginal distribution from 2-dimensional data set is resampled with replacement to generate randomized 2-dimensional data sets \code{nBootStrap} times. The frequency count by quadrant is performed for each bootstrapped resampling as described above to compute the $D_{FF}$. The observed $D_{FF}$ is then compared to the distribution of bootstrapped $D_{FF}$ to compute a $p$-value. The bootstrapped version of the Fasano--Franceschini test can be implemented as follows (see \fct{fasano.franceschini.test} for further source code details and implementation).
+The \pkg{fasano.franceschini.test} R package implements a parallelized bootstrapping procedure. The marginal distribution from 2-dimensional data set is resampled with replacement to generate randomized 2-dimensional data sets \code{nBootStrap} times. The frequency count by quadrant is performed for each bootstrapped resampling as described above to compute the $D_{FF}$. The observed $D_{FF}$ is then compared to the distribution of bootstrapped $D_{FF}$ to compute a $p$~value. The bootstrapped version of the Fasano--Franceschini test can be implemented as follows (see \fct{fasano.franceschini.test} for further source code details and implementation).
 
 \begin{CodeChunk}
 \begin{CodeInput}
@@ -455,22 +458,22 @@ R>  y = rnorm(n = 100, mean = 0, sd = 1)
 R> )
 R>
 R> fasano.franceschini.test(S1 = sample1Data, S2 = sample2Data,
-R>                          nBootstrap = 1000, cores = 6)
+R>                          nBootstrap = 1000, cores = 1)
 \end{CodeInput}
 \begin{CodeOutput}
       2-D Two-sample Kolmogorov-Smirnov Test
 
  Fasano--Franceschini Test (1987)
  Data:  sample1Data and sample2Data
- D-stat =  0.14 , p-value =  0.672
- Run Time (s) =  2.694002
+ D-stat =  0.14 , p-value =  0.62
+ Run Time (s) =  12.59964
 \end{CodeOutput}
 \end{CodeChunk}
 
 Note, bootstrapping may significantly increase run time. To improve run time, one may adjust the \code{cores} parameter; see the R \pkg{parallel} package and the \fct{mclapply} function for further details.
 
 \subsection{Computational Efficency}
-The main distinction between the Peacock and Fasano--Franceschini test comes down to compute time. For a benchmarking of the algorithms see \citep{Lopes2007}.  Briefly,
+The main distinction between the Peacock and Fasano--Franceschini test comes down to compute time. For a benchmarking of the algorithms see~\citep{Lopes2007}.  Briefly,
 %\begin{itemize}
 %\item The Fasano--Franceschini test runs in $O(n^2)$ time, and is advantageous to the Peacock test as data set sizes scale.
 %\item The Peacock test is more computationally expensive, and runs in $O(n^3)$ time.
@@ -610,12 +613,15 @@ the Fasano--Franceschini test runs in $O(n^2)$ time, and is advantageous to the 
 
 \section{Summary and discussion} \label{sec:summary}
 
-The \pkg{fasano.franceschini.test} package is an \proglang{R} implementation of the 2-D two-sample KS test as defined by Fasano and Franceschini \citep{Fasano1987}.
-It improves upon existing packages by implementing 
-  (i) a fast algorithm; and 
-  (ii) parallelized bootstrapping for improved statistical testing.
-\RBnote{CRAN?}
-  See \url{https://nesscoder.github.io/fasano.franceschini.test/} for the complete package documentation and source code.
+The \pkg{fasano.franceschini.test} package is an \proglang{R} implementation of the 2-D two-sample KS test as defined by Fasano and Franceschini~\citep{Fasano1987}.
+It improves upon existing packages by implementing
+  (i) a fast algorithm;
+  (ii) a extension to the Fasano and Franceschini test for dealing with ties; and
+  (iii) parallelized bootstrapping for improved statistical testing.
+\RBnote{CRAN? - ENC: Ready to Submit to CRAN}
+  See the complete package documentation and source code via the Comprehensive
+\proglang{R} Archive Network (CRAN) at
+\url{https://CRAN.R-project.org/} or the package website at \url{https://nesscoder.github.io/fasano.franceschini.test/}.
 
 
 %% -- Optional special unnumbered sections -------------------------------------
@@ -630,13 +636,13 @@ It improves upon existing packages by implementing
 % \end{leftbar}
 
 The results in this paper were obtained using
-\proglang{R}~3.6.3 with the
+\proglang{R}~4.0.3 with the
 \pkg{fasano.franceschini.test}~1.0.0 package. \proglang{R} itself
-and all packages used are available from the Comprehensive
+and all package dependencies (\pkg{methods}~4.0.3; \pkg{parallel}~4.0.3) are available from the Comprehensive
 \proglang{R} Archive Network (CRAN) at
 \url{https://CRAN.R-project.org/}.
 
-\RBnote{Any other package dependencies?}
+\RBnote{Any other package dependencies? - ENC: added dependenceis parallel and methods}
 
 \section*{Acknowledgments}
 
