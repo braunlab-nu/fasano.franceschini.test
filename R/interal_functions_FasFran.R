@@ -58,73 +58,6 @@ quadCount <- function(x_origin, y_origin, x, y) {
 
   return(c(freqQuad1, freqQuad2, freqQuad3, freqQuad4))
 }
-# quadCount2 <- function(x_origin, y_origin, x, y) {
-#   n <- length(x)
-#   nq1 <- 0
-#   nq2 <- 0
-#   nq3 <- 0
-#   nq4 <- 0
-#   org <- 0
-#
-#   # think about less than or equal to?
-#   # i.e. ties
-#   # for (k in 1:n) {
-#   #     if (y[k] >= y_origin) {
-#   #       if (x[k] >= x_origin) {
-#   #         nq1 <- nq1 + 1
-#   #       } else {
-#   #         nq2 <- nq2 + 1
-#   #       }
-#   #     } else {
-#   #       if (x[k] >= x_origin) {
-#   #         nq4 <- nq4 + 1
-#   #       } else {
-#   #         nq3 <- nq3 + 1
-#   #       }
-#   #     }
-#   # }
-#   for (k in 1:n) {
-#     if (y[k] > y_origin) {
-#       if (x[k] > x_origin) {
-#         nq1 <- nq1 + 1
-#       } else if (x[k] < x_origin) {
-#         nq2 <- nq2 + 1
-#       } else {
-#         nq1 <- nq1 + 0.5
-#         nq2 <- nq2 + 0.5
-#       }
-#     } else if (y[k] < y_origin) {
-#       if (x[k] > x_origin) {
-#         nq4 <- nq4 + 1
-#       } else if (x[k] < x_origin) {
-#         nq3 <- nq3 + 1
-#       } else {
-#         nq3 <- nq3 + 0.5
-#         nq4 <- nq4 + 0.5
-#       }
-#     } else {
-#       if (y[k] == y_origin) {
-#         if (x[k] > x_origin) {
-#           nq1 <- nq1 + 0.5
-#           nq4 <- nq4 + 0.5
-#         } else if (x[k] < x_origin) {
-#           nq2 <- nq2 + 0.5
-#           nq3 <- nq3 + 0.5
-#         } else {
-#           org <- org + 1
-#         }
-#       }
-#     }
-#   }
-#
-#   n <- n - org
-#   freqQuad1 <- nq1 / n
-#   freqQuad2 <- nq2 / n
-#   freqQuad3 <- nq3 / n
-#   freqQuad4 <- nq4 / n
-#
-#   return(c(freqQuad1, freqQuad2, freqQuad3, freqQuad4))
-# }
 
 
 #' Get KS Stat
@@ -134,10 +67,10 @@ quadCount <- function(x_origin, y_origin, x, y) {
 #'
 #' Code adapted from Press, W. H., Teukolsky, S. A., Vetterling, W. T.,, Flannery, B. P. (2007). Numerical Recipes 3rd Edition: The Art of Scientific Computing. Cambridge University Press. ISBN: 0521880688
 #'
-#' @param S1 a [n by 2] `data.frame` of x and y coordinates of sample 1
-#' @param S2 a [n by 2] `data.frame` of x and y coordinates of sample 2
+#' @param S1 a `[n by 2]` `data.frame` of x and y coordinates of sample 1
+#' @param S2 a `[n by 2]` `data.frame` of x and y coordinates of sample 2
 #' @param cores a `numeric` defining the number of cores to use of processing
-#' @param originSamples a [n by 2] `data.frame` of x and y coordinates that defines the origins data points.
+#' @param originSamples a `[n by 2]` `data.frame` of x and y coordinates that defines the origins data points.
 #'
 #' @return a `numeric` defining the D stat with the largest difference between the quad frequencies, after checking each point as the origin
 #' @export
@@ -166,12 +99,16 @@ getDstat <- function(originSamples, S1, S2, cores = 1) {
 #' Code adapted from Press, W. H., Teukolsky, S. A., Vetterling, W. T.,, Flannery, B. P. (2007). Numerical Recipes 3rd Edition: The Art of Scientific Computing. Cambridge University Press. ISBN: 0521880688
 #'
 #'
-#' @param lambda
+#' @param lambda a `numeric` defining the difference in cumulative distribution function between two data sets
 #'
 #' @return a `numeric` defining the p-value of observing the given 2-D KS stat
 #' @export
 #'
 ksCDF <- function(lambda) {
+  if(lambda < 0){
+    stop("lambda must be between 0 and Inf, negative number supplied")
+  }
+
   eps1 <- 0.001
   eps2 <- 1E-8
 
@@ -182,5 +119,6 @@ ksCDF <- function(lambda) {
   prev_pterms <- rbind(0, pterms[-nrow(pterms), , drop = FALSE])
   converged <- apply(pterms <= eps1 * prev_pterms | pterms <= eps2 * sums, 2L, any)
   sums[!converged] <- 1
-  sums
+  return(sums)
 }
+

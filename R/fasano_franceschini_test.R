@@ -4,8 +4,8 @@
 #'
 #' Code adapted from Press, W. H., Teukolsky, S. A., Vetterling, W. T.,, Flannery, B. P. (2007). Numerical Recipes 3rd Edition: The Art of Scientific Computing. Cambridge University Press. ISBN: 0521880688
 #'
-#' @param S1 a [n by 2] `data.frame` of x and y coordinates of sample 1
-#' @param S2 a [n by 2] `data.frame` of x and y coordinates of sample 2
+#' @param S1 a `[n by 2]` `data.frame` of x and y coordinates of sample 1
+#' @param S2 a `[n by 2]` `data.frame` of x and y coordinates of sample 2
 #' @param nBootstrap a `numeric` defining the number of bootstrapped samples to be generated for computing the empirical p-value (note this procedure is slow and computationally expensive on the order of nBootStrap*O(n^2). Default is set to 0.
 #' If nBootstrap is 0, the Fasano Franceschini distributional approximation is used for defining the p-value. See Fasano and Franceschini test (1987) for details.
 #' @param cores a `numeric` defining the number of cores to use for processing
@@ -42,9 +42,25 @@
 #'
 #' fasano.franceschini.test(sample1Data,sample2Data)
 #'
+#' @import methods
 #' @export
 
 fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 2) {
+
+  #validate inputs
+  if(!is.data.frame(S1) | !is.data.frame(S2)){
+    stop("S1 and S2 must be a `data.frame`")
+  }
+  if(ncol(S1) != 2 | ncol(S2) != 2){
+    stop("S1 and S2 must be a `data.frame` of dim nrows x 2 cols, more than 2 cols detected")
+  }
+  if(nBootstrap < 0){
+    stop("nBootstrap must be a positive value")
+  }
+
+  #cores can't be more than on computer
+
+
   start <- Sys.time()
   # determine number of samples in each data set
   n1 <- dim(S1)[1]
@@ -59,7 +75,7 @@ fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 2) {
   # average KS stat
   D <- (d1 + d2) / 2
 
-  # if bootstramp is enabled, compute the bootstrapped null
+  # if bootstrap is enabled, compute the bootstrapped null d
   if (nBootstrap > 0) {
     x_marg <- c(S1[, 1], S2[, 1])
     y_marg <- c(S1[, 2], S2[, 2])
@@ -77,7 +93,7 @@ fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 2) {
     })
 
     # count the number of bootstrapped d stats that are larger than the observed
-    pval <- sum(unlist(d) > D) / nBootstrap
+    pval <- (sum(unlist(d) > D) + 1) / nBootstrap
 
     new("Fasano Franceschini Test",
         list(D = D,
@@ -105,10 +121,10 @@ fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 2) {
   }
 }
 
-setClass( "Fasano Franceschini Test", representation("list"))
+methods::setClass( "Fasano Franceschini Test", representation("list"))
 
 
-setMethod("show", "Fasano Franceschini Test", function(object) {
+methods::setMethod("show", "Fasano Franceschini Test", function(object) {
   cat("\n")
   cat("\t\t2-D Two-sample Kolmogorov-Smirnov Test\n")
   cat("\n")
