@@ -35,8 +35,12 @@
 
 %% - \Abstract{} almost as usual
 \Abstract{
-\RBnote{Perhaps briefly state what the KS test is.}
-The versatility of the univariate Kolmogorov-Smirnov (KS) test has
+The univariate Kolmogorov-Smirnov (KS) test is a non--parametric
+statistical test designed to assess whether a set of data is
+consistent with a given probability distribution (or, in the two-sample
+case,  whether the two
+samples come from the same underlying distribution).
+The versatility of the KS test has
 made it a cornerstone of statistical analysis and is commonly used
 across the scientific disciplines. However, the test proposed by
 Kolmogorov and Smirnov does not naturally extend to multidimensional
@@ -110,8 +114,8 @@ Rosemary Braun\\
 % C <- Implementation
 The Kolmogorov--Smirnov (KS) is a non--parametric, univariate
 statistical test designed to assess whether a set of data is
-consistent with a given probability distribution (or, in the two-sample 
-case,  whether the two 
+consistent with a given probability distribution (or, in the two-sample
+case,  whether the two
 samples come from the same underlying distribution). First derived by
 Kolmogorov and Smirnov in a series of
 papers~\citep{Kolmogorov1933,Kolmogorov1933a,Smirnov1936,Smirnov1937,Smirnov1939,Smirnov1944,Smirnov1948},
@@ -146,7 +150,7 @@ however, arguments have been made to the validity of the
 implementation of the test not being
 distribution-free~\citep{Babu2006}. Furthermore, the \proglang{C}
 implementation statistical testing is based on a fit to Monte Carlo
-Simulation and is only valid for significance levels $\alpha \lessapprox 0.20$, 
+Simulation and is only valid for significance levels $\alpha \lessapprox 0.20$,
 which may present potential issues in some analysis.
 
 Here we present the \pkg{fasano.franceschini.test} package as an
@@ -219,7 +223,7 @@ in the two-sample case, the $p$~value is given by
 \mathbb{P}(D > observed) = \Phi \left( D\sqrt{\frac{n_1n_2}{n_1+n_2}} \right)\,.
 \end{equation}
 %
-where $n_1$ and $n_2$ are the number of observations in the first and second samples respectively. 
+where $n_1$ and $n_2$ are the number of observations in the first and second samples respectively.
 %A $p$-value $< 0.05$, indicates a significant difference between the samples.
 
 \subsection{Higher dimensional variations: Peacock Test (1983) and Fasano--Franceschini Test (1987)}
@@ -236,11 +240,11 @@ function~\citep{Peacock1983}.
 \begin{figure}[t!]
 \centering
 \includegraphics{CDF2Dissue}
-\caption{\label{fig:kstest2Dissue} Four ways (3 independent) of defining the cumulative distribution for a given point in 2-D.  Here, the orange point $(X,Y)$ is chosen as the origin; the density of observations may be integrated as 
-$\mathbb{P}(x < X, y > Y)$ (A); 
-$\mathbb{P}(x < X \cup y < Y)$ (B); 
-$\mathbb{P}(x < X, y < Y)$ (C); 
-$\mathbb{P}(x > X, y > Y)$ (D). 
+\caption{\label{fig:kstest2Dissue} Four ways (3 independent) of defining the cumulative distribution for a given point in 2-D.  Here, the orange point $(X,Y)$ is chosen as the origin; the density of observations may be integrated as
+$\mathbb{P}(x < X, y > Y)$ (A);
+$\mathbb{P}(x < X \cup y < Y)$ (B);
+$\mathbb{P}(x < X, y < Y)$ (C);
+$\mathbb{P}(x > X, y > Y)$ (D).
 %$P(x < X, y < Y) + P(x < X, y > Y) + P(x > X, y < Y) = 1 - P(x > X, y > Y)$
 }
 \end{figure}
@@ -261,10 +265,9 @@ the integrated probabilities between samples.
 
 The variation defined by \cite{Fasano1987}  was to only consider
 quadrants centered in each point of the given samples to compute the
-cumulative distribution functions.  Rather than looking over all 
-$X_i, Y_j: i,j={1,n}$, Fasano and Franceschini only used the detected points
-$X_i, Y_i : i={1,n}$. 
-\RBnote{I don't follow the preceding line? (Notation?)}
+cumulative distribution functions.  Rather than looking over all
+$X_i, Y_j \,;\; i,j \in [1,n]$, Fasano and Franceschini only used the detected points
+$X_i, Y_i \,;\; i \in [1,n]$.
 Thus for any given $n$ points in a two-dimensional space, those $n$ points define $4n$ (rather than
 $4n^2$) quadrants.  The proceedure is illustrated in \textbf{Figure~\ref{fig:kstest2D}}.
 The algorithm loops through each point in one sample in turn to define
@@ -290,16 +293,16 @@ $D_{FF,1} = 0.52$.
 This process is repeated using the points from \textit{other} sample
 as the origins to compute the maximal $D_{FF,2}$ with origins from the
 second sample. $D_{FF,1}$ and $D_{FF,2}$  are then averaged to compute
-the overall $D_{FF}$ for hypothesis testing. \RBnote{clarify: is
-$D_{FF}=(D_{FF,1}+D_{FF,2})/2$, or is it weighted by the $n$?}
+the overall $D_{FF}$ for hypothesis testing -- e.g.
+$D_{FF}=(D_{FF,1}+D_{FF,2})/2$.
 
 It may be that some points are tied with the $X$ and/or $Y$
 coordinates of the origin, creating an ambiguity when computing the
-fraction of points in each quadrant. Since the 
+fraction of points in each quadrant. Since the
 test attempts to define the maximal difference of the cumulative
 probabilities, a natural solution would be to treat a point that is
 tied with the current $X$ and/or $Y$ coordinates of the origin as equally
-likely to have been drawn from any of the tied quadrants. 
+likely to have been drawn from any of the tied quadrants.
 Hence, any data point
 sharing the same $X$ or $Y$ coordinate as the origin is evenly
 distributed across the tied quadrants, with each of the two quadrants
@@ -314,13 +317,13 @@ Using Monte Carlo simulation, Fasano and Franceschini created a
 look-up table of critical values of $D_{FF}$ as a function of
 $D_{FF}$, the sample size, and the coefficient of correlation $r$.
 \cite{numericalRecipes} later defined an approximate fit to the lookup table
-as follows. 
+as follows.
 %
 For the a single sample of size $n$,
 \begin{equation} \label{eq:4}
 \mathbb{P}(d_{FF} > D_{FF}) = \Phi \left( \frac{D_{FF}\sqrt{n}}{1+\sqrt{1-r^2}(0.25-0.75/\sqrt{n})} \right) \, .
 \end{equation}
-\RBnote{Is $\Phi$ the same function defined in Eq~\ref{eq:1}?}
+where $\Phi$ is the same function defined in Eq~\ref{eq:1}.
 The two sample case uses the same formula as above, but with the slight variation where
 \begin{equation} \label{eq:5}
 n = \frac{n_1n_2}{n_1+n_2}\, .
