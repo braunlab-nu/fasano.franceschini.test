@@ -1,0 +1,3 @@
+"N"	"boots"	"cores"	"method"	"time"
+5000	0	1	"fasano"	19.756
+5000	0	1	"peacock"	221.585

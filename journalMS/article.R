@@ -17,10 +17,12 @@ library("ggplot2")
 library("viridis")
 library("mvtnorm")
 library("gridExtra")
+library("ggrepel")
 library("ggpubr")
+library("dplyr")
 
 # set to T to plot figures to PDF Output
-pdfOutPuts <- F
+pdfOutPuts <- T
 
 #' ## fasano.franceschini.test Usage
 
@@ -267,6 +269,76 @@ p4 <- ggplot(data, aes(x = x, y = y)) +
 pTotal <- ggarrange(p3, p2, p1, p4,
   labels = c("A", "B", "C", "D"),
   ncol = 2, nrow = 2
+)
+pTotal
+if (pdfOutPuts) {
+  dev.off()
+}
+
+#' ## Visualization - Benchmarking
+
+if (pdfOutPuts) {
+  png(file = paste0("journalMS/benchmark.png"), units = "in", res = 300, width = 12, height = 6)
+}
+#load files
+benchmarkingFiles <- list.files(path = "journalMS/benchmarking", recursive = TRUE,
+                                pattern = "\\.txt$",
+                                full.names = TRUE)
+
+benchmarkingDatalist <- lapply(benchmarkingFiles, function(x) {read.delim(x)})
+benchmarkingData <- do.call("rbind", benchmarkingDatalist)
+
+theme_update(
+  plot.title = element_text(hjust = 0.5, face = "bold"),
+  axis.title = element_text(face = "bold"), axis.text = element_text(face = "bold")
+)
+
+p5 <- benchmarkingData %>%
+    filter(cores == 1) %>%
+    filter(boots == 0) %>%
+    mutate(label = if_else(N == 5000, as.character(method), NA_character_)) %>%
+  ggplot(aes(x = N, y = time, col = method)) +
+  geom_line(linetype = "dashed") +
+  geom_point() +
+  scale_color_manual(labels = c("Fasano Franceschini", "Peacock"), values=c(S1col, S2col)) +
+  xlab("Number of Points (N)") +
+  ylab("Time (s)") +
+  guides(col=guide_legend(title="Method")) +
+  theme(legend.position = "bottom",
+        panel.background = element_blank(),
+        panel.grid.major.x = element_blank() ,
+        panel.grid.major.y = element_line( size=0.1, color="black" )) +
+  ggtitle("Fasano Franceschini versus Peacock Test Benchmark")
+
+
+nNames <- c(
+  `10` = "N = 10",
+  `100` = "N = 100",
+  `1000` = "N = 1000",
+  `5000` = "N = 5000"
+)
+
+p6 <- benchmarkingData %>%
+  filter(method != "peacock") %>%
+  ggplot(aes(x = cores, y = time, group = boots, col = as.character(boots))) +
+  geom_line(linetype = "dashed") +
+  geom_point() +
+  scale_color_manual(values= c("#fef0d9","#fdcc8a","#fc8d59","#d7301f")) +
+  facet_wrap(~N,labeller = as_labeller(nNames)) +
+  xlab("Number of Cores") +
+  ylab("Time (s)") +
+  guides(col=guide_legend(title="Bootstraps")) +
+  scale_y_continuous(trans='log10') +
+  theme(legend.position = "bottom",
+        panel.background = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size=0.1, color="black" ),
+        strip.text.x = element_text(size = 8, face = "bold")) +
+  ggtitle("Fasano Franceschini Bootstrap Procedure Benchmarking")
+
+pTotal <- ggarrange(p5, p6,
+                    labels = c("A", "B"),
+                    ncol = 2
 )
 pTotal
 if (pdfOutPuts) {

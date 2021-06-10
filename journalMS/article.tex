@@ -436,14 +436,17 @@ R>                          nBootstrap = 1000, cores = 1)
 To improve run time, one may adjust the \code{cores} parameter; see the R \pkg{parallel} package and the \fct{mclapply} function for further details.
 
 \subsection{Computational efficency}
-\RBnote{This is weird without any data.  Can you benchmark using your package without bootstrap; your package with bootstrap and varying cores; and Peacock.test package to illustrate scaling?}
+
+\begin{figure}[hbt]
+\centering
+\includegraphics{benchmark}
+\caption{\label{fig:bmark} \textbf{A:} Benchmarking of the Fasano--Franceschini versus the Peacock test under four distinct numbers of points N (e.g. 10, 100, 1000, 5000). Points represent the average of 10 replicate runs. \textbf{B:} Benchmarking of Fasano--Franceschini test bootstrapping procedure broken up by the number of points N (e.g. 10, 100, 1000, 5000). Within each panel, lines are colored by the number of bootstraps run (e.g. 0, 10, 100, 1000). Points represent the average of 10 replicate runs.
+}
+\end{figure}
+
 The main distinction between the Peacock and Fasano--Franceschini tests is in computational efficiency, as
-illustrated by the benchmarking studies in \cite{Lopes2007}.  Briefly,
-%\begin{itemize}
-%\item The Fasano--Franceschini test runs in $O(n^2)$ time, and is advantageous to the Peacock test as data set sizes scale.
-%\item The Peacock test is more computationally expensive, and runs in $O(n^3)$ time.
-%\end{itemize}
-the Fasano--Franceschini test runs in $O(n^2)$ time, and is advantageous to the Peacock test as data set sizes scale, while the Peacock test is more computationally expensive, and runs in $O(n^3)$ time.
+illustrated by the benchmarking studies in \cite{Lopes2007}. Briefly,
+the Fasano--Franceschini test runs in $O(n^2)$ time, and is advantageous to the Peacock test as data set sizes scale, while the Peacock test is more computationally expensive, and runs in $O(n^3)$ time (\textbf{Figure~\ref{fig:bmark}A}). While the implentation of the bootstrapping procedure increases runtime in comparison to the approximate fit from  \citep{numericalRecipes}; parallelization of the Fasano--Franceschini test shows $\sim 4X$ reduction in run time from 1 to 8 cores across bootstraps and number of points. \textbf{Figure~\ref{fig:bmark}B}.
 %
 (See the \pkg{Peacock.test} package for \proglang{R} implementation of the Peacock test.)
 
