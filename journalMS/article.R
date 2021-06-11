@@ -22,7 +22,7 @@ library("ggpubr")
 library("dplyr")
 
 # set to T to plot figures to PDF Output
-pdfOutPuts <- T
+pdfOutPuts <- F
 
 #' ## fasano.franceschini.test Usage
 
@@ -288,16 +288,23 @@ benchmarkingFiles <- list.files(path = "journalMS/benchmarking", recursive = TRU
 benchmarkingDatalist <- lapply(benchmarkingFiles, function(x) {read.delim(x)})
 benchmarkingData <- do.call("rbind", benchmarkingDatalist)
 
+#Compute avg time. Current time is for 10 replicates
+#see benchmarking.R
+benchmarkingData <- benchmarkingData %>%
+  mutate(avg_time = time/10)
+
 theme_update(
   plot.title = element_text(hjust = 0.5, face = "bold"),
   axis.title = element_text(face = "bold"), axis.text = element_text(face = "bold")
 )
 
+
+
 p5 <- benchmarkingData %>%
     filter(cores == 1) %>%
     filter(boots == 0) %>%
     mutate(label = if_else(N == 5000, as.character(method), NA_character_)) %>%
-  ggplot(aes(x = N, y = time, col = method)) +
+  ggplot(aes(x = N, y = avg_time, col = method)) +
   geom_line(linetype = "dashed") +
   geom_point() +
   scale_color_manual(labels = c("Fasano Franceschini", "Peacock"), values=c(S1col, S2col)) +
@@ -320,7 +327,7 @@ nNames <- c(
 
 p6 <- benchmarkingData %>%
   filter(method != "peacock") %>%
-  ggplot(aes(x = cores, y = time, group = boots, col = as.character(boots))) +
+  ggplot(aes(x = cores, y = avg_time, group = boots, col = as.character(boots))) +
   geom_line(linetype = "dashed") +
   geom_point() +
   scale_color_manual(values= c("#fef0d9","#fdcc8a","#fc8d59","#d7301f")) +
@@ -328,7 +335,7 @@ p6 <- benchmarkingData %>%
   xlab("Number of Cores") +
   ylab("Time (s)") +
   guides(col=guide_legend(title="Bootstraps")) +
-  scale_y_continuous(trans='log10') +
+  scale_y_continuous(trans='log10', labels = scales::comma) +
   theme(legend.position = "bottom",
         panel.background = element_blank(),
         panel.grid.major.x = element_blank(),
