@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • fasano.franceschini.test</title>
+<title>Get KS Stat — getDstat • fasano.franceschini.test</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,9 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Get KS Stat — getDstat" />
+<meta property="og:description" content="Loop through each row as(i.e. data point)
+and defines D stat as the largest difference between the quadfrequencies, looping though each point in the sample as the origin" />
 
 
 
@@ -58,7 +60,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -108,73 +110,49 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Get KS Stat</h1>
+    <small class="dont-index">Source: <a href='https://github.com/nesscoder/fasano.franceschini.test/blob/master/R/interal_functions_FasFran.R'><code>R/interal_functions_FasFran.R</code></a></small>
+    <div class="hidden name"><code>getDstat.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Loop through each row as(i.e. data point)
+and defines D stat as the largest difference between the quadfrequencies, looping though each point in the sample as the origin</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>getDstat</span><span class='op'>(</span><span class='va'>originSamples</span>, <span class='va'>S1</span>, <span class='va'>S2</span>, cores <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-main-test-function" class="hasAnchor"><a href="#section-main-test-function" class="anchor"></a>Main Test Function</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="fasano.franceschini.test.html">fasano.franceschini.test()</a></code> </p>
-        </td>
-        <td><p>Fasano Franceschini Test</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-internal-helper-functions" class="hasAnchor"><a href="#section-internal-helper-functions" class="anchor"></a>Internal Helper Functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="getDstat.html">getDstat()</a></code> </p>
-        </td>
-        <td><p>Get KS Stat</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ksCDF.html">ksCDF()</a></code> </p>
-        </td>
-        <td><p>KS probability</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="quadCount.html">quadCount()</a></code> </p>
-        </td>
-        <td><p>Quad Count</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>originSamples</th>
+      <td><p>a <code>[n by 2]</code> <code>data.frame</code> of x and y coordinates that defines the origins data points.</p></td>
+    </tr>
+    <tr>
+      <th>S1</th>
+      <td><p>a <code>[n by 2]</code> <code>data.frame</code> of x and y coordinates of sample 1</p></td>
+    </tr>
+    <tr>
+      <th>S2</th>
+      <td><p>a <code>[n by 2]</code> <code>data.frame</code> of x and y coordinates of sample 2</p></td>
+    </tr>
+    <tr>
+      <th>cores</th>
+      <td><p>a <code>numeric</code> defining the number of cores to use of processing</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a <code>numeric</code> defining the D stat with the largest difference between the quad frequencies, after checking each point as the origin</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Code adapted from Press, W. H., Teukolsky, S. A., Vetterling, W. T.,, Flannery, B. P. (2007). Numerical Recipes 3rd Edition: The Art of Scientific Computing. Cambridge University Press. ISBN: 0521880688</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
