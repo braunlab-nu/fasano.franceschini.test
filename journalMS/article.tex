@@ -6,6 +6,7 @@
 %% recommended packages
 \usepackage{thumbpdf,lmodern}
 \usepackage{amssymb}
+\usepackage{amsmath}
 
 %% another package (only for this demo article)
 \usepackage{framed}
@@ -16,7 +17,7 @@
 
 \newcommand{\RBnote}[1]{\textcolor{red}{#1}}
 
-\hyphenation{Fa-sa-no=Fran-ces-chi-ni}
+%\hyphenation{Fa-sa-no=Fran-ces-chi-ni}
 
 %% -- Article metainformation (author, title, ...) -----------------------------
 
@@ -426,7 +427,7 @@ To improve run time, one may adjust the \code{cores} parameter; see the R \pkg{p
 \centering
 \includegraphics{benchmark}
 \caption{\label{fig:bmark} Computational efficiency benchmarks.
-\textbf{A:} Runtime of the 
+\textbf{A:} Runtime of the
 Fasano--Franceschini test relative to the Peacock test at four different sample sizes
 ($n=10, 100, 1000, 5000$).  Points represent the
 average of 10 benchmark runs. \textbf{B:} Runtime of the
@@ -438,8 +439,15 @@ in (B).}
 \end{figure}
 
 To assess the computational efficiency, we benchmarked the package as follows.
-\RBnote{Please explain the benchmark here; make note also of the specs of the machine that was used,
-inc # cores, processor speed, memory, and OS.}
+Using the \pkg{rbenchmark} package to evaluate runtime, the Fasano--Franceschini
+test and Peacock test were run under four different samples sizes
+($n=10, 100, 1000, 5000$), with 10 replicates for each run. The
+Fasano--Franceschini test bootstrap precedure was further evaluated
+under four different bootstrap iterations (no bootstrap, 10, 100, 1000),
+again using 10 replicates for each run. Reported results represent the
+average run time of the 10 replicate benchmarks. All benchmark tests were run on a 2018 macBook
+Pro Mac (macOS Catalina) with a 2.7-GHz Quad-Core Intel Core i7 processor and 16 GB of 2133 MHz LPDDR3 memory.
+
 The main distinction between the Peacock and Fasano--Franceschini
 tests is in computational efficiency, with  Fasano--Franceschini
 scaling as $O(n^2)$ relative to Peacock's complexity of  $O(n^3)$
@@ -448,7 +456,7 @@ in \textbf{Figure~\ref{fig:bmark}A}.  While the implentation of the
 bootstrapping procedure increases runtime in comparison to the
 approximate fit from  \citet{numericalRecipes}, parallelization of the
 Fasano--Franceschini test shows a four-fold reduction in run time when
-parallelized across 8 cores. \textbf{Figure~\ref{fig:bmark}B}.
+parallelized across 8 cores (\textbf{Figure~\ref{fig:bmark}B}).
 % (See the \pkg{Peacock.test} package for \proglang{R} implementation of the Peacock test.)
 
 
@@ -458,7 +466,7 @@ parallelized across 8 cores. \textbf{Figure~\ref{fig:bmark}B}.
 
 The \pkg{fasano.franceschini.test} package is an \proglang{R} implementation of the 2-D two-sample KS test as defined by Fasano and Franceschini~\citep{Fasano1987}.
 It improves upon existing packages by implementing
-  a fast algorithm and 
+  a fast algorithm and
   a parallelized bootstrapping procedure for improved statistical testing.
   Complete package documentation and source code is available via the Comprehensive
 \proglang{R} Archive Network (CRAN) at
