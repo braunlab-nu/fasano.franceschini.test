@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fasano.franceschini.test</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -138,16 +138,16 @@ distributions in more than one dimension. Fortunately, a solution to the
 dimensionality issue was articulated by Peacock <span class="citation">(<a href="#ref-Peacock1983" role="doc-biblioref">15</a>)</span> and later
 extended by Fasano and Franceschini <span class="citation">(<a href="#ref-Fasano1987" role="doc-biblioref">1</a>)</span>.</p>
 <p>Currently, only the Peacock implementation of the 2-D two-sample KS test
-is available in <span class="citation">(<a href="#ref-R" role="doc-biblioref">16</a>)</span> with the package via the function, but this has
+is available in <strong>R</strong> <span class="citation">(<a href="#ref-R" role="doc-biblioref">16</a>)</span> with the <code>Peacock.test</code> package via the <code>peacock2()</code> function, but this has
 been shown to be markedly slower than the Fasano and Franceschini
-algorithm <span class="citation">(<a href="#ref-Lopes2007" role="doc-biblioref">17</a>)</span>. A implementation of the Fasano–Franceschini
+algorithm <span class="citation">(<a href="#ref-Lopes2007" role="doc-biblioref">17</a>)</span>. A <strong>C</strong> implementation of the Fasano–Franceschini
 test is available in <span class="citation">(<a href="#ref-numericalRecipes" role="doc-biblioref">18</a>)</span>; however, arguments have been
 made to the validity of the implementation of the test not being
-distribution-free <span class="citation">(<a href="#ref-Babu2006" role="doc-biblioref">19</a>)</span>. Furthermore, in the implementation,
+distribution-free <span class="citation">(<a href="#ref-Babu2006" role="doc-biblioref">19</a>)</span>. Furthermore, in the <strong>C</strong> implementation,
 statistical testing is based on a fit to Monte Carlo simulation that is
 only valid for significance levels <span class="math inline">\(\alpha \lessapprox 0.20\)</span>.</p>
-<p>Here we present the package as an implementation of the 2-D two-sample
-KS test described by Fasano and Franceschini <span class="citation">(<a href="#ref-Fasano1987" role="doc-biblioref">1</a>)</span>. The package
+<p>Here we present the <code>fasano.franceschini.test</code> package as an <strong>R</strong> implementation of the 2-D two-sample
+KS test described by Fasano and Franceschini <span class="citation">(<a href="#ref-Fasano1987" role="doc-biblioref">1</a>)</span>. The <code>fasano.franceschini.test</code> package
 provides two improvements over the current 2-D KS test available on the
 Comprehensive Archive Network (CRAN): (i) the Fasano and Franceschini
 test has been shown to run in <span class="math inline">\(O(n^2)\)</span> versus the Peacock implementation
@@ -357,7 +357,7 @@ the same correlation coefficient <span class="citation">(<a href="#ref-Fasano198
 ## Fasano Franceschini Test (1987)
 ## Data:  sample1Data and sample2Data 
 ## D-stat =  0.14 , p-value =  0.4420642 
-## Run Time (s) =  0.047194</code></pre>
+## Run Time (s) =  0.05040598</code></pre>
 </div>
 <div id="bootstrap-version-of-the-fasanofranceschini-test" class="section level2">
 <h2 class="hasAnchor">
@@ -376,14 +376,14 @@ Franceschini’s paper was originally released in 1987, this approach was
 unfeasible at scale. Today, modern computers can rapidly compute a
 bootstrapped null distribution of <span class="math inline">\(D_{FF}\)</span> from the data to test
 significance.</p>
-<p>The R package implements a parallelized bootstrapping procedure. The
+<p>The <code>fasano.franceschini.test</code> <strong>R</strong> package implements a parallelized bootstrapping procedure. The
 marginal distribution from 2-dimensional data set is resampled with
 replacement to generate randomized 2-dimensional data sets times. The
 frequency count by quadrant is performed for each bootstrapped
 resampling as described above to compute the <span class="math inline">\(D_{FF}\)</span>. The observed
 <span class="math inline">\(D_{FF}\)</span> is then compared to the distribution of bootstrapped <span class="math inline">\(D_{FF}\)</span>
 to compute a <span class="math inline">\(p\)</span> value. The bootstrapped version of the
-Fasano–Franceschini test can be run as follows (see for further source
+Fasano–Franceschini test can be run as follows (see <code><a href="../reference/fasano.franceschini.test.html">fasano.franceschini.test()</a></code> for further source
 code details and implementation).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#set seed for reproducible example</span>
@@ -405,8 +405,8 @@ code details and implementation).</p>
 ## 
 ## Fasano Franceschini Test (1987)
 ## Data:  sample1Data and sample2Data 
-## D-stat =  0.14 , p-value =  0.655 
-## Run Time (s) =  5.723726</code></pre>
+## D-stat =  0.14 , p-value =  0.612 
+## Run Time (s) =  5.709169</code></pre>
 <p>To improve run time, one may adjust the parameter; see the R package and
 the function for further details.</p>
 </div>
@@ -428,7 +428,7 @@ of 10 benchmark runs. Note the logarithmic <span class="math inline">\(y\)</span
 </div>
 </center>
 <p>To assess the computational efficiency, we benchmarked the package as
-follows. Using the package to evaluate runtime, the Fasano–Franceschini
+follows. Using the <code>rbenchmark</code> package to evaluate runtime, the Fasano–Franceschini
 test and Peacock test were run under four different samples sizes
 (<span class="math inline">\(n=10, 100, 1000, 5000\)</span>), with 10 replicates for each run. The
 Fasano–Franceschini test bootstrap procedure was further evaluated
@@ -442,7 +442,7 @@ is in computational efficiency, with Fasano–Franceschini scaling as
 <span class="math inline">\(O(n^2)\)</span> relative to Peacock’s complexity of <span class="math inline">\(O(n^3)\)</span> <span class="citation">(<a href="#ref-Lopes2007" role="doc-biblioref">17</a>)</span>. Our
 benchmarks also show this advantage, as shown in <strong>Figure
 <a href="#fig:bmark" reference-type="ref" reference="fig:bmark">4</a>A</strong>. While
-the implentation of the bootstrapping procedure increases runtime in
+the implementation of the bootstrapping procedure increases runtime in
 comparison to the approximate fit from <span class="citation">(<a href="#ref-numericalRecipes" role="doc-biblioref">18</a>)</span>,
 parallelization of the Fasano–Franceschini test shows a four-fold
 reduction in run time when parallelized across 8 cores (<strong>Figure
@@ -452,19 +452,19 @@ reduction in run time when parallelized across 8 cores (<strong>Figure
 <div id="sec:summary" class="section level1">
 <h1 class="hasAnchor">
 <a href="#sec:summary" class="anchor"></a>Summary and discussion</h1>
-<p>The package is an implementation of the 2-D two-sample KS test as
+<p>The <code>fasano.franceschini.test</code> package is an <strong>R</strong> implementation of the 2-D two-sample KS test as
 defined by Fasano and Franceschini <span class="citation">(<a href="#ref-Fasano1987" role="doc-biblioref">1</a>)</span>. It improves upon
 existing packages by implementing a fast algorithm and a parallelized
 bootstrapping procedure for improved statistical testing. Complete
 package documentation and source code is available via the Comprehensive
-Archive Network (CRAN) at <a href="https://CRAN.R-project.org/" class="uri">https://CRAN.R-project.org/</a> and the package
+<strong>R</strong> Archive Network (CRAN) at <a href="https://CRAN.R-project.org/" class="uri">https://CRAN.R-project.org/</a> and the package
 website at <a href="https://nesscoder.github.io/fasano.franceschini.test/" class="uri">https://nesscoder.github.io/fasano.franceschini.test/</a>.</p>
 </div>
 <div id="computational-details" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#computational-details" class="anchor"></a>Computational details</h1>
-<p>The results in this paper were obtained using 4.0.3 with the 1.0.0
-package. itself and all package dependencies (4.0.3; 4.0.3) are
+<p>The results in this paper were obtained using <strong>R</strong> 4.0.3 with the fasano.franceschini.test 1.0.0
+package. <strong>R</strong> itself and all package dependencies (methods 4.0.3; parallel 4.0.3) are
 available from the Comprehensive Archive Network (CRAN) at
 <a href="https://CRAN.R-project.org/" class="uri">https://CRAN.R-project.org/</a>.</p>
 </div>
@@ -478,7 +478,7 @@ grant from the Simons Foundation/SFARI (597491-RWC) and the National
 Science Foundation (1764421). The content is solely the responsibility
 of the authors and does not necessarily represent the official views of
 the National Science Foundation and Simons Foundation.</p>
-<p>E.N.C developed the package and produced the tutorials/documentation;
+<p>E.N.C developed the <code>fasano.franceschini.test</code> package and produced the tutorials/documentation;
 E.N.C. and R.B. wrote the paper.</p>
 </div>
 <div id="references" class="section level1 unnumbered">

@@ -80,17 +80,17 @@ dimensionality issue was articulated by Peacock [@Peacock1983] and later
 extended by Fasano and Franceschini [@Fasano1987].
 
 Currently, only the Peacock implementation of the 2-D two-sample KS test
-is available in [@R] with the package via the function, but this has
+is available in **R** [@R] with the `Peacock.test` package via the `peacock2()` function, but this has
 been shown to be markedly slower than the Fasano and Franceschini
-algorithm [@Lopes2007]. A implementation of the Fasano--Franceschini
+algorithm [@Lopes2007]. A **C** implementation of the Fasano--Franceschini
 test is available in [@numericalRecipes]; however, arguments have been
 made to the validity of the implementation of the test not being
-distribution-free [@Babu2006]. Furthermore, in the implementation,
+distribution-free [@Babu2006]. Furthermore, in the **C** implementation,
 statistical testing is based on a fit to Monte Carlo simulation that is
 only valid for significance levels $\alpha \lessapprox 0.20$.
 
-Here we present the package as an implementation of the 2-D two-sample
-KS test described by Fasano and Franceschini [@Fasano1987]. The package
+Here we present the `fasano.franceschini.test` package as an **R** implementation of the 2-D two-sample
+KS test described by Fasano and Franceschini [@Fasano1987]. The `fasano.franceschini.test` package
 provides two improvements over the current 2-D KS test available on the
 Comprehensive Archive Network (CRAN): (i) the Fasano and Franceschini
 test has been shown to run in $O(n^2)$ versus the Peacock implementation
@@ -341,14 +341,14 @@ unfeasible at scale. Today, modern computers can rapidly compute a
 bootstrapped null distribution of $D_{FF}$ from the data to test
 significance.
 
-The R package implements a parallelized bootstrapping procedure. The
+The `fasano.franceschini.test` **R** package implements a parallelized bootstrapping procedure. The
 marginal distribution from 2-dimensional data set is resampled with
 replacement to generate randomized 2-dimensional data sets times. The
 frequency count by quadrant is performed for each bootstrapped
 resampling as described above to compute the $D_{FF}$. The observed
 $D_{FF}$ is then compared to the distribution of bootstrapped $D_{FF}$
 to compute a $p$ value. The bootstrapped version of the
-Fasano--Franceschini test can be run as follows (see for further source
+Fasano--Franceschini test can be run as follows (see `fasano.franceschini.test()` for further source
 code details and implementation).
 
 ```{r}
@@ -390,7 +390,7 @@ of 10 benchmark runs. Note the logarithmic $y$-axis in
 </center>
 
 To assess the computational efficiency, we benchmarked the package as
-follows. Using the package to evaluate runtime, the Fasano--Franceschini
+follows. Using the `rbenchmark` package to evaluate runtime, the Fasano--Franceschini
 test and Peacock test were run under four different samples sizes
 ($n=10, 100, 1000, 5000$), with 10 replicates for each run. The
 Fasano--Franceschini test bootstrap procedure was further evaluated
@@ -405,7 +405,7 @@ is in computational efficiency, with Fasano--Franceschini scaling as
 $O(n^2)$ relative to Peacock's complexity of $O(n^3)$ [@Lopes2007]. Our
 benchmarks also show this advantage, as shown in **Figure
 [4](#fig:bmark){reference-type="ref" reference="fig:bmark"}A**. While
-the implentation of the bootstrapping procedure increases runtime in
+the implementation of the bootstrapping procedure increases runtime in
 comparison to the approximate fit from @numericalRecipes,
 parallelization of the Fasano--Franceschini test shows a four-fold
 reduction in run time when parallelized across 8 cores (**Figure
@@ -413,18 +413,18 @@ reduction in run time when parallelized across 8 cores (**Figure
 
 # Summary and discussion {#sec:summary}
 
-The package is an implementation of the 2-D two-sample KS test as
+The `fasano.franceschini.test` package is an **R** implementation of the 2-D two-sample KS test as
 defined by Fasano and Franceschini [@Fasano1987]. It improves upon
 existing packages by implementing a fast algorithm and a parallelized
 bootstrapping procedure for improved statistical testing. Complete
 package documentation and source code is available via the Comprehensive
-Archive Network (CRAN) at <https://CRAN.R-project.org/> and the package
+**R** Archive Network (CRAN) at <https://CRAN.R-project.org/> and the package
 website at <https://nesscoder.github.io/fasano.franceschini.test/>.
 
 # Computational details {#computational-details .unnumbered}
 
-The results in this paper were obtained using 4.0.3 with the 1.0.0
-package. itself and all package dependencies (4.0.3; 4.0.3) are
+The results in this paper were obtained using **R** 4.0.3 with the fasano.franceschini.test 1.0.0
+package. **R** itself and all package dependencies (methods 4.0.3; parallel 4.0.3) are
 available from the Comprehensive Archive Network (CRAN) at
 <https://CRAN.R-project.org/>.
 
@@ -438,7 +438,7 @@ Science Foundation (1764421). The content is solely the responsibility
 of the authors and does not necessarily represent the official views of
 the National Science Foundation and Simons Foundation.
 
-E.N.C developed the package and produced the tutorials/documentation;
+E.N.C developed the `fasano.franceschini.test` package and produced the tutorials/documentation;
 E.N.C. and R.B. wrote the paper.
 
 # References
