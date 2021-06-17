@@ -1,6 +1,6 @@
 Package: fasano.franceschini.test
 Title: Fasano--Franceschini Test: An Implementation of a 2-Dimensional Kolmogorov--Smirnov in R
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: 
     c(person(given = "Elan",
            family = "Ness-Cohn",
