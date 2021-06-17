@@ -7,7 +7,7 @@
 ksCDF(lambda)
 }
 \arguments{
-\item{lambda}{}
+\item{lambda}{a \code{numeric} defining the difference in cumulative distribution function between two data sets}
 }
 \value{
 a \code{numeric} defining the p-value of observing the given 2-D KS stat

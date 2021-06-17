@@ -7,11 +7,11 @@
 getDstat(originSamples, S1, S2, cores = 1)
 }
 \arguments{
-\item{originSamples}{a \link{n by 2} \code{data.frame} of x and y coordinates that defines the origins data points.}
+\item{originSamples}{a \verb{[n by 2]} \code{data.frame} of x and y coordinates that defines the origins data points.}
 
-\item{S1}{a \link{n by 2} \code{data.frame} of x and y coordinates of sample 1}
+\item{S1}{a \verb{[n by 2]} \code{data.frame} of x and y coordinates of sample 1}
 
-\item{S2}{a \link{n by 2} \code{data.frame} of x and y coordinates of sample 2}
+\item{S2}{a \verb{[n by 2]} \code{data.frame} of x and y coordinates of sample 2}
 
 \item{cores}{a \code{numeric} defining the number of cores to use of processing}
 }
