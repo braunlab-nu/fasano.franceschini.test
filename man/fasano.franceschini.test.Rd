@@ -7,9 +7,9 @@
 fasano.franceschini.test(S1, S2, nBootstrap = 0, cores = 2)
 }
 \arguments{
-\item{S1}{a \link{n by 2} \code{data.frame} of x and y coordinates of sample 1}
+\item{S1}{a \verb{[n by 2]} \code{data.frame} of x and y coordinates of sample 1}
 
-\item{S2}{a \link{n by 2} \code{data.frame} of x and y coordinates of sample 2}
+\item{S2}{a \verb{[n by 2]} \code{data.frame} of x and y coordinates of sample 2}
 
 \item{nBootstrap}{a \code{numeric} defining the number of bootstrapped samples to be generated for computing the empirical p-value (note this procedure is slow and computationally expensive on the order of nBootStrap*O(n^2). Default is set to 0.
 If nBootstrap is 0, the Fasano Franceschini distributional approximation is used for defining the p-value. See Fasano and Franceschini test (1987) for details.}
@@ -51,8 +51,8 @@ fasano.franceschini.test(sample1Data,sample2Data)
 \references{
 {
 \itemize{
-\item{Fasano, G., Franceschini, A. (1987)\url{DOI:10.1093/mnras/225.1.155}. A multidimensional version of the Kolmogorov-Smirnov test. Monthly Notices of the Royal Astronomical Society 225:155-170.}
-\item{Peacock J.A. (1983) \url{DOI:10.1093/mnras/202.3.615}. Two-dimensional goodness-of-fit testing in astronomy. Monthly Notices of the Royal Astronomical Society 202:615-627.}
+\item{Fasano, G., Franceschini, A. (1987) \doi{10.1093/mnras/225.1.155}. A multidimensional version of the Kolmogorov-Smirnov test. Monthly Notices of the Royal Astronomical Society 225:155-170.}
+\item{Peacock J.A. (1983) \doi{10.1093/mnras/202.3.615}. Two-dimensional goodness-of-fit testing in astronomy. Monthly Notices of the Royal Astronomical Society 202:615-627.}
 \item{Press, W. H., Teukolsky, S. A., Vetterling, W. T.,, Flannery, B. P. (2007). Numerical Recipes 3rd Edition: The Art of Scientific Computing. Cambridge University Press. ISBN: 0521880688}
 }
 }

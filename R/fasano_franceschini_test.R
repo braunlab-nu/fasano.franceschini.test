@@ -14,8 +14,8 @@
 #'
 #' @references{
 #' \itemize{
-#' \item{Fasano, G., Franceschini, A. (1987)<DOI:10.1093/mnras/225.1.155>. A multidimensional version of the Kolmogorov-Smirnov test. Monthly Notices of the Royal Astronomical Society 225:155-170.}
-#' \item{Peacock J.A. (1983) <DOI:10.1093/mnras/202.3.615>. Two-dimensional goodness-of-fit testing in astronomy. Monthly Notices of the Royal Astronomical Society 202:615-627.}
+#' \item{Fasano, G., Franceschini, A. (1987) \doi{10.1093/mnras/225.1.155}. A multidimensional version of the Kolmogorov-Smirnov test. Monthly Notices of the Royal Astronomical Society 225:155-170.}
+#' \item{Peacock J.A. (1983) \doi{10.1093/mnras/202.3.615}. Two-dimensional goodness-of-fit testing in astronomy. Monthly Notices of the Royal Astronomical Society 202:615-627.}
 #' \item{Press, W. H., Teukolsky, S. A., Vetterling, W. T.,, Flannery, B. P. (2007). Numerical Recipes 3rd Edition: The Art of Scientific Computing. Cambridge University Press. ISBN: 0521880688}
 #' }
 #' }
