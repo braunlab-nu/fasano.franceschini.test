@@ -58,7 +58,7 @@ $O(n^3)$; (ii) the package implements a procedure for handling ties in
 the data; and (iii) the package implements a parallelized
 bootstrapping procedure for improved significance testing. Ultimately,
 the \pkg{fasano.franceschini.test} package presents a robust
-statistical test for analysing random samples defined in 2-dimensions.
+statistical test for analyzing random samples defined in 2-dimensions.
 }
 
 %% - \Keywords{} with LaTeX markup, at least one required
@@ -246,7 +246,7 @@ cumulative distribution functions. That is, rather than looking over all $n^2$ p
 ${(X_i, Y_j): i,j \in [1,n]}$, Fasano and Franceschini only use the observed $n$ points
 ${(X_i, Y_i): i \in [1,n]}$.
 Thus for any given $n$ points in a two-dimensional space, those $n$ points define $4n$ (rather than
-$4n^2$) quadrants.  The proceedure is illustrated in \textbf{Figure~\ref{fig:kstest2D}}.
+$4n^2$) quadrants.  The procedure is illustrated in \textbf{Figure~\ref{fig:kstest2D}}.
 The algorithm loops through each point in one sample in turn to define
 the origin of 4 quadrants (grey dotted lines in
 \textbf{Figure~\ref{fig:kstest2D}}). The fraction of points in each
@@ -442,7 +442,7 @@ To assess the computational efficiency, we benchmarked the package as follows.
 Using the \pkg{rbenchmark} package to evaluate runtime, the Fasano--Franceschini
 test and Peacock test were run under four different samples sizes
 ($n=10, 100, 1000, 5000$), with 10 replicates for each run. The
-Fasano--Franceschini test bootstrap precedure was further evaluated
+Fasano--Franceschini test bootstrap procedure was further evaluated
 under four different bootstrap iterations (no bootstrap, 10, 100, 1000),
 again using 10 replicates for each run. Reported results represent the
 average run time of the 10 replicate benchmarks. All benchmark tests were run on a 2018 macBook
@@ -452,7 +452,7 @@ The main distinction between the Peacock and Fasano--Franceschini
 tests is in computational efficiency, with  Fasano--Franceschini
 scaling as $O(n^2)$ relative to Peacock's complexity of  $O(n^3)$
 \citep{Lopes2007}.  Our benchmarks also show this advantage, as shown
-in \textbf{Figure~\ref{fig:bmark}A}.  While the implentation of the
+in \textbf{Figure~\ref{fig:bmark}A}.  While the implementation of the
 bootstrapping procedure increases runtime in comparison to the
 approximate fit from  \citet{numericalRecipes}, parallelization of the
 Fasano--Franceschini test shows a four-fold reduction in run time when
