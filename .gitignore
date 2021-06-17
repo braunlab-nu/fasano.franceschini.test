@@ -16,7 +16,10 @@
 *.pdf
 *.Rdata
 *.csv
-*.txt
+*.tpt
+**/.*
+!**/.gitignore
 docs
 .Rproj.user
 inst/doc
+
