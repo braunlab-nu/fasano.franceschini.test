@@ -1,5 +1,5 @@
 Package: fasano.franceschini.test
-Title: Fasano--Franceschini Test: an Implementation of a 2-Dimensional Kolmogorov--Smirnov in R
+Title: Fasano--Franceschini Test: An Implementation of a 2-Dimensional Kolmogorov--Smirnov in R
 Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Elan",
@@ -12,7 +12,7 @@ Authors@R:
 		email = "rbraun@northwestern.edu",
 		role = c("ctb","ths"),
 		comment = c(ORCID = "0000-0001-9668-9866")))
-Description: What the package does (one paragraph).
+Description: The `fasano.franceschini.test` package is an R implementation of the 2-D KS two–sample test as defined by Fasano and Franceschini (Fasano and Franceschini 1987). The `fasano.franceschini.test` package provides three improvements over the current 2-D KS test on the Comprehensive R Archive Network (CRAN): (i) the Fasano and Franceschini test has been shown to run in O(n^2) versus the Peacock implementation which runs in O(n^3); (ii) the package implements a procedure for handling ties in the data; and (iii) the package implements a parallelized bootstrapping procedure for improved significance testing. Ultimately, the fasano.franceschini.test package presents a robust statistical test for analyzing random samples defined in 2-dimensions.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -26,6 +26,7 @@ Suggests:
     tidyverse,
     knitr,
     rmarkdown,
+    bookdown,
     testthat (>= 3.0.0)
 URL: https://github.com/nesscoder/fasano.franceschini.test
 BugReports: https://github.com/nesscoder/fasano.franceschini.test/issues
