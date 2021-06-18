@@ -13,22 +13,23 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Fasano Franceschini Test
+# Fasano-Franceschini Test
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The fasano.franceschini.test package is an R implementation of the 2-D Kolmogorov-Smirnov (**KS**) two-sample test as defined by Fasano and Franceschini (1987). This is a variant of the 2-D two-sample KS test as originally defined by Peacock (1983).
+The `fasano.franceschini.test` package is an R implementation of the 2-D Kolmogorov-Smirnov (**KS**) two-sample test as defined by Fasano and Franceschini (1987). This is a variant of the 2-D two-sample KS test as originally defined by Peacock (1983).
 
 ## Installation
 
-You can install the released version of fasano.franceschini.test from [CRAN](https://CRAN.R-project.org) with:
+<!-- You can install the released version of the `fasano.franceschini.test` package from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("fasano.franceschini.test")
 ```
 
-And the development version from [GitHub](https://github.com/) with:
+And the --> 
+You can install the development version of the `fasano.franceschini.test` package from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")

@@ -1,26 +1,29 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Fasano Franceschini Test
+# Fasano-Franceschini Test
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The fasano.franceschini.test package is an R implementation of the 2-D
+The `fasano.franceschini.test` package is an R implementation of the 2-D
 Kolmogorov-Smirnov (**KS**) two-sample test as defined by Fasano and
 Franceschini (1987). This is a variant of the 2-D two-sample KS test as
 originally defined by Peacock (1983).
 
 ## Installation
 
-<!-- You can install the released version of fasano.franceschini.test from
-[CRAN](https://CRAN.R-project.org) with: -->
+<!-- You can install the released version of the `fasano.franceschini.test` package from [CRAN](https://CRAN.R-project.org) with:
 
-<!--``` r
+``` r
 install.packages("fasano.franceschini.test")
-```-->
+```
 
-You can install the development version from [GitHub](https://github.com/) with:
+And the -->
+
+You can install the development version of the
+`fasano.franceschini.test` package from [GitHub](https://github.com/)
+with:
 
 ``` r
 # install.packages("devtools")
@@ -54,7 +57,7 @@ fasano.franceschini.test(sample1Data,sample2Data)
 #> Fasano Franceschini Test (1987)
 #> Data:  sample1Data and sample2Data 
 #> D-stat =  0.3 , p-value =  0.002057127 
-#> Run Time (s) =  0.05114412
+#> Run Time (s) =  0.04498005
 ```
 
 #### Underlying Distributions Are The Same
@@ -80,5 +83,5 @@ fasano.franceschini.test(sample1Data,sample2Data)
 #> Fasano Franceschini Test (1987)
 #> Data:  sample1Data and sample2Data 
 #> D-stat =  0.14 , p-value =  0.4420642 
-#> Run Time (s) =  0.07112908
+#> Run Time (s) =  0.08035922
 ```
