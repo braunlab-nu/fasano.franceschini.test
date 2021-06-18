@@ -47,12 +47,12 @@ set.seed(123)
 
 #create 2-D samples with the different underlying distributions
 sample1Data <- data.frame(
-  x = rnorm(n = 100, mean = 0, sd = 3),
-  y = rnorm(n = 100, mean = 0, sd = 1)
+  x = rnorm(n = 50, mean = 0, sd = 3),
+  y = rnorm(n = 50, mean = 0, sd = 1)
 )
 sample2Data <- data.frame(
-  x = rnorm(n = 100, mean = 0, sd = 1),
-  y = rnorm(n = 100, mean = 0, sd = 3)
+  x = rnorm(n = 50, mean = 0, sd = 1),
+  y = rnorm(n = 50, mean = 0, sd = 3)
 )
 
 fasano.franceschini.test(sample1Data,sample2Data)
@@ -66,12 +66,12 @@ set.seed(123)
 
 #create 2-D samples with the same underlying distributions
 sample1Data <- data.frame(
-  x = rnorm(n = 100, mean = 0, sd = 1),
-  y = rnorm(n = 100, mean = 0, sd = 1)
+  x = rnorm(n = 50, mean = 0, sd = 1),
+  y = rnorm(n = 50, mean = 0, sd = 1)
 )
 sample2Data <- data.frame(
-  x = rnorm(n = 100, mean = 0, sd = 1),
-  y = rnorm(n = 100, mean = 0, sd = 1)
+  x = rnorm(n = 50, mean = 0, sd = 1),
+  y = rnorm(n = 50, mean = 0, sd = 1)
 )
 
 fasano.franceschini.test(sample1Data,sample2Data)
