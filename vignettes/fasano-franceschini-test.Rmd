@@ -1,7 +1,7 @@
 ---
-title: "Fasano–Franceschini Test: an Implementation of a 2-Dimensional Kolmogorov–Smirnov test in R"
+title: "Fasano-Franceschini Test: an Implementation of a 2-Dimensional Kolmogorov-Smirnov test in R"
 vignette: >
-  %\VignetteIndexEntry{Fasano–Franceschini Test: an Implementation of a 2-Dimensional Kolmogorov–Smirnov test in R}
+  %\VignetteIndexEntry{Fasano-Franceschini Test: an Implementation of a 2-Dimensional Kolmogorov-Smirnov test in R}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 output: 
