@@ -4,7 +4,7 @@
 \alias{fasano.franceschini.test}
 \title{Fasano Franceschini Test}
 \usage{
-fasano.franceschini.test(S1, S2, nBootstrap = 0, cores = 2)
+fasano.franceschini.test(S1, S2, nBootstrap = 0, cores = 1)
 }
 \arguments{
 \item{S1}{a \verb{[n by 2]} \code{data.frame} of x and y coordinates of sample 1}
@@ -31,10 +31,10 @@ Code adapted from Press, W. H., Teukolsky, S. A., Vetterling, W. T.,, Flannery, 
 set.seed(123)
 
 #create 2-D samples with different underlying distributions
-sample1Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 3), y = rnorm(n = 100,mean = 0, sd = 1))
-sample2Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1), y = rnorm(n = 100,mean = 0, sd = 3))
+sample1Data <- data.frame(x = rnorm(n = 10,mean = 0, sd = 3), y = rnorm(n = 10,mean = 0, sd = 1))
+sample2Data <- data.frame(x = rnorm(n = 10,mean = 0, sd = 1), y = rnorm(n = 10,mean = 0, sd = 3))
 
-fasano.franceschini.test(sample1Data,sample2Data)
+fasano.franceschini.test(S1 = sample1Data, S2 = sample2Data)
 
 
 #Underlying distributions are the same
@@ -42,10 +42,10 @@ fasano.franceschini.test(sample1Data,sample2Data)
 set.seed(123)
 
 #create 2-D samples with the same underlying distributions
-sample1Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1), y = rnorm(n = 100,mean = 0, sd = 1))
-sample2Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1), y = rnorm(n = 100,mean = 0, sd = 1))
+sample1Data <- data.frame(x = rnorm(n = 10,mean = 0, sd = 1), y = rnorm(n = 10,mean = 0, sd = 1))
+sample2Data <- data.frame(x = rnorm(n = 10,mean = 0, sd = 1), y = rnorm(n = 10,mean = 0, sd = 1))
 
-fasano.franceschini.test(sample1Data,sample2Data)
+fasano.franceschini.test(S1 = sample1Data, S2 = sample2Data)
 
 }
 \references{

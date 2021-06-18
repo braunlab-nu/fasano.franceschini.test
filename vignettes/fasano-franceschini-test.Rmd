@@ -313,15 +313,15 @@ set.seed(123)
 
 #create 2-D samples with the same underlying distributions
 sample1Data <- data.frame(
-  x = rnorm(n = 100, mean = 0, sd = 1),
-  y = rnorm(n = 100, mean = 0, sd = 1)
+  x = rnorm(n = 10, mean = 0, sd = 1),
+  y = rnorm(n = 10, mean = 0, sd = 1)
 )
 sample2Data <- data.frame(
-  x = rnorm(n = 100, mean = 0, sd = 1),
-  y = rnorm(n = 100, mean = 0, sd = 1)
+  x = rnorm(n = 10, mean = 0, sd = 1),
+  y = rnorm(n = 10, mean = 0, sd = 1)
 )
 
-fasano.franceschini.test(sample1Data,sample2Data)
+fasano.franceschini.test(S1 = sample1Data, S2 = sample2Data)
 ```
 
 ## Bootstrap version of the Fasano--Franceschini test
@@ -343,7 +343,7 @@ significance.
 
 The `fasano.franceschini.test` **R** package implements a parallelized bootstrapping procedure. The
 marginal distribution from 2-dimensional data set is resampled with
-replacement to generate randomized 2-dimensional data sets times. The
+replacement to generate randomized 2-dimensional data sets `nBootStrap` times. The
 frequency count by quadrant is performed for each bootstrapped
 resampling as described above to compute the $D_{FF}$. The observed
 $D_{FF}$ is then compared to the distribution of bootstrapped $D_{FF}$
@@ -357,20 +357,20 @@ set.seed(123)
 
 #create 2-D samples with the same underlying distributions
 sample1Data <- data.frame(
-  x = rnorm(n = 100, mean = 0, sd = 1),
-  y = rnorm(n = 100, mean = 0, sd = 1)
+  x = rnorm(n = 10, mean = 0, sd = 1),
+  y = rnorm(n = 10, mean = 0, sd = 1)
 )
 sample2Data <- data.frame(
-  x = rnorm(n = 100, mean = 0, sd = 1),
-  y = rnorm(n = 100, mean = 0, sd = 1)
+  x = rnorm(n = 10, mean = 0, sd = 1),
+  y = rnorm(n = 10, mean = 0, sd = 1)
 )
 
-fasano.franceschini.test(S1 = sample1Data, S2 = sample2Data, nBootstrap = 1000, cores = 2)
+fasano.franceschini.test(S1 = sample1Data, S2 = sample2Data, nBootstrap = 10, cores = 1)
 
 ```
 
-To improve run time, one may adjust the parameter; see the R package and
-the function for further details.
+To improve run time, one may adjust the `cores` parameter; see the R `parallel` package and
+`mcapply()` the function for further details.
 
 ## Computational efficency
 

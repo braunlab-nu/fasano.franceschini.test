@@ -26,10 +26,10 @@
 #' set.seed(123)
 #'
 #' #create 2-D samples with different underlying distributions
-#' sample1Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 3), y = rnorm(n = 100,mean = 0, sd = 1))
-#' sample2Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1), y = rnorm(n = 100,mean = 0, sd = 3))
+#' sample1Data <- data.frame(x = rnorm(n = 10,mean = 0, sd = 3), y = rnorm(n = 10,mean = 0, sd = 1))
+#' sample2Data <- data.frame(x = rnorm(n = 10,mean = 0, sd = 1), y = rnorm(n = 10,mean = 0, sd = 3))
 #'
-#' fasano.franceschini.test(sample1Data,sample2Data)
+#' fasano.franceschini.test(S1 = sample1Data, S2 = sample2Data)
 #'
 #'
 #' #Underlying distributions are the same
@@ -37,15 +37,15 @@
 #' set.seed(123)
 #'
 #' #create 2-D samples with the same underlying distributions
-#' sample1Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1), y = rnorm(n = 100,mean = 0, sd = 1))
-#' sample2Data <- data.frame(x = rnorm(n = 100,mean = 0, sd = 1), y = rnorm(n = 100,mean = 0, sd = 1))
+#' sample1Data <- data.frame(x = rnorm(n = 10,mean = 0, sd = 1), y = rnorm(n = 10,mean = 0, sd = 1))
+#' sample2Data <- data.frame(x = rnorm(n = 10,mean = 0, sd = 1), y = rnorm(n = 10,mean = 0, sd = 1))
 #'
-#' fasano.franceschini.test(sample1Data,sample2Data)
+#' fasano.franceschini.test(S1 = sample1Data, S2 = sample2Data)
 #'
 #' @import methods
 #' @export
 
-fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 2) {
+fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 1) {
 
   #validate inputs
   if(!is.data.frame(S1) | !is.data.frame(S2)){
@@ -58,15 +58,12 @@ fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 2) {
     stop("nBootstrap must be a positive value")
   }
 
-  #cores can't be more than on computer
-
 
   start <- Sys.time()
   # determine number of samples in each data set
   n1 <- dim(S1)[1]
   n2 <- dim(S2)[1]
 
-  # is there a better way to do the S1 from outer to inner function?
   # determine max difference assuming first sample as origins
   d1 <- getDstat(originSamples = S1, S1 = S1, S2 = S2, cores = cores)
   # determine max difference assuming second sample as origins
