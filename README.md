@@ -13,14 +13,14 @@ originally defined by Peacock (1983).
 
 ## Installation
 
-You can install the released version of fasano.franceschini.test from
-[CRAN](https://CRAN.R-project.org) with:
+<!-- You can install the released version of fasano.franceschini.test from
+[CRAN](https://CRAN.R-project.org) with: -->
 
-``` r
+<!--``` r
 install.packages("fasano.franceschini.test")
-```
+```-->
 
-And the development version from [GitHub](https://github.com/) with:
+You can install the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
