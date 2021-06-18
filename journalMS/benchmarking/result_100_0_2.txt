@@ -1,2 +1,0 @@
-"N"	"boots"	"cores"	"method"	"time"
-100	0	2	"fasano"	0.39
