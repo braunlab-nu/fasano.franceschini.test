@@ -342,22 +342,22 @@ the same correlation coefficient <span class="citation">(<a href="#ref-Fasano198
 
 <span class="co">#create 2-D samples with the same underlying distributions</span>
 <span class="va">sample1Data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
+  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="va">sample2Data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
+  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="op">)</span>
 
-<span class="fu"><a href="../reference/fasano.franceschini.test.html">fasano.franceschini.test</a></span><span class="op">(</span><span class="va">sample1Data</span>,<span class="va">sample2Data</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/fasano.franceschini.test.html">fasano.franceschini.test</a></span><span class="op">(</span>S1 <span class="op">=</span> <span class="va">sample1Data</span>, S2 <span class="op">=</span> <span class="va">sample2Data</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ##      2-D Two-sample Kolmogorov-Smirnov Test
 ## 
 ## Fasano Franceschini Test (1987)
 ## Data:  sample1Data and sample2Data 
-## D-stat =  0.14 , p-value =  0.4420642 
-## Run Time (s) =  0.04804301</code></pre>
+## D-stat =  0.4 , p-value =  0.30915 
+## Run Time (s) =  0.008414984</code></pre>
 </div>
 <div id="bootstrap-version-of-the-fasanofranceschini-test" class="section level2">
 <h2 class="hasAnchor">
@@ -378,7 +378,7 @@ bootstrapped null distribution of <span class="math inline">\(D_{FF}\)</span> fr
 significance.</p>
 <p>The <code>fasano.franceschini.test</code> <strong>R</strong> package implements a parallelized bootstrapping procedure. The
 marginal distribution from 2-dimensional data set is resampled with
-replacement to generate randomized 2-dimensional data sets times. The
+replacement to generate randomized 2-dimensional data sets <code>nBootStrap</code> times. The
 frequency count by quadrant is performed for each bootstrapped
 resampling as described above to compute the <span class="math inline">\(D_{FF}\)</span>. The observed
 <span class="math inline">\(D_{FF}\)</span> is then compared to the distribution of bootstrapped <span class="math inline">\(D_{FF}\)</span>
@@ -391,24 +391,24 @@ code details and implementation).</p>
 
 <span class="co">#create 2-D samples with the same underlying distributions</span>
 <span class="va">sample1Data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
+  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="va">sample2Data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
+  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="op">)</span>
 
-<span class="fu"><a href="../reference/fasano.franceschini.test.html">fasano.franceschini.test</a></span><span class="op">(</span>S1 <span class="op">=</span> <span class="va">sample1Data</span>, S2 <span class="op">=</span> <span class="va">sample2Data</span>, nBootstrap <span class="op">=</span> <span class="fl">1000</span>, cores <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/fasano.franceschini.test.html">fasano.franceschini.test</a></span><span class="op">(</span>S1 <span class="op">=</span> <span class="va">sample1Data</span>, S2 <span class="op">=</span> <span class="va">sample2Data</span>, nBootstrap <span class="op">=</span> <span class="fl">10</span>, cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ##      2-D Two-sample Kolmogorov-Smirnov Test
 ## 
 ## Fasano Franceschini Test (1987)
 ## Data:  sample1Data and sample2Data 
-## D-stat =  0.14 , p-value =  0.64 
-## Run Time (s) =  5.865291</code></pre>
-<p>To improve run time, one may adjust the parameter; see the R package and
-the function for further details.</p>
+## D-stat =  0.4 , p-value =  0.3 
+## Run Time (s) =  0.01514697</code></pre>
+<p>To improve run time, one may adjust the <code>cores</code> parameter; see the R <code>parallel</code> package and
+<code>mcapply()</code> the function for further details.</p>
 </div>
 <div id="computational-efficency" class="section level2">
 <h2 class="hasAnchor">
