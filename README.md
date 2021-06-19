@@ -1,9 +1,20 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+<img src="man/figures/logo.png" width="200" align="right"/>
+
 # Fasano-Franceschini Test
 
 <!-- badges: start -->
+<!-- [![](https://img.shields.io/badge/doi-10.1101/2020.11.19.389981-yellow.svg)](https://doi.org/10.1101/2020.11.19.389981) -->
+
+[![R build
+status](https://github.com/nesscoder/fasano.franceschini.test/workflows/R-CMD-check/badge.svg)](https://github.com/nesscoder/fasano.franceschini.test/actions)
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![](https://img.shields.io/badge/devel%20version-1.0.0-blue.svg)](https://github.com/nesscoder/fasano.franceschini.test)
+[![](https://img.shields.io/github/languages/code-size/nesscoder/fasano.franceschini.test.svg)](https://github.com/nesscoder/fasano.franceschini.test)
+
 <!-- badges: end -->
 
 The `fasano.franceschini.test` package is an R implementation of the 2-D
@@ -57,7 +68,7 @@ fasano.franceschini.test(sample1Data,sample2Data)
 #> Fasano Franceschini Test (1987)
 #> Data:  sample1Data and sample2Data 
 #> D-stat =  0.33 , p-value =  0.02221184 
-#> Run Time (s) =  0.02115011
+#> Run Time (s) =  0.01932788
 ```
 
 #### Underlying Distributions Are The Same
@@ -83,5 +94,5 @@ fasano.franceschini.test(sample1Data,sample2Data)
 #> Fasano Franceschini Test (1987)
 #> Data:  sample1Data and sample2Data 
 #> D-stat =  0.19 , p-value =  0.4448033 
-#> Run Time (s) =  0.008919954
+#> Run Time (s) =  0.008532047
 ```

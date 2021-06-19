@@ -8,14 +8,24 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-",
+  fig.path = "man/figures/",
   out.width = "100%"
 )
+library(badger)
 ```
+
+<img src="man/figures/logo.png" width="200" align="right"/>
 
 # Fasano-Franceschini Test
 
 <!-- badges: start -->
+
+<!-- `r badge_doi("10.1101/2020.11.19.389981", "yellow")` -->
+[![R build status](https://github.com/nesscoder/fasano.franceschini.test/workflows/R-CMD-check/badge.svg)](https://github.com/nesscoder/fasano.franceschini.test/actions)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+`r badge_devel("nesscoder/fasano.franceschini.test", "blue")`
+`r badge_code_size("nesscoder/fasano.franceschini.test")`
+
 <!-- badges: end -->
 
 The `fasano.franceschini.test` package is an R implementation of the 2-D Kolmogorov-Smirnov (**KS**) two-sample test as defined by Fasano and Franceschini (1987). This is a variant of the 2-D two-sample KS test as originally defined by Peacock (1983).
