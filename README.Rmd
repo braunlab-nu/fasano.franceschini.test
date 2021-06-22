@@ -20,7 +20,7 @@ library(badger)
 
 <!-- badges: start -->
 
-`badge_custom(x = "arXiv", y = "abs/2106.10539", color = "yellow", url = "https://arxiv.org/abs/2106.10539")` 
+`r badge_custom(x = "arXiv", y = "abs/2106.10539", color = "yellow", url = "https://arxiv.org/abs/2106.10539")` 
 [![R build status](https://github.com/nesscoder/fasano.franceschini.test/workflows/R-CMD-check/badge.svg)](https://github.com/nesscoder/fasano.franceschini.test/actions) 
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 `r badge_devel("nesscoder/fasano.franceschini.test", "blue")` 

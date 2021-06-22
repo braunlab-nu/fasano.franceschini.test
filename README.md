@@ -7,7 +7,7 @@
 
 <!-- badges: start -->
 
-`badge_custom(x = "arXiv", y = "abs/2106.10539", color = "yellow", url = "https://arxiv.org/abs/2106.10539")`
+[![](https://img.shields.io/badge/arXiv-abs/2106.10539-yellow.svg)](https://arxiv.org/abs/2106.10539)
 [![R build
 status](https://github.com/nesscoder/fasano.franceschini.test/workflows/R-CMD-check/badge.svg)](https://github.com/nesscoder/fasano.franceschini.test/actions)
 [![Lifecycle:
@@ -67,7 +67,7 @@ fasano.franceschini.test(sample1Data,sample2Data)
 #> Fasano Franceschini Test (1987)
 #> Data:  sample1Data and sample2Data 
 #> D-stat =  0.33 , p-value =  0.02221184 
-#> Run Time (s) =  0.02173805
+#> Run Time (s) =  0.02059388
 ```
 
 #### Underlying Distributions Are The Same
@@ -93,5 +93,5 @@ fasano.franceschini.test(sample1Data,sample2Data)
 #> Fasano Franceschini Test (1987)
 #> Data:  sample1Data and sample2Data 
 #> D-stat =  0.19 , p-value =  0.4448033 
-#> Run Time (s) =  0.0081141
+#> Run Time (s) =  0.008869886
 ```
