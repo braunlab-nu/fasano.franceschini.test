@@ -20,11 +20,12 @@ library(badger)
 
 <!-- badges: start -->
 
-<!-- `r badge_doi("10.1101/2020.11.19.389981", "yellow")` -->
-[![R build status](https://github.com/nesscoder/fasano.franceschini.test/workflows/R-CMD-check/badge.svg)](https://github.com/nesscoder/fasano.franceschini.test/actions)
-[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-`r badge_devel("nesscoder/fasano.franceschini.test", "blue")`
+`badge_custom(x = "arXiv", y = "abs/2106.10539", color = "yellow", url = "https://arxiv.org/abs/2106.10539")` 
+[![R build status](https://github.com/nesscoder/fasano.franceschini.test/workflows/R-CMD-check/badge.svg)](https://github.com/nesscoder/fasano.franceschini.test/actions) 
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+`r badge_devel("nesscoder/fasano.franceschini.test", "blue")` 
 `r badge_code_size("nesscoder/fasano.franceschini.test")`
+`r badge_cran_download("fasano.franceschini.test", "grand-total", "blue")`
 
 <!-- badges: end -->
 
@@ -32,19 +33,19 @@ The `fasano.franceschini.test` package is an R implementation of the 2-D Kolmogo
 
 ## Installation
 
-<!-- You can install the released version of the `fasano.franceschini.test` package from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of the `fasano.franceschini.test` package from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("fasano.franceschini.test")
 ```
 
-And the --> 
-You can install the development version of the `fasano.franceschini.test` package from [GitHub](https://github.com/) with:
+And the development version of the `fasano.franceschini.test` package from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("nesscoder/fasano.franceschini.test")
 ```
+
 ## Example
 
 #### Underlying Distributions Are Different
