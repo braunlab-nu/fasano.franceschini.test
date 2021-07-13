@@ -35,8 +35,10 @@ test_that("FF test computes with bootstrap", {
   set.seed(123)
 
   output <- fasano.franceschini.test(S1 = S1, S2 = S2, nBootstrap = 1000, cores = 1)
-  expect_equal(output$pval, 0.001)
-  expect_equal(output$D, 0.525)
+  expect_equal(unname(output$p.value), 0.000999001)
+  expect_named(output$p.value, "p-value")
+  expect_equal(unname(output$statistic), 0.525)
+  expect_named(output$statistic, "D-stat")
 })
 
 
@@ -58,6 +60,9 @@ test_that("FF test computes with Press and Teukolsky model fit", {
   set.seed(123)
 
   output <- fasano.franceschini.test(S1 = S1, S2 = S2, cores = 1)
-  expect_equal(output$pval, 0.02138126793)
-  expect_equal(output$D, 0.525)
+  expect_equal(unname(output$p.value), 0.0213812679306983)
+  expect_named(output$p.value, "p-value")
+  expect_equal(unname(output$statistic), 0.525)
+  expect_named(output$statistic, "D-stat")
+
 })

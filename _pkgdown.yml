@@ -11,8 +11,3 @@ reference:
 - title: "Main Test Function"
 - contents:
   - fasano.franceschini.test
-- title: "Internal Helper Functions"
-- contents:
-  - getDstat
-  - ksCDF
-  - quadCount

@@ -58,8 +58,9 @@ fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 1) {
     stop("nBootstrap must be a positive value")
   }
 
+  #grab names of samples for output
+  dname <- paste(deparse(substitute(S1)), "and" ,deparse(substitute(S2)))
 
-  start <- Sys.time()
   # determine number of samples in each data set
   n1 <- dim(S1)[1]
   n2 <- dim(S2)[1]
@@ -69,8 +70,12 @@ fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 1) {
   # determine max difference assuming second sample as origins
   d2 <- getDstat(originSamples = S2, S1 = S1, S2 = S2, cores = cores)
 
+  estimate <- c(d1,d2)
+  names(estimate) <- c("dff,1", "dff,2")
   # average KS stat
   D <- (d1 + d2) / 2
+  names(D) <- "D-stat"
+
 
   # if bootstrap is enabled, compute the bootstrapped null d
   if (nBootstrap > 0) {
@@ -90,14 +95,20 @@ fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 1) {
     })
 
     # count the number of bootstrapped d stats that are larger than the observed
-    pval <- (sum(unlist(d) > D) + 1) / nBootstrap
+    pval <- (sum(unlist(d) > D) + 1) / (nBootstrap + 1)
+    names(pval) <- "p-value"
 
-    new("Fasano Franceschini Test",
-        list(D = D,
-             pval = pval,
-             time = Sys.time() - start,
-             S1 = deparse(substitute(S1)),
-             S2 = deparse(substitute(S2))))
+    result <- list(statistic = D,
+                   parameters = NULL,
+                   p.value = pval,
+                   conf.int = NULL,
+                   estimate = estimate,
+                   null.value = NULL,
+                   alternative = NULL,
+                   method = "Fasano-Francheschini Test",
+                   data.name = dname)
+    class(result) <- "htest"
+    return(result)
   } else {
     # Use the fasano.franceschini distributional approximation
     # average Rsquared
@@ -109,24 +120,18 @@ fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 1) {
     n <- n1 * n2 / (n1 + n2)
     lambda <- sqrt(n) * D / (1 + sqrt(1 - rr) * (0.25 - 0.75 / sqrt(n)))
     pval <- ksCDF(lambda)
-    new("Fasano Franceschini Test",
-        list(D = D,
-             pval = pval,
-             time = Sys.time() - start,
-             S1 = deparse(substitute(S1)),
-             S2 = deparse(substitute(S2))))
+    names(pval) <- "p-value"
+
+    result <- list(statistic = D,
+                   parameters = NULL,
+                   p.value = pval,
+                   conf.int = NULL,
+                   estimate = estimate,
+                   null.value = NULL,
+                   alternative = NULL,
+                   method = "Fasano-Franceschini Test (1987)",
+                   data.name = dname)
+    class(result) <- "htest"
+    return(result)
   }
 }
-
-methods::setClass( "Fasano Franceschini Test", representation("list"))
-
-
-methods::setMethod("show", "Fasano Franceschini Test", function(object) {
-  cat("\n")
-  cat("\t\t2-D Two-sample Kolmogorov-Smirnov Test\n")
-  cat("\n")
-  cat("Fasano Franceschini Test (1987)\n")
-  cat("Data: ", object$S1, "and", object$S2,"\n")
-  cat("D-stat = ", object$D,", p-value = ", object$pval,"\n")
-  cat("Run Time (s) = ", object$time,"\n")
-})

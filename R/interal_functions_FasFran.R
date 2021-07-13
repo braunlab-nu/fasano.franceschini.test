@@ -11,7 +11,6 @@
 #' @param y a `vector` of `numeric` y coordinates
 #'
 #' @return a `vector` of frequencies of the number of points in each of the four quadrants defined by the origin point
-#' @export
 #'
 #'
 #'
@@ -21,14 +20,23 @@ quadCount <- function(x_origin, y_origin, x, y) {
   n <- length(x)
 
   # sum number of points in each quadrant (counter clockwise from 1 to 4)
-  nq1 <- sum(y > y_origin & x > x_origin)
-  nq2 <- sum(y > y_origin & x < x_origin)
-  nq4 <- sum(y < y_origin & x > x_origin)
-  nq3 <- sum(y < y_origin & x < x_origin)
+  # sign(x - x_origin)
+  # sign(y - y_origin)
+  yGreater <- y > y_origin
+  xGreater <- x > x_origin
+  yLess <- y < y_origin
+  xLess <- x < x_origin
+  xequals <- x == x_origin
+  yequals <- y == y_origin
+
+  nq1 <- sum(yGreater & xGreater)
+  nq2 <- sum(yGreater & xLess)
+  nq4 <- sum(yLess & xGreater)
+  nq3 <- sum(yLess & xLess)
 
   #origin point is divided equally across the four quadrants
   #as well as any other point they may be tied with the origin
-  origin <- 0.25*sum(x == x_origin & y == y_origin)
+  origin <- 0.25*sum(xequals & yequals)
   nq1 <- nq1 + origin
   nq2 <- nq2 + origin
   nq3 <- nq3 + origin
@@ -37,13 +45,13 @@ quadCount <- function(x_origin, y_origin, x, y) {
   #if there are any ties that are NOT the origin
   #i.e. a point is exactly on the line between two quadrants
   #split the point count equally between the quadrants
-  if(any(xor(x == x_origin, y == y_origin))){
+  if(any(xor(xequals, yequals))){
     #add warning message
-    yties_12 <- sum(y > y_origin & x == x_origin)
-    yties_34 <- sum(y < y_origin & x == x_origin)
+    yties_12 <- sum(yGreater & xequals)
+    yties_34 <- sum(yLess & xequals)
 
-    xties_14 <- sum(y == y_origin & x > x_origin)
-    xties_23 <- sum(y == y_origin & x < x_origin)
+    xties_14 <- sum(yequals & xGreater)
+    xties_23 <- sum(yequals & xLess)
 
     nq1 <- nq1 + 0.5*xties_14 + 0.5*yties_12
     nq2 <- nq2 + 0.5*xties_23 + 0.5*yties_12
@@ -73,7 +81,6 @@ quadCount <- function(x_origin, y_origin, x, y) {
 #' @param originSamples a `[n by 2]` `data.frame` of x and y coordinates that defines the origins data points.
 #'
 #' @return a `numeric` defining the D stat with the largest difference between the quad frequencies, after checking each point as the origin
-#' @export
 #'
 getDstat <- function(originSamples, S1, S2, cores = 1) {
   d <- 0
@@ -102,7 +109,6 @@ getDstat <- function(originSamples, S1, S2, cores = 1) {
 #' @param lambda a `numeric` defining the difference in cumulative distribution function between two data sets
 #'
 #' @return a `numeric` defining the p-value of observing the given 2-D KS stat
-#' @export
 #'
 ksCDF <- function(lambda) {
   if(lambda < 0){

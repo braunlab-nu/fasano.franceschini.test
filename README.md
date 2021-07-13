@@ -12,7 +12,7 @@
 status](https://github.com/nesscoder/fasano.franceschini.test/workflows/R-CMD-check/badge.svg)](https://github.com/nesscoder/fasano.franceschini.test/actions)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-[![](https://img.shields.io/badge/devel%20version-1.0.0-blue.svg)](https://github.com/nesscoder/fasano.franceschini.test)
+[![](https://img.shields.io/badge/devel%20version-1.0.0.9000-blue.svg)](https://github.com/nesscoder/fasano.franceschini.test)
 [![](https://img.shields.io/github/languages/code-size/nesscoder/fasano.franceschini.test.svg)](https://github.com/nesscoder/fasano.franceschini.test)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/fasano.franceschini.test?color=blue)](https://cran.r-project.org/package=fasano.franceschini.test)
 
@@ -62,12 +62,13 @@ sample2Data <- data.frame(
 
 fasano.franceschini.test(sample1Data,sample2Data)
 #> 
-#>      2-D Two-sample Kolmogorov-Smirnov Test
+#>  Fasano-Franceschini Test (1987)
 #> 
-#> Fasano Franceschini Test (1987)
-#> Data:  sample1Data and sample2Data 
-#> D-stat =  0.33 , p-value =  0.02221184 
-#> Run Time (s) =  0.02059388
+#> data:  sample1Data and sample2Data
+#> D-stat = 0.33, p-value = 0.02221
+#> sample estimates:
+#> dff,1 dff,2 
+#> 0.325 0.335
 ```
 
 #### Underlying Distributions Are The Same
@@ -88,10 +89,11 @@ sample2Data <- data.frame(
 
 fasano.franceschini.test(sample1Data,sample2Data)
 #> 
-#>      2-D Two-sample Kolmogorov-Smirnov Test
+#>  Fasano-Franceschini Test (1987)
 #> 
-#> Fasano Franceschini Test (1987)
-#> Data:  sample1Data and sample2Data 
-#> D-stat =  0.19 , p-value =  0.4448033 
-#> Run Time (s) =  0.008869886
+#> data:  sample1Data and sample2Data
+#> D-stat = 0.19, p-value = 0.4448
+#> sample estimates:
+#> dff,1 dff,2 
+#> 0.205 0.175
 ```
