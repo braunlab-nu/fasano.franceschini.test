@@ -98,17 +98,6 @@ fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 1) {
     pval <- (sum(unlist(d) > D) + 1) / (nBootstrap + 1)
     names(pval) <- "p-value"
 
-    result <- list(statistic = D,
-                   parameters = NULL,
-                   p.value = pval,
-                   conf.int = NULL,
-                   estimate = estimate,
-                   null.value = NULL,
-                   alternative = NULL,
-                   method = "Fasano-Francheschini Test",
-                   data.name = dname)
-    class(result) <- "htest"
-    return(result)
   } else {
     # Use the fasano.franceschini distributional approximation
     # average Rsquared
@@ -117,21 +106,22 @@ fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, cores = 1) {
     rr <- (r1^2 + r2^2) / 2
 
     # compute KS stat
-    n <- n1 * n2 / (n1 + n2)
+    n <- as.numeric(n1) * as.numeric(n2) / (n1 + n2)
     lambda <- sqrt(n) * D / (1 + sqrt(1 - rr) * (0.25 - 0.75 / sqrt(n)))
     pval <- ksCDF(lambda)
     names(pval) <- "p-value"
 
-    result <- list(statistic = D,
-                   parameters = NULL,
-                   p.value = pval,
-                   conf.int = NULL,
-                   estimate = estimate,
-                   null.value = NULL,
-                   alternative = NULL,
-                   method = "Fasano-Franceschini Test (1987)",
-                   data.name = dname)
-    class(result) <- "htest"
-    return(result)
   }
+
+  result <- list(statistic = D,
+                 parameters = NULL,
+                 p.value = pval,
+                 conf.int = NULL,
+                 estimate = estimate,
+                 null.value = NULL,
+                 alternative = NULL,
+                 method = "Fasano-Francheschini Test",
+                 data.name = dname)
+  class(result) <- "htest"
+  return(result)
 }
