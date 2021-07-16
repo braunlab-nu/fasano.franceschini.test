@@ -1,4 +1,10 @@
-# fasano.franceschini.test (development version)
+# fasano.franceschini.test 1.0.2
+
+# fasano.franceschini.test 1.0.1
+
+* More efficient `quadCount()` calculation reducing runtime.
+* Test result now of class `Htest` for improved integration with other packages.
+* Bug fix in bootstrapping procedure ensuring p-value is bounded between 0 and 1.
 
 # fasano.franceschini.test 1.0.0
 
