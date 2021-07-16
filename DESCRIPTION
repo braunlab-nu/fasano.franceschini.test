@@ -1,6 +1,6 @@
 Package: fasano.franceschini.test
 Title: Fasano-Franceschini Test: A 2-D Kolmogorov-Smirnov Two-Sample Test
-Version: 1.0.2
+Version: 1.0.1
 Authors@R: 
     c(person(given = "Elan",
            family = "Ness-Cohn",
