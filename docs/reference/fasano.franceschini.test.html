@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fasano.franceschini.test</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -182,12 +182,14 @@ If nBootstrap is 0, the Fasano Franceschini distributional approximation is used
 
 <span class='fu'>fasano.franceschini.test</span><span class='op'>(</span>S1 <span class='op'>=</span> <span class='va'>sample1Data</span>, S2 <span class='op'>=</span> <span class='va'>sample2Data</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
-#&gt; 		2-D Two-sample Kolmogorov-Smirnov Test
+#&gt; 	Fasano-Francheschini Test
 #&gt; 
-#&gt; Fasano Franceschini Test (1987)
-#&gt; Data:  sample1Data and sample2Data 
-#&gt; D-stat =  0.4 , p-value =  0.30915 
-#&gt; Run Time (s) =  0.02071095 </div><div class='input'>
+#&gt; data:  sample1Data and sample2Data
+#&gt; D-stat = 0.4, p-value = 0.3091
+#&gt; sample estimates:
+#&gt; dff,1 dff,2 
+#&gt; 0.375 0.425 
+#&gt; </div><div class='input'>
 
 <span class='co'>#Underlying distributions are the same</span>
 <span class='co'>#set seed for reproducible example</span>
@@ -199,12 +201,14 @@ If nBootstrap is 0, the Fasano Franceschini distributional approximation is used
 
 <span class='fu'>fasano.franceschini.test</span><span class='op'>(</span>S1 <span class='op'>=</span> <span class='va'>sample1Data</span>, S2 <span class='op'>=</span> <span class='va'>sample2Data</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
-#&gt; 		2-D Two-sample Kolmogorov-Smirnov Test
+#&gt; 	Fasano-Francheschini Test
 #&gt; 
-#&gt; Fasano Franceschini Test (1987)
-#&gt; Data:  sample1Data and sample2Data 
-#&gt; D-stat =  0.4 , p-value =  0.30915 
-#&gt; Run Time (s) =  0.001726866 </div><div class='input'>
+#&gt; data:  sample1Data and sample2Data
+#&gt; D-stat = 0.4, p-value = 0.3091
+#&gt; sample estimates:
+#&gt; dff,1 dff,2 
+#&gt; 0.375 0.425 
+#&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

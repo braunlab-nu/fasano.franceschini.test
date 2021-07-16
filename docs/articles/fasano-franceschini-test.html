@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fasano.franceschini.test</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -362,12 +362,13 @@ the same correlation coefficient <span class="citation">(<a href="#ref-Fasano198
 
 <span class="fu"><a href="../reference/fasano.franceschini.test.html">fasano.franceschini.test</a></span><span class="op">(</span>S1 <span class="op">=</span> <span class="va">sample1Data</span>, S2 <span class="op">=</span> <span class="va">sample2Data</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
-##      2-D Two-sample Kolmogorov-Smirnov Test
+##  Fasano-Francheschini Test
 ## 
-## Fasano Franceschini Test (1987)
-## Data:  sample1Data and sample2Data 
-## D-stat =  0.4 , p-value =  0.30915 
-## Run Time (s) =  0.008409023</code></pre>
+## data:  sample1Data and sample2Data
+## D-stat = 0.4, p-value = 0.3091
+## sample estimates:
+## dff,1 dff,2 
+## 0.375 0.425</code></pre>
 </div>
 <div id="bootstrap-version-of-the-fasanofranceschini-test" class="section level2">
 <h2 class="hasAnchor">
@@ -411,12 +412,13 @@ code details and implementation).</p>
 
 <span class="fu"><a href="../reference/fasano.franceschini.test.html">fasano.franceschini.test</a></span><span class="op">(</span>S1 <span class="op">=</span> <span class="va">sample1Data</span>, S2 <span class="op">=</span> <span class="va">sample2Data</span>, nBootstrap <span class="op">=</span> <span class="fl">10</span>, cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
-##      2-D Two-sample Kolmogorov-Smirnov Test
+##  Fasano-Francheschini Test
 ## 
-## Fasano Franceschini Test (1987)
-## Data:  sample1Data and sample2Data 
-## D-stat =  0.4 , p-value =  0.3 
-## Run Time (s) =  0.01494098</code></pre>
+## data:  sample1Data and sample2Data
+## D-stat = 0.4, p-value = 0.2727
+## sample estimates:
+## dff,1 dff,2 
+## 0.375 0.425</code></pre>
 <p>To improve run time, one may adjust the <code>cores</code> parameter; see the R <code>parallel</code> package and
 <code>mcapply()</code> the function for further details.</p>
 </div>
