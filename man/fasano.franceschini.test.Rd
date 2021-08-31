@@ -4,15 +4,17 @@
 \alias{fasano.franceschini.test}
 \title{Fasano Franceschini Test}
 \usage{
-fasano.franceschini.test(S1, S2, nBootstrap = 0, cores = 1)
+fasano.franceschini.test(S1, S2, nBootstrap = 0, nPermute = 0, cores = 1)
 }
 \arguments{
 \item{S1}{a \verb{[n by 2]} \code{data.frame} of x and y coordinates of sample 1}
 
 \item{S2}{a \verb{[n by 2]} \code{data.frame} of x and y coordinates of sample 2}
 
-\item{nBootstrap}{a \code{numeric} defining the number of bootstrapped samples to be generated for computing the empirical p-value (note this procedure is slow and computationally expensive on the order of nBootStrap*O(n^2). Default is set to 0.
-If nBootstrap is 0, the Fasano Franceschini distributional approximation is used for defining the p-value. See Fasano and Franceschini test (1987) for details.}
+\item{nBootstrap}{a depreciated \code{numeric} argument defining the number of bootstrapped samples to be generated for computing the empirical p-value. nBootstrap is set to be replaced by nPermute in the next released version of the package.}
+
+\item{nPermute}{a \code{numeric} defining the number of permuted samples to be generated for computing the empirical p-value (note this procedure is slow and computationally expensive on the order of nPermute*O(n^2). Default is set to 0.
+If nPermute is 0, the Fasano Franceschini distributional approximation is used for defining the p-value. See Fasano and Franceschini test (1987) for details.}
 
 \item{cores}{a \code{numeric} defining the number of cores to use for processing}
 }

@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fasano.franceschini.test</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.1.9000</span>
       </span>
     </div>
 
@@ -412,11 +412,14 @@ code details and implementation).</p>
 <span class="op">)</span>
 
 <span class="fu"><a href="../reference/fasano.franceschini.test.html">fasano.franceschini.test</a></span><span class="op">(</span>S1 <span class="op">=</span> <span class="va">sample1Data</span>, S2 <span class="op">=</span> <span class="va">sample2Data</span>, nBootstrap <span class="op">=</span> <span class="fl">10</span>, cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<pre><code>## Warning in fasano.franceschini.test(S1 = sample1Data, S2 = sample2Data, : The 'nBootstrap' argument is deprecated, and will be removed in the next version of this package.
+##              Use 'nPermute' instead of 'nBootstrap' to compute the empirical null distribution for your data.
+##              The 'nPermute' argument has been set equal to 'nBootstrap'.</code></pre>
 <pre><code>## 
 ##  Fasano-Francheschini Test
 ## 
 ## data:  sample1Data and sample2Data
-## D-stat = 0.4, p-value = 0.2727
+## D-stat = 0.4, p-value = 0.3636
 ## sample estimates:
 ## dff,1 dff,2 
 ## 0.375 0.425</code></pre>
