@@ -1,4 +1,4 @@
-# fasano.franceschini.test (development version)
+# fasano.franceschini.test 1.1.0
 
 * The 'nBootstrap' argument is deprecated, and will be removed in the next version of this package. Use 'nPermute' instead of 'nBootstrap' to compute the empirical null distribution for your data.
 
