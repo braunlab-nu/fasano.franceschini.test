@@ -27,15 +27,12 @@ p.caption{
 }
 </style>
 ```
-
 # Abstract {#sec:abstact}
 
 The univariate Kolmogorov-Smirnov (KS) test is a non--parametric
-statistical test designed to assess whether a set of data is consistent
-with a given probability distribution (or, in the two-sample case,
-whether the two samples come from the same underlying distribution). The
-versatility of the KS test has made it a cornerstone of statistical
-analysis and is commonly used across the scientific disciplines.
+statistical test designed to assess whether two samples come from the
+same underlying distribution. The versatility of the KS test has made it
+a cornerstone of statistical analysis across the scientific disciplines.
 However, the test proposed by Kolmogorov and Smirnov does not naturally
 extend to multidimensional distributions. Here, we present the
 `fasano.franceschini.test` package, an **R** implementation of the 2-D
@@ -45,7 +42,7 @@ the current 2-D KS test on the Comprehensive **R** Archive Network
 (CRAN): (i) the Fasano and Franceschini test has been shown to run in
 $O(n^2)$ versus the Peacock implementation which runs in $O(n^3)$; (ii)
 the package implements a procedure for handling ties in the data; and
-(iii) the package implements a parallelized bootstrapping procedure for
+(iii) the package implements a parallelized permutation procedure for
 improved significance testing. Ultimately, the
 `fasano.franceschini.test` package presents a robust statistical test
 for analyzing random samples defined in 2-dimensions.
@@ -80,21 +77,23 @@ dimensionality issue was articulated by Peacock [@Peacock1983] and later
 extended by Fasano and Franceschini [@Fasano1987].
 
 Currently, only the Peacock implementation of the 2-D two-sample KS test
-is available in **R** [@R] with the `Peacock.test` package via the `peacock2()` function, but this has
-been shown to be markedly slower than the Fasano and Franceschini
-algorithm [@Lopes2007]. A **C** implementation of the Fasano--Franceschini
-test is available in [@numericalRecipes]; however, arguments have been
-made to the validity of the implementation of the test not being
-distribution-free [@Babu2006]. Furthermore, in the **C** implementation,
-statistical testing is based on a fit to Monte Carlo simulation that is
-only valid for significance levels $\alpha \lessapprox 0.20$.
+is available in **R** [@R] with the `Peacock.test` package via the
+`peacock2()` function, but this has been shown to be markedly slower
+than the Fasano and Franceschini algorithm [@Lopes2007]. A **C**
+implementation of the Fasano--Franceschini test is available in
+[@numericalRecipes]; however, arguments have been made to the validity
+of the implementation of the test not being distribution-free
+[@Babu2006]. Furthermore, in the **C** implementation, statistical
+testing is based on a fit to Monte Carlo simulation that is only valid
+for significance levels $\alpha \lessapprox 0.20$.
 
-Here we present the `fasano.franceschini.test` package as an **R** implementation of the 2-D two-sample
-KS test described by Fasano and Franceschini [@Fasano1987]. The `fasano.franceschini.test` package
+Here we present the `fasano.franceschini.test` package as an **R**
+implementation of the 2-D two-sample KS test described by Fasano and
+Franceschini [@Fasano1987]. The `fasano.franceschini.test` package
 provides two improvements over the current 2-D KS test available on the
 Comprehensive Archive Network (CRAN): (i) the Fasano and Franceschini
 test has been shown to run in $O(n^2)$ versus the Peacock implementation
-which runs in $O(n^3)$; and (ii) the package implements a bootstrapping
+which runs in $O(n^3)$; and (ii) the package implements a permutation
 procedure for improved significance testing and mitigates the
 limitations of the test brought noted by @Babu2006.
 
@@ -132,7 +131,6 @@ D_{KS} \overset{d}{\rightarrow} \Phi(\lambda) = 2 \sum_{k=1}^{\infty} -1^{k-1}e^
 (\#eq:1)
 \end{equation}
 ```
-
 In the one-sample case with a sample of size $n$, the $p$ value is given
 by \label{eq:2}
 
@@ -142,8 +140,7 @@ by \label{eq:2}
 (\#eq:2)
 \end{equation}
 ```
-
-in the two-sample case, the $p$ value is given by 
+in the two-sample case, the $p$ value is given by
 
 ```{=tex}
 \begin{equation}
@@ -151,7 +148,6 @@ in the two-sample case, the $p$ value is given by
 (\#eq:3)
 \end{equation}
 ```
-
 where $n_1$ and $n_2$ are the number of observations in the first and
 second samples respectively.
 
@@ -186,7 +182,7 @@ probability---i.e. fraction of data---in each of the four quadrants
 around all possible tuples in the data. For example, for $n$ points in a
 two-dimensional space, the empirical cumulative distribution functions
 is calculated in the $4n^2$ quadrants of the plane defined by all pairs
-$(X_i, Y_j): i,j\in[1,n]$, where $X_i$ and $Y_j$ are any observed
+\$(X_i, Y_j): i,j\in[1,n]\$\$, where $X_i$ and $Y_j$ are any observed
 value of $x$ and $y$ (whether or not they are observed as a pair). There
 are $n^2$ such pairs, each of which can define four quadrants in the 2-D
 plane; by ranging over all possible pairs of data points and quadrants,
@@ -252,7 +248,7 @@ Using Monte Carlo simulation, Fasano and Franceschini created a look-up
 table of critical values of $D_{FF}$ as a function of $D_{FF}$, the
 sample size, and the coefficient of correlation $r$. [@numericalRecipes]
 later defined an approximate fit to the lookup table as follows. For a
-single sample of size $n$, 
+single sample of size $n$,
 
 ```{=tex}
 \begin{equation}
@@ -260,10 +256,9 @@ single sample of size $n$,
 (\#eq:4)
 \end{equation}
 ```
-
-where $\Phi(\cdot)$ is as defined in Eq
-[1](#eq:1){reference-type="ref" reference="eq:1"}. The two sample
-case uses the same formula as above, but with the slight variation where
+where $\Phi(\cdot)$ is as defined in Eq [1](#eq:1){reference-type="ref"
+reference="eq:1"}. The two sample case uses the same formula as above,
+but with the slight variation where
 
 ```{=tex}
 \begin{equation}
@@ -271,9 +266,7 @@ n = \frac{n_1n_2}{n_1+n_2}\, .
 (\#eq:5)
 \end{equation}
 ```
-
-In both cases, $r$ is defined in the
-usual way as 
+In both cases, $r$ is defined in the usual way as
 
 ```{=tex}
 \begin{equation}
@@ -281,6 +274,22 @@ r = \frac{\sum_{i}(X_i-\bar{X})(Y_i-\bar{Y})}{\sqrt{\sum_{i}(X_i-\bar{X})^2}\sqr
 (\#eq:6)
 \end{equation}
 ```
+## Power of the Peacock Test (1983) and Fasano--Franceschini Test (1987)
+
+A complete treatmentent of the power of both the Peacock and
+Fasano--Franceschini tests can be found in the primary literature
+[@Peacock1983,@Fasano1987] and subsequent benchmarking paper
+[@Lopes2007]. In short, results for uncorrelated distributions
+demonstrated that there is no difference between the power of the two
+tests. When the correlation coefficient of the model distributions
+approach unity, the power of the Fasano-Francheschini test is slightly
+higher [@Fasano1987]. These findings were corroborated by [@Lopes2007],
+who benchmarked the Peacock and Fasano-Francheschini tests. Benchmarking
+data was comprised of samples containing varying number of points drawn
+from the same or different underlying distributions. Both methods
+demonstrated comparable acceptance and rejection metrics, as well high
+stability (low standard error in the significance calculation) across
+multiple runs [@Lopes2007].
 
 # Illustrations {#sec:illustrations}
 
@@ -301,9 +310,9 @@ Monte Carlo simulation support these expectations, showing that the
 distribution of $D$ is nearly identical for varying distributions with
 the same correlation coefficient [@Fasano1987]. The approximation by
 [@numericalRecipes] (Eq [4](#eq:4){reference-type="ref"
-reference="eq:4"}--[5](#eq:5){reference-type="ref"
-reference="eq:5"}) can be used to test the significance levels for the
-2-D K-S test using the following code:
+reference="eq:4"}--[5](#eq:5){reference-type="ref" reference="eq:5"})
+can be used to test the significance levels for the 2-D K-S test using
+the following code:
 
 ```{r}
 library(fasano.franceschini.test)
@@ -324,32 +333,31 @@ sample2Data <- data.frame(
 fasano.franceschini.test(S1 = sample1Data, S2 = sample2Data)
 ```
 
-## Bootstrap version of the Fasano--Franceschini test
+## Permutation version of the Fasano--Franceschini test
 
 It has been noted that the approximation from @numericalRecipes is only
 accurate when $n \gtrsim 20$ and the $p$-value is less than (more
-significant than) $\sim 0.2$ [@Babu2006]. While this inaccuracy still
-allows a simple rejection decision to be made at any $\alpha\leq0.2$, it
-is sometimes useful to quantify large $p$ more exactly (such as if one
-was to do a cross-study concordance analysis comparing $p$ values
-between studies as in [@Ness-Cohn2020]), and to apply it to smaller
-datasets. To address these limitations, one can bootstrap the
-significance levels for the particular multidimensional statistic
-directly from the particular data set under study. As Fasano and
-Franceschini's paper was originally released in 1987, this approach was
-unfeasible at scale. Today, modern computers can rapidly compute a
-bootstrapped null distribution of $D_{FF}$ from the data to test
-significance.
+significant than) $\sim 0.2$ [@Babu2006]. While this still allows a
+simple rejection decision to be made at any $\alpha\leq0.2$, it is
+sometimes useful to quantify large $p$ more exactly (such as if one was
+to do a cross-study concordance analysis comparing $p$ values between
+studies as in [@Ness-Cohn2020]), and to apply it to smaller datasets. To
+address these limitations, one can empirically compute the significance
+levels for the particular multidimensional statistic directly from the
+particular data set under study. As Fasano and Franceschini's paper was
+originally released in 1987, this approach was unfeasible at scale.
+Today, modern computers can rapidly compute a permuted null distribution
+of $D_{FF}$ from the data to test significance.
 
-The `fasano.franceschini.test` **R** package implements a parallelized bootstrapping procedure. The
-marginal distribution from 2-dimensional data set is resampled with
-replacement to generate randomized 2-dimensional data sets `nBootStrap` times. The
-frequency count by quadrant is performed for each bootstrapped
-resampling as described above to compute the $D_{FF}$. The observed
-$D_{FF}$ is then compared to the distribution of bootstrapped $D_{FF}$
-to compute a $p$ value. The bootstrapped version of the
-Fasano--Franceschini test can be run as follows (see `fasano.franceschini.test()` for further source
-code details and implementation).
+In the permutation test implementation of `fasano.franceschini.test`,
+the sample labels are randomly permuted to generate two 2-dimensional
+data sets with new sample labels`nPermute` times. The frequency count by
+quadrant is performed for each permuted resampling as described above to
+compute the $D_{FF}$. The observed $D_{FF}$ is then compared to the
+distribution of permuted $D_{FF}$ to compute a $p$ value. The
+permutation version of the Fasano--Franceschini test can be run as
+follows (see `fasano.franceschini.test()` for further source code
+details and implementation).
 
 ```{r}
 #set seed for reproducible example
@@ -369,64 +377,135 @@ fasano.franceschini.test(S1 = sample1Data, S2 = sample2Data, nBootstrap = 10, co
 
 ```
 
-To improve run time, one may adjust the `cores` parameter; see the R `parallel` package and
-`mcapply()` the function for further details.
+To improve run time, one may adjust the `cores` parameter; see the R
+`parallel` package and `mcapply()` the function for further details.
 
-## Computational efficency
+To improve run time, one may adjust the `cores` parameter; see the R
+`parallel` package and the `mclapply()` function for further details.
+[Note that, due to limitations of `parallel`, the parallelized
+permutation procedure only works on \*nix operating systems (including
+MacOS, Linux, Unix, and BSD), and not Windows. Parallelization is
+generally only necessary when working with large values of $N$ and/or
+`nPermute`; in this case, we recommend using parallelization on a
+linux-based HPC cluster.]
+
+## Real world applications
+
+Much like the 1-D KS test, the 2-D Fasano-Franceschini test is widely
+applicable across the scientific disciplines. **Figure
+[4](#fig:app){reference-type="ref" reference="fig:app"}** shows use
+cases in the three distinct fields of social science, ecology, and cell
+biology. In **Figure [4](#fig:app){reference-type="ref"
+reference="fig:app"}A**, the Fasano-Franceschini test was used to detect
+differences in the distribution of social services within the
+municipality of Rennes, France [@Floch2018]; the Fasano-Franceschini
+test detected a significant difference in the distribution of clothing
+stores in relation to doctors offices, schools, and pharmacies
+($Bonf = 6.9e-18$; $Bonf = 2.7e-10$; $Bonf = 1.6e-7$, respectively). No
+statistical difference was seen between the distribution of the latter
+three social services in comparison to each other (doctors offices vs.
+pharmacies, $Bonf = 1$; schools vs. pharmacies, $Bonf = 1$; doctors
+offices vs. schools, $Bonf = 1$). Pragmatically, such analysis can help
+to identify geographic service disparities and inform future city
+planning. In **Figure [4](#fig:app){reference-type="ref"
+reference="fig:app"}B**, the Fasano-Franceschini test was used to gain
+insight on the differences in the distribution of species in an
+ecosystem. Comparing the distribution of tree species with the Paracou
+Forest in French Guiana [@Marcon2015], a statistically significant
+difference is seen between *V. Americana* and *Q. Rosea* ($p = 3.6e-5$).
+While this was a trivial analysis of two species, multiple pairwise
+comparisons of species in a geographic area can identify ecological
+variation, providing useful insights for conservation and restoration
+efforts. In **Figure [4](#fig:app){reference-type="ref"
+reference="fig:app"}C**, the Fasano-Franceschini test was used to detect
+difference in the localization of distinct cell types with a tissue.
+Immunohistochemistry was used to stain tumor-infiltrated lymph node
+<!-- cross section for T-cells and tumor cell [@Setiadi2010]. A statistically -->
+significant difference is seen between the two cell types
+($p < 2.2e-16$). In the cell biology context, the Fasano-Franceschini
+test lends itself for uses in high-throughput histological diagnostic
+assays; with initial findings support this proof of concept analysis, as
+deferentially distributed cell types within a tumor sample are shown to
+be linked to health outcomes [@Setiadi2010].
+
+Beyond these three practical examples, the Fasano-Franchescini test has
+already been used in a myriad of other contexts, including the analysis
+of star clusters in the field of astrophysics [@Metchev2002] and seizure
+progression in the field of neuroscience [@Chen2012]. Ultimately, the
+nonparametric multivariate Fasano-Francheschini test proves to be a
+versatile analysis strategy that transcends domains and can provide
+practical insights.
 
 <center>
 
-![**Figure 4** \| Computational efficiency benchmarks. **A:** Runtime of
-the Fasano--Franceschini test relative to the Peacock test at four
-different sample sizes ($n=10, 100, 1000, 5000$). Points represent the
-average of 10 benchmark runs. **B:** Runtime of the Fasano--Franceschini
-bootstrapping procedure for various sample sizes
-($n= 10, 100, 1000, 5000$) as a function of the number of cores used.
-Within each panel, lines are colored by the number of bootstrap
-iterations (no bootstrap, 10, 100, 1000). Points represent the average
-of 10 benchmark runs. Note the logarithmic $y$-axis in
-(B).](benchmark.png){#fig:bmark width="75%" align="center"}
+![**Figure 4** \| Example application settings for the
+Fasano-Francheschini test. **A:** Geographic locations of fours distinct
+facilities in the municipality of Rennes, France [@Floch2018]. **B:**
+Geographic location of tree species in the plot 16 field station of the
+Paracou Forest, French Guiana [@Marcon2015].**C:** Immunohistochemistry
+stained tumor-infiltrated lymph node cross section, with tumor and
+T-cells colored in blue and orange respectively
+[@Setiadi2010].](applications.png){#fig:app width="75%" align="center"}
 
 </center>
 
+## Computational efficency
+
 To assess the computational efficiency, we benchmarked the package as
-follows. Using the `rbenchmark` package to evaluate runtime, the Fasano--Franceschini
-test and Peacock test were run under four different samples sizes
-($n=10, 100, 1000, 5000$), with 10 replicates for each run. The
-Fasano--Franceschini test bootstrap procedure was further evaluated
-under four different bootstrap iterations (no bootstrap, 10, 100, 1000),
-again using 10 replicates for each run. Reported results represent the
-average run time of the 10 replicate benchmarks. All benchmark tests
-were run on a 2018 macBook Pro Mac (macOS Catalina) with a 2.7-GHz
-Quad-Core Intel Core i7 processor and 16 GB of 2133 MHz LPDDR3 memory.
+follows. Using the `rbenchmark` package to evaluate runtime, the
+Fasano--Franceschini test and Peacock test were run under four different
+samples sizes ($n=10, 100, 1000, 5000$), with 10 replicates for each
+run. The Fasano--Franceschini test permutation procedure was further
+evaluated under four different permuted iterations (no permutation, 10,
+100, 1000), again using 10 replicates for each run. Reported results
+represent the average run time of the 10 replicate benchmarks. All
+benchmark tests were run on a 2018 macBook Pro Mac (macOS Catalina) with
+a 2.7-GHz Quad-Core Intel Core i7 processor and 16 GB of 2133 MHz LPDDR3
+memory.
+
+<center>
+
+![**Figure 5** \| Computational efficiency benchmarks. **A:** Runtime of
+the Fasano--Franceschini test relative to the Peacock test at four
+different sample sizes ($n=10, 100, 1000, 5000$). Points represent the
+average of 10 benchmark runs. **B:** Runtime of the Fasano--Franceschini
+permutation procedure for various sample sizes
+($n= 10, 100, 1000, 5000$) as a function of the number of cores used.
+Within each panel, lines are colored by the number of permuted
+iterations (no permutation, 10, 100, 1000). Points represent the average
+of 10 benchmark runs. Note the logarithmic $y$-axis in
+(B).](benchmark2.png){#fig:bmark width="75%" align="center"}
+
+</center>
 
 The main distinction between the Peacock and Fasano--Franceschini tests
 is in computational efficiency, with Fasano--Franceschini scaling as
 $O(n^2)$ relative to Peacock's complexity of $O(n^3)$ [@Lopes2007]. Our
 benchmarks also show this advantage, as shown in **Figure
-[4](#fig:bmark){reference-type="ref" reference="fig:bmark"}A**. While
-the implementation of the bootstrapping procedure increases runtime in
-comparison to the approximate fit from @numericalRecipes,
+[5](#fig:bmark){reference-type="ref" reference="fig:bmark"}A**. While
+the implementation of the permutation procedure increases runtime in
+comparison to the approximate fit from [@numericalRecipes],
 parallelization of the Fasano--Franceschini test shows a four-fold
 reduction in run time when parallelized across 8 cores (**Figure
-[4](#fig:bmark){reference-type="ref" reference="fig:bmark"}B**).
+[5](#fig:bmark){reference-type="ref" reference="fig:bmark"}B**).
 
 # Summary and discussion {#sec:summary}
 
-The `fasano.franceschini.test` package is an **R** implementation of the 2-D two-sample KS test as
-defined by Fasano and Franceschini [@Fasano1987]. It improves upon
-existing packages by implementing a fast algorithm and a parallelized
-bootstrapping procedure for improved statistical testing. Complete
-package documentation and source code is available via the Comprehensive
-**R** Archive Network (CRAN) at <https://CRAN.R-project.org/> and the package
-website at <https://nesscoder.github.io/fasano.franceschini.test/>.
+The `fasano.franceschini.test` package is an **R** implementation of the
+2-D two-sample KS test as defined by Fasano and Franceschini
+[@Fasano1987]. It improves upon existing packages by implementing a fast
+algorithm and a parallelized permutation procedure for improved
+statistical testing. Complete package documentation and source code is
+available via the Comprehensive **R** Archive Network (CRAN) at
+<https://CRAN.R-project.org/> and the package website at
+<https://nesscoder.github.io/fasano.franceschini.test/>.
 
 # Computational details {#computational-details .unnumbered}
 
-The results in this paper were obtained using **R** 4.0.3 with the fasano.franceschini.test 1.0.0
-package. **R** itself and all package dependencies (methods 4.0.3; parallel 4.0.3) are
-available from the Comprehensive Archive Network (CRAN) at
-<https://CRAN.R-project.org/>.
+The results in this paper were obtained using **R** 4.0.3 with the
+fasano.franceschini.test 1.0.0 package. **R** itself and all package
+dependencies (methods 4.0.3; parallel 4.0.3) are available from the
+Comprehensive Archive Network (CRAN) at <https://CRAN.R-project.org/>.
 
 # Acknowledgments {#acknowledgments .unnumbered}
 
@@ -438,7 +517,7 @@ Science Foundation (1764421). The content is solely the responsibility
 of the authors and does not necessarily represent the official views of
 the National Science Foundation and Simons Foundation.
 
-E.N.C developed the `fasano.franceschini.test` package and produced the tutorials/documentation;
-E.N.C. and R.B. wrote the paper.
+E.N.C developed the `fasano.franceschini.test` package and produced the
+tutorials/documentation; E.N.C. and R.B. wrote the paper.
 
 # References
