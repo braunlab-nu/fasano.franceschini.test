@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Fasano-Franceschini Test: A 2-D Kolmogorov-Smirnov Two-Sample Test">
-<meta property="og:description" content="An implementation of the 2-D Kolmogorov-Smirnov (KS) two-sample test as defined by Fasano and Franceschini (Fasano and Franceschini 1987). The fasano.franceschini.test package provides three improvements over the current 2-D KS test on the Comprehensive R Archive Network (CRAN): (i) the Fasano and Franceschini test has been shown to run in O(n^2) versus the Peacock implementation which runs in O(n^3); (ii) the package implements a procedure for handling ties in the data; and (iii) the package implements a parallelized bootstrapping procedure for improved significance testing. Ultimately, the fasano.franceschini.test package presents a robust statistical test for analyzing random samples defined in 2-dimensions.">
+<meta property="og:description" content="An implementation of the 2-D Kolmogorov-Smirnov (KS) two-sample test as defined by Fasano and Franceschini (Fasano and Franceschini 1987). The fasano.franceschini.test package provides three improvements over the current 2-D KS test on the Comprehensive R Archive Network (CRAN): (i) the Fasano and Franceschini test has been shown to run in O(n^2) versus the Peacock implementation which runs in O(n^3); (ii) the package implements a procedure for handling ties in the data; and (iii) the package implements a parallelized permutation procedure for improved significance testing. Ultimately, the fasano.franceschini.test package presents a robust statistical test for analyzing random samples defined in 2-dimensions.">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">fasano.franceschini.test</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -197,7 +197,7 @@
 <li><a href="https://arxiv.org/abs/2106.10539"><img src="https://img.shields.io/badge/arXiv-abs/2106.10539-yellow.svg"></a></li>
 <li><a href="https://github.com/nesscoder/fasano.franceschini.test/actions"><img src="https://github.com/nesscoder/fasano.franceschini.test/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
-<li><a href="https://github.com/nesscoder/fasano.franceschini.test"><img src="https://img.shields.io/badge/devel%20version-1.0.1-blue.svg"></a></li>
+<li><a href="https://github.com/nesscoder/fasano.franceschini.test"><img src="https://img.shields.io/badge/devel%20version-1.0.1.9000-blue.svg"></a></li>
 <li><a href="https://github.com/nesscoder/fasano.franceschini.test"><img src="https://img.shields.io/github/languages/code-size/nesscoder/fasano.franceschini.test.svg"></a></li>
 <li><a href="https://cran.r-project.org/package=fasano.franceschini.test"><img src="http://cranlogs.r-pkg.org/badges/grand-total/fasano.franceschini.test?color=blue"></a></li>
 </ul>

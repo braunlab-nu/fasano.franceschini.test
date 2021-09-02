@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fasano.franceschini.test</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -77,9 +77,18 @@
 
       
 
-      </header><script src="fasano-franceschini-test_files/header-attrs-2.6/header-attrs.js"></script><script src="fasano-franceschini-test_files/jquery-1.11.3/jquery.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1">
+      </header><script src="fasano-franceschini-test_files/header-attrs-2.10/header-attrs.js"></script><script src="fasano-franceschini-test_files/jquery-1.11.3/jquery.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="fasano-franceschini-test_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">
-<script src="fasano-franceschini-test_files/bootstrap-3.3.5/js/bootstrap.min.js"></script><script src="fasano-franceschini-test_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script><script src="fasano-franceschini-test_files/bootstrap-3.3.5/shim/respond.min.js"></script><script src="fasano-franceschini-test_files/navigation-1.1/tabsets.js"></script><div class="row">
+<script src="fasano-franceschini-test_files/bootstrap-3.3.5/js/bootstrap.min.js"></script><script src="fasano-franceschini-test_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script><script src="fasano-franceschini-test_files/bootstrap-3.3.5/shim/respond.min.js"></script><style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="fasano-franceschini-test_files/navigation-1.1/tabsets.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Fasano-Franceschini Test: an Implementation of a 2-Dimensional Kolmogorov-Smirnov test in R</h1>
@@ -102,11 +111,9 @@ p.caption{
 <h1 class="hasAnchor">
 <a href="#sec:abstact" class="anchor"></a>Abstract</h1>
 <p>The univariate Kolmogorov-Smirnov (KS) test is a non–parametric
-statistical test designed to assess whether a set of data is consistent
-with a given probability distribution (or, in the two-sample case,
-whether the two samples come from the same underlying distribution). The
-versatility of the KS test has made it a cornerstone of statistical
-analysis and is commonly used across the scientific disciplines.
+statistical test designed to assess whether two samples come from the
+same underlying distribution. The versatility of the KS test has made it
+a cornerstone of statistical analysis across the scientific disciplines.
 However, the test proposed by Kolmogorov and Smirnov does not naturally
 extend to multidimensional distributions. Here, we present the
 <code>fasano.franceschini.test</code> package, an <strong>R</strong> implementation of the 2-D
@@ -116,7 +123,7 @@ the current 2-D KS test on the Comprehensive <strong>R</strong> Archive Network
 (CRAN): (i) the Fasano and Franceschini test has been shown to run in
 <span class="math inline">\(O(n^2)\)</span> versus the Peacock implementation which runs in <span class="math inline">\(O(n^3)\)</span>; (ii)
 the package implements a procedure for handling ties in the data; and
-(iii) the package implements a parallelized bootstrapping procedure for
+(iii) the package implements a parallelized permutation procedure for
 improved significance testing. Ultimately, the
 <code>fasano.franceschini.test</code> package presents a robust statistical test
 for analyzing random samples defined in 2-dimensions.</p>
@@ -148,20 +155,22 @@ distributions in more than one dimension. Fortunately, a solution to the
 dimensionality issue was articulated by Peacock <span class="citation">(<a href="#ref-Peacock1983" role="doc-biblioref">15</a>)</span> and later
 extended by Fasano and Franceschini <span class="citation">(<a href="#ref-Fasano1987" role="doc-biblioref">1</a>)</span>.</p>
 <p>Currently, only the Peacock implementation of the 2-D two-sample KS test
-is available in <strong>R</strong> <span class="citation">(<a href="#ref-R" role="doc-biblioref">16</a>)</span> with the <code>Peacock.test</code> package via the <code>peacock2()</code> function, but this has
-been shown to be markedly slower than the Fasano and Franceschini
-algorithm <span class="citation">(<a href="#ref-Lopes2007" role="doc-biblioref">17</a>)</span>. A <strong>C</strong> implementation of the Fasano–Franceschini
-test is available in <span class="citation">(<a href="#ref-numericalRecipes" role="doc-biblioref">18</a>)</span>; however, arguments have been
-made to the validity of the implementation of the test not being
-distribution-free <span class="citation">(<a href="#ref-Babu2006" role="doc-biblioref">19</a>)</span>. Furthermore, in the <strong>C</strong> implementation,
-statistical testing is based on a fit to Monte Carlo simulation that is
-only valid for significance levels <span class="math inline">\(\alpha \lessapprox 0.20\)</span>.</p>
-<p>Here we present the <code>fasano.franceschini.test</code> package as an <strong>R</strong> implementation of the 2-D two-sample
-KS test described by Fasano and Franceschini <span class="citation">(<a href="#ref-Fasano1987" role="doc-biblioref">1</a>)</span>. The <code>fasano.franceschini.test</code> package
+is available in <strong>R</strong> <span class="citation">(<a href="#ref-R" role="doc-biblioref">16</a>)</span> with the <code>Peacock.test</code> package via the
+<code>peacock2()</code> function, but this has been shown to be markedly slower
+than the Fasano and Franceschini algorithm <span class="citation">(<a href="#ref-Lopes2007" role="doc-biblioref">17</a>)</span>. A <strong>C</strong>
+implementation of the Fasano–Franceschini test is available in
+<span class="citation">(<a href="#ref-numericalRecipes" role="doc-biblioref">18</a>)</span>; however, arguments have been made to the validity
+of the implementation of the test not being distribution-free
+<span class="citation">(<a href="#ref-Babu2006" role="doc-biblioref">19</a>)</span>. Furthermore, in the <strong>C</strong> implementation, statistical
+testing is based on a fit to Monte Carlo simulation that is only valid
+for significance levels <span class="math inline">\(\alpha \lessapprox 0.20\)</span>.</p>
+<p>Here we present the <code>fasano.franceschini.test</code> package as an <strong>R</strong>
+implementation of the 2-D two-sample KS test described by Fasano and
+Franceschini <span class="citation">(<a href="#ref-Fasano1987" role="doc-biblioref">1</a>)</span>. The <code>fasano.franceschini.test</code> package
 provides two improvements over the current 2-D KS test available on the
 Comprehensive Archive Network (CRAN): (i) the Fasano and Franceschini
 test has been shown to run in <span class="math inline">\(O(n^2)\)</span> versus the Peacock implementation
-which runs in <span class="math inline">\(O(n^3)\)</span>; and (ii) the package implements a bootstrapping
+which runs in <span class="math inline">\(O(n^3)\)</span>; and (ii) the package implements a permutation
 procedure for improved significance testing and mitigates the
 limitations of the test brought noted by <span class="citation">(<a href="#ref-Babu2006" role="doc-biblioref">19</a>)</span>.</p>
 </div>
@@ -238,7 +247,7 @@ probability—i.e. fraction of data—in each of the four quadrants
 around all possible tuples in the data. For example, for <span class="math inline">\(n\)</span> points in a
 two-dimensional space, the empirical cumulative distribution functions
 is calculated in the <span class="math inline">\(4n^2\)</span> quadrants of the plane defined by all pairs
-<span class="math inline">\((X_i, Y_j): i,j\in[1,n]\)</span>, where <span class="math inline">\(X_i\)</span> and <span class="math inline">\(Y_j\)</span> are any observed
+$(X_i, Y_j): i,j$$, where <span class="math inline">\(X_i\)</span> and <span class="math inline">\(Y_j\)</span> are any observed
 value of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> (whether or not they are observed as a pair). There
 are <span class="math inline">\(n^2\)</span> such pairs, each of which can define four quadrants in the 2-D
 plane; by ranging over all possible pairs of data points and quadrants,
@@ -307,19 +316,35 @@ single sample of size <span class="math inline">\(n\)</span>,</p>
 \mathbb{P}(d_{FF} &gt; D_{FF}) = \Phi \left( \frac{D_{FF}\sqrt{n}}{1+\sqrt{1-r^2}(0.25-0.75/\sqrt{n})} \right) \, .
 \tag{4}
 \end{equation}\]</span>
-<p>where <span class="math inline">\(\Phi(\cdot)\)</span> is as defined in Eq
-<a href="#eq:1" reference-type="ref" reference="eq:1">1</a>. The two sample
-case uses the same formula as above, but with the slight variation where</p>
+<p>where <span class="math inline">\(\Phi(\cdot)\)</span> is as defined in Eq <a href="#eq:1" reference-type="ref" reference="eq:1">1</a>. The two sample case uses the same formula as above,
+but with the slight variation where</p>
 <span class="math display" id="eq:5">\[\begin{equation}
 n = \frac{n_1n_2}{n_1+n_2}\, .
 \tag{5}
 \end{equation}\]</span>
-<p>In both cases, <span class="math inline">\(r\)</span> is defined in the
-usual way as</p>
+<p>In both cases, <span class="math inline">\(r\)</span> is defined in the usual way as</p>
 <span class="math display" id="eq:6">\[\begin{equation}
 r = \frac{\sum_{i}(X_i-\bar{X})(Y_i-\bar{Y})}{\sqrt{\sum_{i}(X_i-\bar{X})^2}\sqrt{\sum_{i}(Y_i-\bar{Y})^2}}\, .
 \tag{6}
 \end{equation}\]</span>
+</div>
+<div id="power-of-the-peacock-test-1983-and-fasanofranceschini-test-1987" class="section level2">
+<h2 class="hasAnchor">
+<a href="#power-of-the-peacock-test-1983-and-fasanofranceschini-test-1987" class="anchor"></a>Power of the Peacock Test (1983) and Fasano–Franceschini Test (1987)</h2>
+<p>A complete treatmentent of the power of both the Peacock and
+Fasano–Franceschini tests can be found in the primary literature
+<span class="citation">(<a href="#ref-Fasano1987" role="doc-biblioref">1</a>)</span> and subsequent benchmarking paper
+<span class="citation">(<a href="#ref-Lopes2007" role="doc-biblioref">17</a>)</span>. In short, results for uncorrelated distributions
+demonstrated that there is no difference between the power of the two
+tests. When the correlation coefficient of the model distributions
+approach unity, the power of the Fasano-Francheschini test is slightly
+higher <span class="citation">(<a href="#ref-Fasano1987" role="doc-biblioref">1</a>)</span>. These findings were corroborated by <span class="citation">(<a href="#ref-Lopes2007" role="doc-biblioref">17</a>)</span>,
+who benchmarked the Peacock and Fasano-Francheschini tests. Benchmarking
+data was comprised of samples containing varying number of points drawn
+from the same or different underlying distributions. Both methods
+demonstrated comparable acceptance and rejection metrics, as well high
+stability (low standard error in the significance calculation) across
+multiple runs <span class="citation">(<a href="#ref-Lopes2007" role="doc-biblioref">17</a>)</span>.</p>
 </div>
 </div>
 <div id="sec:illustrations" class="section level1">
@@ -342,8 +367,9 @@ could apply the 1-D KS test on the marginal distributions. Results from
 Monte Carlo simulation support these expectations, showing that the
 distribution of <span class="math inline">\(D\)</span> is nearly identical for varying distributions with
 the same correlation coefficient <span class="citation">(<a href="#ref-Fasano1987" role="doc-biblioref">1</a>)</span>. The approximation by
-<span class="citation">(<a href="#ref-numericalRecipes" role="doc-biblioref">18</a>)</span> (Eq <a href="#eq:4" reference-type="ref" reference="eq:4">4</a>–<a href="#eq:5" reference-type="ref" reference="eq:5">5</a>) can be used to test the significance levels for the
-2-D K-S test using the following code:</p>
+<span class="citation">(<a href="#ref-numericalRecipes" role="doc-biblioref">18</a>)</span> (Eq <a href="#eq:4" reference-type="ref" reference="eq:4">4</a>–<a href="#eq:5" reference-type="ref" reference="eq:5">5</a>)
+can be used to test the significance levels for the 2-D K-S test using
+the following code:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nesscoder/fasano.franceschini.test">fasano.franceschini.test</a></span><span class="op">)</span>
 
@@ -370,32 +396,31 @@ the same correlation coefficient <span class="citation">(<a href="#ref-Fasano198
 ## dff,1 dff,2 
 ## 0.375 0.425</code></pre>
 </div>
-<div id="bootstrap-version-of-the-fasanofranceschini-test" class="section level2">
+<div id="permutation-version-of-the-fasanofranceschini-test" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bootstrap-version-of-the-fasanofranceschini-test" class="anchor"></a>Bootstrap version of the Fasano–Franceschini test</h2>
+<a href="#permutation-version-of-the-fasanofranceschini-test" class="anchor"></a>Permutation version of the Fasano–Franceschini test</h2>
 <p>It has been noted that the approximation from <span class="citation">(<a href="#ref-numericalRecipes" role="doc-biblioref">18</a>)</span> is only
 accurate when <span class="math inline">\(n \gtrsim 20\)</span> and the <span class="math inline">\(p\)</span>-value is less than (more
-significant than) <span class="math inline">\(\sim 0.2\)</span> <span class="citation">(<a href="#ref-Babu2006" role="doc-biblioref">19</a>)</span>. While this inaccuracy still
-allows a simple rejection decision to be made at any <span class="math inline">\(\alpha\leq0.2\)</span>, it
-is sometimes useful to quantify large <span class="math inline">\(p\)</span> more exactly (such as if one
-was to do a cross-study concordance analysis comparing <span class="math inline">\(p\)</span> values
-between studies as in <span class="citation">(<a href="#ref-Ness-Cohn2020" role="doc-biblioref">22</a>)</span>), and to apply it to smaller
-datasets. To address these limitations, one can bootstrap the
-significance levels for the particular multidimensional statistic
-directly from the particular data set under study. As Fasano and
-Franceschini’s paper was originally released in 1987, this approach was
-unfeasible at scale. Today, modern computers can rapidly compute a
-bootstrapped null distribution of <span class="math inline">\(D_{FF}\)</span> from the data to test
-significance.</p>
-<p>The <code>fasano.franceschini.test</code> <strong>R</strong> package implements a parallelized bootstrapping procedure. The
-marginal distribution from 2-dimensional data set is resampled with
-replacement to generate randomized 2-dimensional data sets <code>nBootStrap</code> times. The
-frequency count by quadrant is performed for each bootstrapped
-resampling as described above to compute the <span class="math inline">\(D_{FF}\)</span>. The observed
-<span class="math inline">\(D_{FF}\)</span> is then compared to the distribution of bootstrapped <span class="math inline">\(D_{FF}\)</span>
-to compute a <span class="math inline">\(p\)</span> value. The bootstrapped version of the
-Fasano–Franceschini test can be run as follows (see <code><a href="../reference/fasano.franceschini.test.html">fasano.franceschini.test()</a></code> for further source
-code details and implementation).</p>
+significant than) <span class="math inline">\(\sim 0.2\)</span> <span class="citation">(<a href="#ref-Babu2006" role="doc-biblioref">19</a>)</span>. While this still allows a
+simple rejection decision to be made at any <span class="math inline">\(\alpha\leq0.2\)</span>, it is
+sometimes useful to quantify large <span class="math inline">\(p\)</span> more exactly (such as if one was
+to do a cross-study concordance analysis comparing <span class="math inline">\(p\)</span> values between
+studies as in <span class="citation">(<a href="#ref-Ness-Cohn2020" role="doc-biblioref">22</a>)</span>), and to apply it to smaller datasets. To
+address these limitations, one can empirically compute the significance
+levels for the particular multidimensional statistic directly from the
+particular data set under study. As Fasano and Franceschini’s paper was
+originally released in 1987, this approach was unfeasible at scale.
+Today, modern computers can rapidly compute a permuted null distribution
+of <span class="math inline">\(D_{FF}\)</span> from the data to test significance.</p>
+<p>In the permutation test implementation of <code>fasano.franceschini.test</code>,
+the sample labels are randomly permuted to generate two 2-dimensional
+data sets with new sample labels<code>nPermute</code> times. The frequency count by
+quadrant is performed for each permuted resampling as described above to
+compute the <span class="math inline">\(D_{FF}\)</span>. The observed <span class="math inline">\(D_{FF}\)</span> is then compared to the
+distribution of permuted <span class="math inline">\(D_{FF}\)</span> to compute a <span class="math inline">\(p\)</span> value. The
+permutation version of the Fasano–Franceschini test can be run as
+follows (see <code><a href="../reference/fasano.franceschini.test.html">fasano.franceschini.test()</a></code> for further source code
+details and implementation).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#set seed for reproducible example</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span>
@@ -411,74 +436,143 @@ code details and implementation).</p>
 <span class="op">)</span>
 
 <span class="fu"><a href="../reference/fasano.franceschini.test.html">fasano.franceschini.test</a></span><span class="op">(</span>S1 <span class="op">=</span> <span class="va">sample1Data</span>, S2 <span class="op">=</span> <span class="va">sample2Data</span>, nBootstrap <span class="op">=</span> <span class="fl">10</span>, cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<pre><code>## Warning in fasano.franceschini.test(S1 = sample1Data, S2 = sample2Data, : The 'nBootstrap' argument is deprecated, and will be removed in the next version of this package.
+##              Use 'nPermute' instead of 'nBootstrap' to compute the empirical null distribution for your data.
+##              The 'nPermute' argument has been set equal to 'nBootstrap'.</code></pre>
 <pre><code>## 
 ##  Fasano-Francheschini Test
 ## 
 ## data:  sample1Data and sample2Data
-## D-stat = 0.4, p-value = 0.2727
+## D-stat = 0.4, p-value = 0.3636
 ## sample estimates:
 ## dff,1 dff,2 
 ## 0.375 0.425</code></pre>
-<p>To improve run time, one may adjust the <code>cores</code> parameter; see the R <code>parallel</code> package and
-<code>mcapply()</code> the function for further details.</p>
+<p>To improve run time, one may adjust the <code>cores</code> parameter; see the R
+<code>parallel</code> package and <code>mcapply()</code> the function for further details.</p>
+<p>To improve run time, one may adjust the <code>cores</code> parameter; see the R
+<code>parallel</code> package and the <code>mclapply()</code> function for further details.
+[Note that, due to limitations of <code>parallel</code>, the parallelized
+permutation procedure only works on *nix operating systems (including
+MacOS, Linux, Unix, and BSD), and not Windows. Parallelization is
+generally only necessary when working with large values of <span class="math inline">\(N\)</span> and/or
+<code>nPermute</code>; in this case, we recommend using parallelization on a
+linux-based HPC cluster.]</p>
+</div>
+<div id="real-world-applications" class="section level2">
+<h2 class="hasAnchor">
+<a href="#real-world-applications" class="anchor"></a>Real world applications</h2>
+<p>Much like the 1-D KS test, the 2-D Fasano-Franceschini test is widely
+applicable across the scientific disciplines. <strong>Figure
+<a href="#fig:app" reference-type="ref" reference="fig:app">4</a></strong> shows use
+cases in the three distinct fields of social science, ecology, and cell
+biology. In <strong>Figure <a href="#fig:app" reference-type="ref" reference="fig:app">4</a>A</strong>, the Fasano-Franceschini test was used to detect
+differences in the distribution of social services within the
+municipality of Rennes, France <span class="citation">(<a href="#ref-Floch2018" role="doc-biblioref">23</a>)</span>; the Fasano-Franceschini
+test detected a significant difference in the distribution of clothing
+stores in relation to doctors offices, schools, and pharmacies
+(<span class="math inline">\(Bonf = 6.9e-18\)</span>; <span class="math inline">\(Bonf = 2.7e-10\)</span>; <span class="math inline">\(Bonf = 1.6e-7\)</span>, respectively). No
+statistical difference was seen between the distribution of the latter
+three social services in comparison to each other (doctors offices vs.
+pharmacies, <span class="math inline">\(Bonf = 1\)</span>; schools vs. pharmacies, <span class="math inline">\(Bonf = 1\)</span>; doctors
+offices vs. schools, <span class="math inline">\(Bonf = 1\)</span>). Pragmatically, such analysis can help
+to identify geographic service disparities and inform future city
+planning. In <strong>Figure <a href="#fig:app" reference-type="ref" reference="fig:app">4</a>B</strong>, the Fasano-Franceschini test was used to gain
+insight on the differences in the distribution of species in an
+ecosystem. Comparing the distribution of tree species with the Paracou
+Forest in French Guiana <span class="citation">(<a href="#ref-Marcon2015" role="doc-biblioref">24</a>)</span>, a statistically significant
+difference is seen between <em>V. Americana</em> and <em>Q. Rosea</em> (<span class="math inline">\(p = 3.6e-5\)</span>).
+While this was a trivial analysis of two species, multiple pairwise
+comparisons of species in a geographic area can identify ecological
+variation, providing useful insights for conservation and restoration
+efforts. In <strong>Figure <a href="#fig:app" reference-type="ref" reference="fig:app">4</a>C</strong>, the Fasano-Franceschini test was used to detect
+difference in the localization of distinct cell types with a tissue.
+Immunohistochemistry was used to stain tumor-infiltrated lymph node
+<!-- cross section for T-cells and tumor cell [@Setiadi2010]. A statistically -->
+significant difference is seen between the two cell types
+(<span class="math inline">\(p &lt; 2.2e-16\)</span>). In the cell biology context, the Fasano-Franceschini
+test lends itself for uses in high-throughput histological diagnostic
+assays; with initial findings support this proof of concept analysis, as
+deferentially distributed cell types within a tumor sample are shown to
+be linked to health outcomes <span class="citation">(<a href="#ref-Setiadi2010" role="doc-biblioref">25</a>)</span>.</p>
+<p>Beyond these three practical examples, the Fasano-Franchescini test has
+already been used in a myriad of other contexts, including the analysis
+of star clusters in the field of astrophysics <span class="citation">(<a href="#ref-Metchev2002" role="doc-biblioref">26</a>)</span> and seizure
+progression in the field of neuroscience <span class="citation">(<a href="#ref-Chen2012" role="doc-biblioref">27</a>)</span>. Ultimately, the
+nonparametric multivariate Fasano-Francheschini test proves to be a
+versatile analysis strategy that transcends domains and can provide
+practical insights.</p>
+<center>
+<div class="figure">
+<img src="applications.png" id="fig:app" align="center" style="width:75.0%" alt=""><p class="caption"><strong>Figure 4</strong> | Example application settings for the
+Fasano-Francheschini test. <strong>A:</strong> Geographic locations of fours distinct
+facilities in the municipality of Rennes, France <span class="citation">(<a href="#ref-Floch2018" role="doc-biblioref">23</a>)</span>. <strong>B:</strong>
+Geographic location of tree species in the plot 16 field station of the
+Paracou Forest, French Guiana <span class="citation">(<a href="#ref-Marcon2015" role="doc-biblioref">24</a>)</span>.<strong>C:</strong> Immunohistochemistry
+stained tumor-infiltrated lymph node cross section, with tumor and
+T-cells colored in blue and orange respectively
+<span class="citation">(<a href="#ref-Setiadi2010" role="doc-biblioref">25</a>)</span>.</p>
+</div>
+</center>
 </div>
 <div id="computational-efficency" class="section level2">
 <h2 class="hasAnchor">
 <a href="#computational-efficency" class="anchor"></a>Computational efficency</h2>
+<p>To assess the computational efficiency, we benchmarked the package as
+follows. Using the <code>rbenchmark</code> package to evaluate runtime, the
+Fasano–Franceschini test and Peacock test were run under four different
+samples sizes (<span class="math inline">\(n=10, 100, 1000, 5000\)</span>), with 10 replicates for each
+run. The Fasano–Franceschini test permutation procedure was further
+evaluated under four different permuted iterations (no permutation, 10,
+100, 1000), again using 10 replicates for each run. Reported results
+represent the average run time of the 10 replicate benchmarks. All
+benchmark tests were run on a 2018 macBook Pro Mac (macOS Catalina) with
+a 2.7-GHz Quad-Core Intel Core i7 processor and 16 GB of 2133 MHz LPDDR3
+memory.</p>
 <center>
 <div class="figure">
-<img src="benchmark.png" id="fig:bmark" align="center" style="width:75.0%" alt=""><p class="caption"><strong>Figure 4</strong> | Computational efficiency benchmarks. <strong>A:</strong> Runtime of
+<img src="benchmark.png" id="fig:bmark" align="center" style="width:75.0%" alt=""><p class="caption"><strong>Figure 5</strong> | Computational efficiency benchmarks. <strong>A:</strong> Runtime of
 the Fasano–Franceschini test relative to the Peacock test at four
 different sample sizes (<span class="math inline">\(n=10, 100, 1000, 5000\)</span>). Points represent the
 average of 10 benchmark runs. <strong>B:</strong> Runtime of the Fasano–Franceschini
-bootstrapping procedure for various sample sizes
+permutation procedure for various sample sizes
 (<span class="math inline">\(n= 10, 100, 1000, 5000\)</span>) as a function of the number of cores used.
-Within each panel, lines are colored by the number of bootstrap
-iterations (no bootstrap, 10, 100, 1000). Points represent the average
+Within each panel, lines are colored by the number of permuted
+iterations (no permutation, 10, 100, 1000). Points represent the average
 of 10 benchmark runs. Note the logarithmic <span class="math inline">\(y\)</span>-axis in
 (B).</p>
 </div>
 </center>
-<p>To assess the computational efficiency, we benchmarked the package as
-follows. Using the <code>rbenchmark</code> package to evaluate runtime, the Fasano–Franceschini
-test and Peacock test were run under four different samples sizes
-(<span class="math inline">\(n=10, 100, 1000, 5000\)</span>), with 10 replicates for each run. The
-Fasano–Franceschini test bootstrap procedure was further evaluated
-under four different bootstrap iterations (no bootstrap, 10, 100, 1000),
-again using 10 replicates for each run. Reported results represent the
-average run time of the 10 replicate benchmarks. All benchmark tests
-were run on a 2018 macBook Pro Mac (macOS Catalina) with a 2.7-GHz
-Quad-Core Intel Core i7 processor and 16 GB of 2133 MHz LPDDR3 memory.</p>
 <p>The main distinction between the Peacock and Fasano–Franceschini tests
 is in computational efficiency, with Fasano–Franceschini scaling as
 <span class="math inline">\(O(n^2)\)</span> relative to Peacock’s complexity of <span class="math inline">\(O(n^3)\)</span> <span class="citation">(<a href="#ref-Lopes2007" role="doc-biblioref">17</a>)</span>. Our
 benchmarks also show this advantage, as shown in <strong>Figure
-<a href="#fig:bmark" reference-type="ref" reference="fig:bmark">4</a>A</strong>. While
-the implementation of the bootstrapping procedure increases runtime in
+<a href="#fig:bmark" reference-type="ref" reference="fig:bmark">5</a>A</strong>. While
+the implementation of the permutation procedure increases runtime in
 comparison to the approximate fit from <span class="citation">(<a href="#ref-numericalRecipes" role="doc-biblioref">18</a>)</span>,
 parallelization of the Fasano–Franceschini test shows a four-fold
 reduction in run time when parallelized across 8 cores (<strong>Figure
-<a href="#fig:bmark" reference-type="ref" reference="fig:bmark">4</a>B</strong>).</p>
+<a href="#fig:bmark" reference-type="ref" reference="fig:bmark">5</a>B</strong>).</p>
 </div>
 </div>
 <div id="sec:summary" class="section level1">
 <h1 class="hasAnchor">
 <a href="#sec:summary" class="anchor"></a>Summary and discussion</h1>
-<p>The <code>fasano.franceschini.test</code> package is an <strong>R</strong> implementation of the 2-D two-sample KS test as
-defined by Fasano and Franceschini <span class="citation">(<a href="#ref-Fasano1987" role="doc-biblioref">1</a>)</span>. It improves upon
-existing packages by implementing a fast algorithm and a parallelized
-bootstrapping procedure for improved statistical testing. Complete
-package documentation and source code is available via the Comprehensive
-<strong>R</strong> Archive Network (CRAN) at <a href="https://CRAN.R-project.org/" class="uri">https://CRAN.R-project.org/</a> and the package
-website at <a href="https://nesscoder.github.io/fasano.franceschini.test/" class="uri">https://nesscoder.github.io/fasano.franceschini.test/</a>.</p>
+<p>The <code>fasano.franceschini.test</code> package is an <strong>R</strong> implementation of the
+2-D two-sample KS test as defined by Fasano and Franceschini
+<span class="citation">(<a href="#ref-Fasano1987" role="doc-biblioref">1</a>)</span>. It improves upon existing packages by implementing a fast
+algorithm and a parallelized permutation procedure for improved
+statistical testing. Complete package documentation and source code is
+available via the Comprehensive <strong>R</strong> Archive Network (CRAN) at
+<a href="https://CRAN.R-project.org/" class="uri">https://CRAN.R-project.org/</a> and the package website at
+<a href="https://nesscoder.github.io/fasano.franceschini.test/" class="uri">https://nesscoder.github.io/fasano.franceschini.test/</a>.</p>
 </div>
 <div id="computational-details" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#computational-details" class="anchor"></a>Computational details</h1>
-<p>The results in this paper were obtained using <strong>R</strong> 4.0.3 with the fasano.franceschini.test 1.0.0
-package. <strong>R</strong> itself and all package dependencies (methods 4.0.3; parallel 4.0.3) are
-available from the Comprehensive Archive Network (CRAN) at
-<a href="https://CRAN.R-project.org/" class="uri">https://CRAN.R-project.org/</a>.</p>
+<p>The results in this paper were obtained using <strong>R</strong> 4.0.3 with the
+fasano.franceschini.test 1.0.0 package. <strong>R</strong> itself and all package
+dependencies (methods 4.0.3; parallel 4.0.3) are available from the
+Comprehensive Archive Network (CRAN) at <a href="https://CRAN.R-project.org/" class="uri">https://CRAN.R-project.org/</a>.</p>
 </div>
 <div id="acknowledgments" class="section level1 unnumbered">
 <h1 class="hasAnchor">
@@ -490,8 +584,8 @@ grant from the Simons Foundation/SFARI (597491-RWC) and the National
 Science Foundation (1764421). The content is solely the responsibility
 of the authors and does not necessarily represent the official views of
 the National Science Foundation and Simons Foundation.</p>
-<p>E.N.C developed the <code>fasano.franceschini.test</code> package and produced the tutorials/documentation;
-E.N.C. and R.B. wrote the paper.</p>
+<p>E.N.C developed the <code>fasano.franceschini.test</code> package and produced the
+tutorials/documentation; E.N.C. and R.B. wrote the paper.</p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
@@ -559,7 +653,7 @@ E.N.C. and R.B. wrote the paper.</p>
 </div>
 <div id="ref-R" class="csl-entry">
 <div class="csl-left-margin">16. </div>
-<div class="csl-right-inline">R Core Team, <em><span>R</span>: <span>A</span> language and environment for statistical computing</em> (<span>R</span> Foundation for Statistical Computing, 2020).</div>
+<div class="csl-right-inline">R Core Team, <em>R: A language and environment for statistical computing</em> (R Foundation for Statistical Computing, 2016).</div>
 </div>
 <div id="ref-Lopes2007" class="csl-entry">
 <div class="csl-left-margin">17. </div>
@@ -584,6 +678,26 @@ E.N.C. and R.B. wrote the paper.</p>
 <div id="ref-Ness-Cohn2020" class="csl-entry">
 <div class="csl-left-margin">22. </div>
 <div class="csl-right-inline">E. Ness-Cohn, M. Iwanaszko, W. L. Kath, R. Allada, R. Braun, <span>TimeTrial</span>: An interactive application for optimizing the design and analysis of transcriptomic time-series data in circadian biology research. <em>Journal of Biological Rhythms</em> <strong>35</strong>, 439–451 (2020).</div>
+</div>
+<div id="ref-Floch2018" class="csl-entry">
+<div class="csl-left-margin">23. </div>
+<div class="csl-right-inline">J.-M. Floch, E. Marcon, F. Puech, <span>“<span class="nocase">Spatial distribution of points</span>”</span> in <em>Handbook of Spatial Analysis</em>, V. Loonis, M.-P. (de). Bellefon, Eds. (Insee-Eurostat, 2018), pp. 71–111.</div>
+</div>
+<div id="ref-Marcon2015" class="csl-entry">
+<div class="csl-left-margin">24. </div>
+<div class="csl-right-inline">E. Marcon, S. Traissac, F. Puech, G. Lang, <span class="nocase">Tools to characterize point patterns: Dbmss for R</span>. <em>Journal of Statistical Software</em> <strong>67</strong>, 1–15 (2015).</div>
+</div>
+<div id="ref-Setiadi2010" class="csl-entry">
+<div class="csl-left-margin">25. </div>
+<div class="csl-right-inline">A. F. Setiadi, <em>et al.</em>, <span class="nocase">Quantitative, architectural analysis of immune cell subsets in tumor-draining lymph nodes from breast cancer patients and healthy lymph nodes</span>. <em>PLoS ONE</em> <strong>5</strong>, e12420 (2010).</div>
+</div>
+<div id="ref-Metchev2002" class="csl-entry">
+<div class="csl-left-margin">26. </div>
+<div class="csl-right-inline">S. A. Metchev, J. E. Grindlay, <span class="nocase">A two-dimensional Kolmogorov-Smirnov test for crowded field source detection: ROSAT sources in NGC 6397</span>. <em>Monthly Notices of the Royal Astronomical Society</em> <strong>335</strong>, 73–83 (2002).</div>
+</div>
+<div id="ref-Chen2012" class="csl-entry">
+<div class="csl-left-margin">27. </div>
+<div class="csl-right-inline">W. Chen, D. O. Cahoy, J. G. Tasker, A. W. L. Chiu, <span class="nocase">Kernel duration and modulation gain in a coupled oscillator model and their implications on the progression of seizures</span>. <em>Network: Computation in Neural Systems</em> <strong>23</strong>, 59–75 (2012).</div>
 </div>
 </div>
 </div>
