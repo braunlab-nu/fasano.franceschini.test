@@ -474,7 +474,7 @@ permutation procedure for various sample sizes
 Within each panel, lines are colored by the number of permuted
 iterations (no permutation, 10, 100, 1000). Points represent the average
 of 10 benchmark runs. Note the logarithmic $y$-axis in
-(B).](benchmark2.png){#fig:bmark width="75%" align="center"}
+(B).](benchmark.png){#fig:bmark width="75%" align="center"}
 
 </center>
 
