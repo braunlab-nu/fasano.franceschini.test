@@ -487,7 +487,7 @@ variation, providing useful insights for conservation and restoration
 efforts. In <strong>Figure <a href="#fig:app" reference-type="ref" reference="fig:app">4</a>C</strong>, the Fasano-Franceschini test was used to detect
 difference in the localization of distinct cell types with a tissue.
 Immunohistochemistry was used to stain tumor-infiltrated lymph node
-<!-- cross section for T-cells and tumor cell [@Setiadi2010]. A statistically -->
+cross section for T-cells and tumor cell <span class="citation">(<a href="#ref-Setiadi2010" role="doc-biblioref">25</a>)</span>. A statistically
 significant difference is seen between the two cell types
 (<span class="math inline">\(p &lt; 2.2e-16\)</span>). In the cell biology context, the Fasano-Franceschini
 test lends itself for uses in high-throughput histological diagnostic
@@ -528,6 +528,16 @@ represent the average run time of the 10 replicate benchmarks. All
 benchmark tests were run on a 2018 macBook Pro Mac (macOS Catalina) with
 a 2.7-GHz Quad-Core Intel Core i7 processor and 16 GB of 2133 MHz LPDDR3
 memory.</p>
+<p>The main distinction between the Peacock and Fasano–Franceschini tests
+is in computational efficiency, with Fasano–Franceschini scaling as
+<span class="math inline">\(O(n^2)\)</span> relative to Peacock’s complexity of <span class="math inline">\(O(n^3)\)</span> <span class="citation">(<a href="#ref-Lopes2007" role="doc-biblioref">17</a>)</span>. Our
+benchmarks also show this advantage, as shown in <strong>Figure
+<a href="#fig:bmark" reference-type="ref" reference="fig:bmark">5</a>A</strong>. While
+the implementation of the permutation procedure increases runtime in
+comparison to the approximate fit from <span class="citation">(<a href="#ref-numericalRecipes" role="doc-biblioref">18</a>)</span>,
+parallelization of the Fasano–Franceschini test shows a four-fold
+reduction in run time when parallelized across 8 cores (<strong>Figure
+<a href="#fig:bmark" reference-type="ref" reference="fig:bmark">5</a>B</strong>).</p>
 <center>
 <div class="figure">
 <img src="benchmark.png" id="fig:bmark" align="center" style="width:75.0%" alt=""><p class="caption"><strong>Figure 5</strong> | Computational efficiency benchmarks. <strong>A:</strong> Runtime of
@@ -542,16 +552,6 @@ of 10 benchmark runs. Note the logarithmic <span class="math inline">\(y\)</span
 (B).</p>
 </div>
 </center>
-<p>The main distinction between the Peacock and Fasano–Franceschini tests
-is in computational efficiency, with Fasano–Franceschini scaling as
-<span class="math inline">\(O(n^2)\)</span> relative to Peacock’s complexity of <span class="math inline">\(O(n^3)\)</span> <span class="citation">(<a href="#ref-Lopes2007" role="doc-biblioref">17</a>)</span>. Our
-benchmarks also show this advantage, as shown in <strong>Figure
-<a href="#fig:bmark" reference-type="ref" reference="fig:bmark">5</a>A</strong>. While
-the implementation of the permutation procedure increases runtime in
-comparison to the approximate fit from <span class="citation">(<a href="#ref-numericalRecipes" role="doc-biblioref">18</a>)</span>,
-parallelization of the Fasano–Franceschini test shows a four-fold
-reduction in run time when parallelized across 8 cores (<strong>Figure
-<a href="#fig:bmark" reference-type="ref" reference="fig:bmark">5</a>B</strong>).</p>
 </div>
 </div>
 <div id="sec:summary" class="section level1">
@@ -570,8 +570,8 @@ available via the Comprehensive <strong>R</strong> Archive Network (CRAN) at
 <h1 class="hasAnchor">
 <a href="#computational-details" class="anchor"></a>Computational details</h1>
 <p>The results in this paper were obtained using <strong>R</strong> 4.0.3 with the
-fasano.franceschini.test 1.0.0 package. <strong>R</strong> itself and all package
-dependencies (methods 4.0.3; parallel 4.0.3) are available from the
+<code>fasano.franceschini.test</code> 1.1.0 package. <strong>R</strong> itself and all package
+dependencies (<code>methods</code> 4.0.3; <code>parallel</code> 4.0.3) are available from the
 Comprehensive Archive Network (CRAN) at <a href="https://CRAN.R-project.org/" class="uri">https://CRAN.R-project.org/</a>.</p>
 </div>
 <div id="acknowledgments" class="section level1 unnumbered">

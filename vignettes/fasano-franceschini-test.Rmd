@@ -274,6 +274,7 @@ r = \frac{\sum_{i}(X_i-\bar{X})(Y_i-\bar{Y})}{\sqrt{\sum_{i}(X_i-\bar{X})^2}\sqr
 (\#eq:6)
 \end{equation}
 ```
+
 ## Power of the Peacock Test (1983) and Fasano--Franceschini Test (1987)
 
 A complete treatmentent of the power of both the Peacock and
@@ -420,7 +421,7 @@ efforts. In **Figure [4](#fig:app){reference-type="ref"
 reference="fig:app"}C**, the Fasano-Franceschini test was used to detect
 difference in the localization of distinct cell types with a tissue.
 Immunohistochemistry was used to stain tumor-infiltrated lymph node
-<!-- cross section for T-cells and tumor cell [@Setiadi2010]. A statistically -->
+cross section for T-cells and tumor cell [@Setiadi2010]. A statistically
 significant difference is seen between the two cell types
 ($p < 2.2e-16$). In the cell biology context, the Fasano-Franceschini
 test lends itself for uses in high-throughput histological diagnostic
@@ -463,6 +464,17 @@ benchmark tests were run on a 2018 macBook Pro Mac (macOS Catalina) with
 a 2.7-GHz Quad-Core Intel Core i7 processor and 16 GB of 2133 MHz LPDDR3
 memory.
 
+The main distinction between the Peacock and Fasano--Franceschini tests
+is in computational efficiency, with Fasano--Franceschini scaling as
+$O(n^2)$ relative to Peacock's complexity of $O(n^3)$ [@Lopes2007]. Our
+benchmarks also show this advantage, as shown in **Figure
+[5](#fig:bmark){reference-type="ref" reference="fig:bmark"}A**. While
+the implementation of the permutation procedure increases runtime in
+comparison to the approximate fit from [@numericalRecipes],
+parallelization of the Fasano--Franceschini test shows a four-fold
+reduction in run time when parallelized across 8 cores (**Figure
+[5](#fig:bmark){reference-type="ref" reference="fig:bmark"}B**).
+
 <center>
 
 ![**Figure 5** \| Computational efficiency benchmarks. **A:** Runtime of
@@ -478,17 +490,6 @@ of 10 benchmark runs. Note the logarithmic $y$-axis in
 
 </center>
 
-The main distinction between the Peacock and Fasano--Franceschini tests
-is in computational efficiency, with Fasano--Franceschini scaling as
-$O(n^2)$ relative to Peacock's complexity of $O(n^3)$ [@Lopes2007]. Our
-benchmarks also show this advantage, as shown in **Figure
-[5](#fig:bmark){reference-type="ref" reference="fig:bmark"}A**. While
-the implementation of the permutation procedure increases runtime in
-comparison to the approximate fit from [@numericalRecipes],
-parallelization of the Fasano--Franceschini test shows a four-fold
-reduction in run time when parallelized across 8 cores (**Figure
-[5](#fig:bmark){reference-type="ref" reference="fig:bmark"}B**).
-
 # Summary and discussion {#sec:summary}
 
 The `fasano.franceschini.test` package is an **R** implementation of the
@@ -503,8 +504,8 @@ available via the Comprehensive **R** Archive Network (CRAN) at
 # Computational details {#computational-details .unnumbered}
 
 The results in this paper were obtained using **R** 4.0.3 with the
-fasano.franceschini.test 1.0.0 package. **R** itself and all package
-dependencies (methods 4.0.3; parallel 4.0.3) are available from the
+`fasano.franceschini.test` 1.1.0 package. **R** itself and all package
+dependencies (`methods` 4.0.3; `parallel` 4.0.3) are available from the
 Comprehensive Archive Network (CRAN) at <https://CRAN.R-project.org/>.
 
 # Acknowledgments {#acknowledgments .unnumbered}
