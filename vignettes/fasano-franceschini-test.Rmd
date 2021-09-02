@@ -379,9 +379,6 @@ fasano.franceschini.test(S1 = sample1Data, S2 = sample2Data, nBootstrap = 10, co
 ```
 
 To improve run time, one may adjust the `cores` parameter; see the R
-`parallel` package and `mcapply()` the function for further details.
-
-To improve run time, one may adjust the `cores` parameter; see the R
 `parallel` package and the `mclapply()` function for further details.
 [Note that, due to limitations of `parallel`, the parallelized
 permutation procedure only works on \*nix operating systems (including
