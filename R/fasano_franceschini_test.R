@@ -6,7 +6,6 @@
 #'
 #' @param S1 a `[n by 2]` `data.frame` of x and y coordinates of sample 1
 #' @param S2 a `[n by 2]` `data.frame` of x and y coordinates of sample 2
-#' @param nBootstrap a depreciated `numeric` argument defining the number of bootstrapped samples to be generated for computing the empirical p-value. nBootstrap is set to be replaced by nPermute in the next released version of the package.
 #' @param nPermute a `numeric` defining the number of permuted samples to be generated for computing the empirical p-value (note this procedure is slow and computationally expensive on the order of nPermute*O(n^2). Default is set to 0.
 #' If nPermute is 0, the Fasano Franceschini distributional approximation is used for defining the p-value. See Fasano and Franceschini test (1987) for details.
 #' @param cores a `numeric` defining the number of cores to use for processing
@@ -46,7 +45,7 @@
 #' @import methods
 #' @export
 
-fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, nPermute = 0, cores = 1) {
+fasano.franceschini.test <- function(S1, S2, nPermute = 0, cores = 1) {
 
   #validate inputs
   if(!is.data.frame(S1) | !is.data.frame(S2)){
@@ -54,13 +53,6 @@ fasano.franceschini.test <- function(S1, S2, nBootstrap = 0, nPermute = 0, cores
   }
   if(ncol(S1) != 2 | ncol(S2) != 2){
     stop("S1 and S2 must be a `data.frame` of dim nrows x 2 cols, more than 2 cols detected")
-  }
-
-  if (!missing(nBootstrap)) {
-    warning("The 'nBootstrap' argument is deprecated, and will be removed in the next version of this package.
-             Use 'nPermute' instead of 'nBootstrap' to compute the empirical null distribution for your data.
-             The 'nPermute' argument has been set equal to 'nBootstrap'.")
-    nPermute <- nBootstrap
   }
 
   if(nPermute < 0){

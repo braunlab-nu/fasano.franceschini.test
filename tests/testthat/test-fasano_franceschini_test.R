@@ -34,12 +34,11 @@ test_that("FF test computes with bootstrap, bootstrap is depreciated", {
 
   set.seed(123)
 
-  output <- fasano.franceschini.test(S1 = S1, S2 = S2, nBootstrap = 1000, cores = 1)
+  output <- fasano.franceschini.test(S1 = S1, S2 = S2, nPermute = 1000, cores = 1)
   expect_equal(unname(output$p.value), 0.001998002)
   expect_named(output$p.value, "p-value")
   expect_equal(unname(output$statistic), 0.525)
   expect_named(output$statistic, "D-stat")
-  expect_warning(fasano.franceschini.test(S1 = S1, S2 = S2, nBootstrap = 1000, cores = 1),"The 'nPermute' argument has been set equal to 'nBootstrap'.")
 })
 
 test_that("FF test computes with Permute", {

@@ -131,7 +131,7 @@
     <p>Computes the 2-D Kolmogorov-Smirnov two-sample test as described by Fasano and Franceschini (1987).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fasano.franceschini.test</span><span class='op'>(</span><span class='va'>S1</span>, <span class='va'>S2</span>, nBootstrap <span class='op'>=</span> <span class='fl'>0</span>, nPermute <span class='op'>=</span> <span class='fl'>0</span>, cores <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>fasano.franceschini.test</span><span class='op'>(</span><span class='va'>S1</span>, <span class='va'>S2</span>, nPermute <span class='op'>=</span> <span class='fl'>0</span>, cores <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,10 +143,6 @@
     <tr>
       <th>S2</th>
       <td><p>a <code>[n by 2]</code> <code>data.frame</code> of x and y coordinates of sample 2</p></td>
-    </tr>
-    <tr>
-      <th>nBootstrap</th>
-      <td><p>a depreciated <code>numeric</code> argument defining the number of bootstrapped samples to be generated for computing the empirical p-value. nBootstrap is set to be replaced by nPermute in the next released version of the package.</p></td>
     </tr>
     <tr>
       <th>nPermute</th>

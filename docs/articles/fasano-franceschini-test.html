@@ -172,7 +172,7 @@ Comprehensive Archive Network (CRAN): (i) the Fasano and Franceschini
 test has been shown to run in <span class="math inline">\(O(n^2)\)</span> versus the Peacock implementation
 which runs in <span class="math inline">\(O(n^3)\)</span>; and (ii) the package implements a permutation
 procedure for improved significance testing and mitigates the
-limitations of the test brought noted by <span class="citation">(<a href="#ref-Babu2006" role="doc-biblioref">19</a>)</span>.</p>
+limitations of the test noted by <span class="citation">(<a href="#ref-Babu2006" role="doc-biblioref">19</a>)</span>.</p>
 </div>
 <div id="sec:models" class="section level1">
 <h1 class="hasAnchor">
@@ -247,7 +247,7 @@ probability—i.e. fraction of data—in each of the four quadrants
 around all possible tuples in the data. For example, for <span class="math inline">\(n\)</span> points in a
 two-dimensional space, the empirical cumulative distribution functions
 is calculated in the <span class="math inline">\(4n^2\)</span> quadrants of the plane defined by all pairs
-$(X_i, Y_j): i,j$$, where <span class="math inline">\(X_i\)</span> and <span class="math inline">\(Y_j\)</span> are any observed
+<span class="math inline">\((X_i, Y_j): i,j\in[1,n]\)</span>, where <span class="math inline">\(X_i\)</span> and <span class="math inline">\(Y_j\)</span> are any observed
 value of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> (whether or not they are observed as a pair). There
 are <span class="math inline">\(n^2\)</span> such pairs, each of which can define four quadrants in the 2-D
 plane; by ranging over all possible pairs of data points and quadrants,
@@ -435,10 +435,7 @@ details and implementation).</p>
   y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="op">)</span>
 
-<span class="fu"><a href="../reference/fasano.franceschini.test.html">fasano.franceschini.test</a></span><span class="op">(</span>S1 <span class="op">=</span> <span class="va">sample1Data</span>, S2 <span class="op">=</span> <span class="va">sample2Data</span>, nBootstrap <span class="op">=</span> <span class="fl">10</span>, cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
-<pre><code>## Warning in fasano.franceschini.test(S1 = sample1Data, S2 = sample2Data, : The 'nBootstrap' argument is deprecated, and will be removed in the next version of this package.
-##              Use 'nPermute' instead of 'nBootstrap' to compute the empirical null distribution for your data.
-##              The 'nPermute' argument has been set equal to 'nBootstrap'.</code></pre>
+<span class="fu"><a href="../reference/fasano.franceschini.test.html">fasano.franceschini.test</a></span><span class="op">(</span>S1 <span class="op">=</span> <span class="va">sample1Data</span>, S2 <span class="op">=</span> <span class="va">sample2Data</span>, nPermute <span class="op">=</span> <span class="fl">10</span>, cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ##  Fasano-Francheschini Test
 ## 

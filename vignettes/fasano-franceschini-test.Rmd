@@ -95,7 +95,7 @@ Comprehensive Archive Network (CRAN): (i) the Fasano and Franceschini
 test has been shown to run in $O(n^2)$ versus the Peacock implementation
 which runs in $O(n^3)$; and (ii) the package implements a permutation
 procedure for improved significance testing and mitigates the
-limitations of the test brought noted by @Babu2006.
+limitations of the test noted by @Babu2006.
 
 # Models and software {#sec:models}
 
@@ -182,7 +182,7 @@ probability---i.e. fraction of data---in each of the four quadrants
 around all possible tuples in the data. For example, for $n$ points in a
 two-dimensional space, the empirical cumulative distribution functions
 is calculated in the $4n^2$ quadrants of the plane defined by all pairs
-\$(X_i, Y_j): i,j\in[1,n]\$\$, where $X_i$ and $Y_j$ are any observed
+$(X_i, Y_j): i,j\in[1,n]$, where $X_i$ and $Y_j$ are any observed
 value of $x$ and $y$ (whether or not they are observed as a pair). There
 are $n^2$ such pairs, each of which can define four quadrants in the 2-D
 plane; by ranging over all possible pairs of data points and quadrants,
@@ -374,7 +374,7 @@ sample2Data <- data.frame(
   y = rnorm(n = 10, mean = 0, sd = 1)
 )
 
-fasano.franceschini.test(S1 = sample1Data, S2 = sample2Data, nBootstrap = 10, cores = 1)
+fasano.franceschini.test(S1 = sample1Data, S2 = sample2Data, nPermute = 10, cores = 1)
 
 ```
 
