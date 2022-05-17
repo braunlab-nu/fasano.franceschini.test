@@ -1,3 +1,14 @@
+# fasano.franceschini.test 2.0.0
+* Major overhaul of the package. Most of the internal computations are done in C++ now rather than R.
+* Testing has been extended from two dimensions to arbitrary dimensions.
+* Time complexity of computing the test statistic has been reduced from quadratic to quasilinear.
+* The 'cores' argument has been renamed 'threads'.
+* A 'seed' argument has been added to ensure reproducibility in the p-value estimation.
+* A 'verbose' argument has been added to print a progress bar during the permutation test.
+* The p-value approximation has been removed, as it was not very accurate and only valid in two dimensions.
+* Tie handling procedures are changed, but do not seem to affect power.
+* A confidence interval for the p-value estimate is now returned.
+
 # fasano.franceschini.test 1.1.0
 
 * The 'nBootstrap' argument is deprecated, and will be removed in the next version of this package. Use 'nPermute' instead of 'nBootstrap' to compute the empirical null distribution for your data.
