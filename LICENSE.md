@@ -1,6 +1,6 @@
 # MIT License
 
-Copyright (c) 2020 Elan Ness-Cohn
+Copyright (c) 2022 Connor Puritz,Elan Ness-Cohn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

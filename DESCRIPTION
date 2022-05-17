@@ -1,33 +1,26 @@
 Package: fasano.franceschini.test
-Title: Fasano-Franceschini Test: A 2-D Kolmogorov-Smirnov Two-Sample Test
-Version: 1.1.0
-Authors@R: 
-    c(person(given = "Elan",
-           family = "Ness-Cohn",
-           role = c("aut", "cre"),
-           email = "elanness-cohn2017@u.northwestern.edu",
-           comment = c(ORCID = "0000-0002-3935-6667")),
-	person(given = "Rosemary",
-		family = "Braun", 
-		email = "rbraun@northwestern.edu",
-		role = c("ctb","ths"),
-		comment = c(ORCID = "0000-0001-9668-9866")))
-Description: An implementation of the 2-D Kolmogorov-Smirnov (KS) two-sample test as defined by Fasano and Franceschini (Fasano and Franceschini 1987). The 'fasano.franceschini.test' package provides three improvements over the current 2-D KS test on the Comprehensive R Archive Network (CRAN): (i) the Fasano and Franceschini test has been shown to run in O(n^2) versus the Peacock implementation which runs in O(n^3); (ii) the package implements a procedure for handling ties in the data; and (iii) the package implements a parallelized permutation procedure for improved significance testing. Ultimately, the 'fasano.franceschini.test' package presents a robust statistical test for analyzing random samples defined in 2-dimensions.
+Type: Package
+Title: Fasano-Franceschini Test: A Multidimensional Kolmogorov-Smirnov Two-Sample Test
+Version: 2.0.0
+Authors@R: c(person("Connor", "Puritz", role = c("aut", "cre"), email = "connorpuritz2025@u.northwestern.edu", comment = c(ORCID = "0000-0001-7602-0444")),
+             person("Elan", "Ness-Cohn", role = c("aut"), email = "elanness-cohn2017@u.northwestern.edu", comment = c(ORCID = "0000-0002-3935-6667")),
+             person("Rosemary", "Braun", role = c("ctb", "ths"), email = "rbraun@northwestern.edu", comment = c(ORCID = "0000-0001-9668-9866")),
+             person("Luca", "Weihs", role = c("cph"), comment = c("Copyright holder and author of 'RangeTree' class.")))
+Description: An implementation of the multidimensional Kolmogorov-Smirnov (KS) two-sample test described by Fasano and Franceschini (1987) <doi:10.1093/mnras/225.1.155>. The 'fasano.franceschini.test' package provides three major improvements over the current multidimensional KS test on the Comprehensive R Archive Network (CRAN): (i) the computation of the test statistic has a log-linear rather than cubic time complexity; (ii) testing in arbitrary dimensions rather than just two or three; and (iii) a parallelized permutation procedure for rapid significance testing. Ultimately, the 'fasano.franceschini.test' package presents a robust statistical test for analyzing random samples defined in multiple dimensions.
 License: MIT + file LICENSE
 Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+LazyData: true
+RoxygenNote: 7.1.2
+Depends: 
+    R (>= 3.0.2)
+LinkingTo: 
+    Rcpp (>= 1.0.0),
+    RcppParallel (>= 5.0.1)
 Imports: 
     stats,
-    parallel,
-    methods
+    Rcpp (>= 1.0.0),
+    RcppParallel (>= 5.0.1)
 Suggests: 
-    tidyverse,
-    knitr,
-    rmarkdown,
-    bookdown,
     testthat (>= 3.0.0)
-URL: https://github.com/nesscoder/fasano.franceschini.test
-BugReports: https://github.com/nesscoder/fasano.franceschini.test/issues
-VignetteBuilder: knitr
 Config/testthat/edition: 3
+SystemRequirements: GNU make

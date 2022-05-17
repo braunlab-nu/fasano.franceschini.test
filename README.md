@@ -8,20 +8,19 @@
 <!-- badges: start -->
 
 [![](https://img.shields.io/badge/arXiv-abs/2106.10539-yellow.svg)](https://arxiv.org/abs/2106.10539)
-[![R build
-status](https://github.com/nesscoder/fasano.franceschini.test/workflows/R-CMD-check/badge.svg)](https://github.com/nesscoder/fasano.franceschini.test/actions)
-[![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-[![](https://img.shields.io/badge/devel%20version-1.1.0-blue.svg)](https://github.com/nesscoder/fasano.franceschini.test)
-[![](https://img.shields.io/github/languages/code-size/nesscoder/fasano.franceschini.test.svg)](https://github.com/nesscoder/fasano.franceschini.test)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/fasano.franceschini.test?color=blue)](https://cran.r-project.org/package=fasano.franceschini.test)
-
+[![](https://www.r-pkg.org/badges/version/fasano.franceschini.test?color=orange)](https://cran.r-project.org/package=fasano.franceschini.test)
+[![](https://img.shields.io/badge/devel%20version-2.0.0-blue.svg)](https://github.com/nesscoder/fasano.franceschini.test)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/fasano.franceschini.test?color=green)](https://cran.r-project.org/package=fasano.franceschini.test)
+[![R-CMD-check](https://github.com/cpuritz/fftest/workflows/R-CMD-check/badge.svg)](https://github.com/cpuritz/fftest/actions)
 <!-- badges: end -->
 
-The `fasano.franceschini.test` package is an R implementation of the 2-D
-Kolmogorov-Smirnov (**KS**) two-sample test as defined by Fasano and
-Franceschini (1987). This is a variant of the 2-D two-sample KS test as
-originally defined by Peacock (1983).
+The `fasano.franceschini.test` package is an R implementation of the
+multidimensional Kolmogorov-Smirnov two-sample test as defined by Fasano
+and Franceschini (1987).
+
+    Fasano, G. & Franceschini, A. (1987). A multidimensional version of the
+    Kolmogorov-Smirnov test. Monthly Notices of the Royal Astronomical Society,
+    225:155-170. doi: 10.1093/mnras/225.1.155.
 
 ## Installation
 
@@ -40,60 +39,58 @@ from [GitHub](https://github.com/) with:
 devtools::install_github("nesscoder/fasano.franceschini.test")
 ```
 
-## Example
+## Examples
 
-#### Underlying Distributions Are Different
+#### Underlying distributions are the same
 
 ``` r
 library(fasano.franceschini.test)
 
-#set seed for reproducible example
-set.seed(123)
+# set seed for reproducibility
+set.seed(0)
 
-#create 2-D samples with the different underlying distributions
-sample1Data <- data.frame(
-  x = rnorm(n = 50, mean = 0, sd = 3),
-  y = rnorm(n = 50, mean = 0, sd = 1)
-)
-sample2Data <- data.frame(
-  x = rnorm(n = 50, mean = 0, sd = 1),
-  y = rnorm(n = 50, mean = 0, sd = 3)
-)
+# create 2D samples from the same underlying distribution
+S1 <- data.frame(x = rnorm(n = 50, mean = 0, sd = 1),
+                 y = rnorm(n = 50, mean = 0, sd = 3))
+S2 <- data.frame(x = rnorm(n = 100, mean = 0, sd = 1),
+                 y = rnorm(n = 100, mean = 0, sd = 3))
 
-fasano.franceschini.test(sample1Data,sample2Data)
+fasano.franceschini.test(S1, S2, seed = 0)
 #> 
 #>  Fasano-Francheschini Test
 #> 
-#> data:  sample1Data and sample2Data
-#> D-stat = 0.33, p-value = 0.02221
+#> data:  S1 and S2
+#> Z = 0.9815, p-value = 0.6535
+#> 95 percent confidence interval:
+#>  0.5522616 0.7454075
 #> sample estimates:
-#> dff,1 dff,2 
-#> 0.325 0.335
+#>   D1   D2 
+#> 0.18 0.16
 ```
 
-#### Underlying Distributions Are The Same
+#### Underlying distributions are different
 
 ``` r
-#set seed for reproducible example
-set.seed(123)
+# set seed for reproducibility
+set.seed(1)
 
-#create 2-D samples with the same underlying distributions
-sample1Data <- data.frame(
-  x = rnorm(n = 50, mean = 0, sd = 1),
-  y = rnorm(n = 50, mean = 0, sd = 1)
-)
-sample2Data <- data.frame(
-  x = rnorm(n = 50, mean = 0, sd = 1),
-  y = rnorm(n = 50, mean = 0, sd = 1)
-)
+# create 3D samples from different underlying distributions
+S1 <- cbind(rgamma(n = 43, shape = 2),
+            rpois(n = 43, lambda = 5),
+            rpois(n = 43, lambda = 3.5))
+S2 <- cbind(rgamma(n = 72, shape = 2),
+            rpois(n = 72, lambda = 5),
+            rpois(n = 72, lambda = 5))
 
-fasano.franceschini.test(sample1Data,sample2Data)
+fasano.franceschini.test(S1, S2, seed = 1)
 #> 
 #>  Fasano-Francheschini Test
 #> 
-#> data:  sample1Data and sample2Data
-#> D-stat = 0.19, p-value = 0.4448
+#> data:  S1 and S2
+#> Z = 1.6943, p-value = 0.0198
+#> 95 percent confidence interval:
+#>  0.002407173 0.069705090
 #> sample estimates:
-#> dff,1 dff,2 
-#> 0.205 0.175
+#>        D1        D2 
+#> 0.2845607 0.3685401
 ```
