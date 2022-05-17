@@ -19,7 +19,6 @@
 *.tpt
 **/.*
 !**/.gitignore
-docs
 .Rproj.user
 inst/doc
 
