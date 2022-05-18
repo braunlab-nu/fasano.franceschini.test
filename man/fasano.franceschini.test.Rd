@@ -37,7 +37,7 @@ version (\code{threads} = 1).}
 \value{
 A list with class \code{htest} containing the following components:
   \item{statistic}{the value of the test statistic Z.}
-  \item{estimate}{the value of the sample test statistics D1 and D2.}
+  \item{estimate}{the value of the difference statistics D1 and D2.}
   \item{p.value}{the permutation test p-value.}
   \item{conf.int}{a binomial confidence interval for the p-value.}
   \item{method}{a character string indicating what type of test was performed.}
