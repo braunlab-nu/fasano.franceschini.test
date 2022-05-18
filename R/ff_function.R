@@ -11,11 +11,11 @@
 #' @param threads a positive \code{integer} or \code{"auto"} setting the number of threads used for performing
 #' the permutation test. If set to \code{"auto"}, the number of threads is determined by
 #' \code{RcppParallel::defaultNumThreads()}. Default is 1.
-#' @param verbose a \code{boolean} indicating whether to display a progress bar. Default is \code{FALSE}. Only available for serial
-#' version (\code{threads} = 1).
 #' @param seed optional integer to seed the PRNG used for the permutation test. Default is \code{NULL}. Only available for serial
 #' version (\code{threads} = 1).
 #' @param p.conf.level confidence level for the confidence interval of the permutation test p-value.
+#' @param verbose a \code{boolean} indicating whether to display a progress bar. Default is \code{TRUE}. Only available for serial
+#' version (\code{threads} = 1).
 #' @return A list with class \code{htest} containing the following components:
 #'   \item{statistic}{the value of the test statistic Z.}
 #'   \item{estimate}{the value of the difference statistics D1 and D2.}
@@ -43,8 +43,6 @@
 #' fasano.franceschini.test(S1, S2, nPermute = 200)
 #' # set seed for reproducible p-value
 #' fasano.franceschini.test(S1, S2, seed = 0)
-#' # display progress bar
-#' fasano.franceschini.test(S1, S2, verbose = TRUE)
 #' # change confidence level for p-value confidence interval
 #' fasano.franceschini.test(S1, S2, p.conf.level = 0.99)
 #'
@@ -75,7 +73,7 @@
 #' If there are ties in the data, points are counted with multiplicity.
 #'
 #' @export
-fasano.franceschini.test <- function(S1, S2, nPermute = 100, threads = 1, verbose = FALSE, seed = NULL, p.conf.level = 0.95) {
+fasano.franceschini.test <- function(S1, S2, nPermute = 100, threads = 1, seed = NULL, p.conf.level = 0.95, verbose = TRUE) {
     # Store names of samples for output
     dname <- paste(deparse(substitute(S1)), "and", deparse(substitute(S2)))
 
