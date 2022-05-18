@@ -11,7 +11,8 @@
 [![](https://www.r-pkg.org/badges/version/fasano.franceschini.test?color=orange)](https://cran.r-project.org/package=fasano.franceschini.test)
 [![](https://img.shields.io/badge/devel%20version-2.0.0-blue.svg)](https://github.com/nesscoder/fasano.franceschini.test)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/fasano.franceschini.test?color=green)](https://cran.r-project.org/package=fasano.franceschini.test)
-[![R-CMD-check](https://github.com/cpuritz/fftest/workflows/R-CMD-check/badge.svg)](https://github.com/cpuritz/fftest/actions)
+[![R build
+status](https://github.com/nesscoder/fasano.franceschini.test/workflows/R-CMD-check/badge.svg)](https://github.com/nesscoder/fasano.franceschini.test/actions)
 <!-- badges: end -->
 
 The `fasano.franceschini.test` package is an R implementation of the

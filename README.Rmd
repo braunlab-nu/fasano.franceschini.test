@@ -24,7 +24,7 @@ library(badger)
 `r badge_cran_release("fasano.franceschini.test", "orange")`
 `r badge_devel("nesscoder/fasano.franceschini.test", "blue")` 
 `r badge_cran_download("fasano.franceschini.test", "grand-total", "green")`
-[![R-CMD-check](https://github.com/cpuritz/fftest/workflows/R-CMD-check/badge.svg)](https://github.com/cpuritz/fftest/actions)
+`r badge_github_actions("nesscoder/fasano.franceschini.test")`
 <!-- badges: end -->
 
 The `fasano.franceschini.test` package is an R implementation of the multidimensional Kolmogorov-Smirnov two-sample test as defined by Fasano and Franceschini (1987).
