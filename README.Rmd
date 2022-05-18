@@ -9,7 +9,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/",
-  out.width = "100%"
+  out.width = "100%",
+  warning = TRUE,
+  message = TRUE
 )
 library(badger)
 ```
