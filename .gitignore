@@ -21,5 +21,3 @@
 !**/.gitignore
 .Rproj.user
 inst/doc
-
-docs
