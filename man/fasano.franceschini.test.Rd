@@ -70,16 +70,20 @@ S2 <- data.frame(x = rnorm(n = 150, mean = 1, sd = 2),
 
 # perform test (serial version)
 fasano.franceschini.test(S1, S2)
+
 # perform test with more permutations
 fasano.franceschini.test(S1, S2, nPermute = 200)
+
 # set seed for reproducible p-value
 fasano.franceschini.test(S1, S2, seed = 0)
+
 # change confidence level for p-value confidence interval
 fasano.franceschini.test(S1, S2, p.conf.level = 0.99)
 
 # perform test (parallel version, 2 threads)
 \dontrun{
-fasano.franceschini.test(S1, S2, threads = 2)}
+fasano.franceschini.test(S1, S2, threads = 2)
+}
 
 
 # create 3-D mixed samples using matrices
