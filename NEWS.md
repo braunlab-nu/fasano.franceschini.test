@@ -5,7 +5,7 @@
 * The 'cores' argument has been renamed 'threads'.
 * A 'seed' argument has been added to ensure reproducibility in the p-value estimation.
 * A 'verbose' argument has been added to print a progress bar during the permutation test.
-* The p-value approximation has been removed, as it was not very accurate and only valid in two dimensions.
+* The p-value distributional approximation has been removed, as it was not very accurate and only valid in two dimensions.
 * Tie handling procedures are changed, but do not seem to affect power.
 * A confidence interval for the p-value estimate is now returned.
 
