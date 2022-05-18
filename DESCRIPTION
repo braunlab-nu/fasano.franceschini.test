@@ -1,7 +1,7 @@
 Package: fasano.franceschini.test
 Type: Package
 Title: Fasano-Franceschini Test: A Multidimensional Kolmogorov-Smirnov Two-Sample Test
-Version: 2.0.0
+Version: 1.0.0
 Authors@R: c(person("Connor", "Puritz", role = c("aut", "cre"), email = "connorpuritz2025@u.northwestern.edu", comment = c(ORCID = "0000-0001-7602-0444")),
              person("Elan", "Ness-Cohn", role = c("aut"), email = "elanness-cohn2017@u.northwestern.edu", comment = c(ORCID = "0000-0002-3935-6667")),
              person("Rosemary", "Braun", role = c("ctb", "ths"), email = "rbraun@northwestern.edu", comment = c(ORCID = "0000-0001-9668-9866")),
