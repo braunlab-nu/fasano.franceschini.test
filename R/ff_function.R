@@ -50,8 +50,6 @@
 #' fasano.franceschini.test(S1, S2, p.conf.level = 0.99)
 #'
 #' # perform test (parallel version, 2 threads)
-#' fasano.franceschini.test(S1, S2, threads = 2)
-#' fasano.franceschini.test(S1, S2, threads = 4)
 #' \dontrun{
 #' fasano.franceschini.test(S1, S2, threads = 2)
 #' }
