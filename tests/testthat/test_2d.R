@@ -15,19 +15,27 @@ test_that("compare with naive 2d implementation", {
         expect_equal(z, res$statistic, tolerance = 1e-14)
     }
 
-    S1 <- data.frame(rnorm(n=50, mean=0, sd=1), rnorm(n=50, mean=1, sd=1))
-    S2 <- data.frame(rnorm(n=83, mean=0.2, sd=1), rnorm(n=83, mean=0.1, sd=2))
+    S1 <- data.frame(rnorm(n = 50, mean = 0, sd = 1),
+                     rnorm(n = 50, mean = 1, sd = 1))
+    S2 <- data.frame(rnorm(n = 83, mean = 0.2, sd = 1),
+                     rnorm(n = 83, mean = 0.1, sd = 2))
     ffcomp(S1, S2)
 
-    S1 <- data.frame(rnorm(n=132, mean=10, sd=1), rnorm(n=132, mean=10, sd=1))
-    S2 <- data.frame(rnorm(n=47, mean=10, sd=1), rnorm(n=47, mean=10, sd=1))
+    S1 <- data.frame(rnorm(n = 132, mean = 10, sd = 1),
+                     rnorm(n = 132, mean = 10, sd = 1))
+    S2 <- data.frame(rnorm(n = 47, mean = 10, sd = 1),
+                     rnorm(n = 47, mean = 10, sd = 1))
     ffcomp(S1, S2)
 
-    S1 <- data.frame(rbeta(n=100, shape1=1.3, shape2=2.73), rbeta(n=100, shape1=1.3, shape2=2.73))
-    S2 <- data.frame(rbeta(n=23, shape1=1.3, shape2=2.73), rbeta(n=23, shape1=1.3, shape2=2.73))
+    S1 <- data.frame(rbeta(n = 100, shape1 = 1.3, shape2 = 2.73),
+                     rbeta(n = 100, shape1 = 1.3, shape2 = 2.73))
+    S2 <- data.frame(rbeta(n = 23, shape1 = 1.3, shape2 = 2.73),
+                     rbeta(n = 23, shape1 = 1.3, shape2 = 2.73))
     ffcomp(S1, S2)
 
-    S1 <- data.frame(rbeta(n=224, shape1=10.1, shape2=0.1), rbeta(n=224, shape1=10.1, shape2=0.1))
-    S2 <- data.frame(rbeta(n=1557, shape1=10.1, shape2=0.1), rbeta(n=1557, shape1=10.1, shape2=0.1))
+    S1 <- data.frame(rbeta(n = 224, shape1 = 10.1, shape2 = 0.1),
+                     rbeta(n = 224, shape1 = 10.1, shape2 = 0.1))
+    S2 <- data.frame(rbeta(n = 1557, shape1 = 10.1, shape2 = 0.1),
+                     rbeta(n = 1557, shape1 = 10.1, shape2 = 0.1))
     ffcomp(S1, S2)
 })

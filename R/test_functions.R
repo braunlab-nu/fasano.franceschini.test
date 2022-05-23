@@ -15,7 +15,7 @@ count2D <- function(origin, x, y) {
     nq4 <- sum(yLess & xGreater)
     nq3 <- sum(yLess & xLess)
 
-    return(c(nq1, nq2, nq3, nq4)/length(x))
+    return(c(nq1, nq2, nq3, nq4) / length(x))
 }
 
 # Naive 3D count
@@ -42,7 +42,7 @@ count3D <- function(origin, x, y, z) {
     nq7 <- sum(xLess & yGreater & zGreater)
     nq8 <- sum(xGreater & yGreater & zGreater)
 
-    return(c(nq1, nq2, nq3, nq4, nq5, nq6, nq7, nq8)/length(x))
+    return(c(nq1, nq2, nq3, nq4, nq5, nq6, nq7, nq8) / length(x))
 }
 
 # Naive 4D count
@@ -81,7 +81,7 @@ count4D <- function(origin, x, y, z, t) {
     nq16 <- sum(xGreater & yGreater & zGreater & tGreater)
 
     return(c(nq1, nq2, nq3, nq4, nq5, nq6, nq7, nq8, nq9,
-             nq10, nq11, nq12, nq13, nq14, nq15, nq16)/length(x))
+             nq10, nq11, nq12, nq13, nq14, nq15, nq16) / length(x))
 }
 
 # Naive 5D count
@@ -141,7 +141,7 @@ count5D <- function(origin, x, y, z, t, v) {
     return(c(nq1,  nq2,  nq3,  nq4,  nq5,  nq6,  nq7,  nq8,
              nq9,  nq10, nq11, nq12, nq13, nq14, nq15, nq16,
              nq17, nq18, nq19, nq20, nq21, nq22, nq23, nq24,
-             nq25, nq26, nq27, nq28, nq29, nq30, nq31, nq32)/length(x))
+             nq25, nq26, nq27, nq28, nq29, nq30, nq31, nq32) / length(x))
 }
 
 # Naive statistic computation
@@ -165,11 +165,15 @@ getDstat_naive <- function(originSamples, S1, S2) {
             ct_S1 <- count3D(originSamples[i, ], S1[, 1], S1[, 2], S1[, 3])
             ct_S2 <- count3D(originSamples[i, ], S2[, 1], S2[, 2], S2[, 3])
         } else if (d == 4) {
-            ct_S1 <- count4D(originSamples[i, ], S1[, 1], S1[, 2], S1[, 3], S1[, 4])
-            ct_S2 <- count4D(originSamples[i, ], S2[, 1], S2[, 2], S2[, 3], S2[, 4])
+            ct_S1 <- count4D(originSamples[i, ], S1[, 1], S1[, 2], S1[, 3],
+                             S1[, 4])
+            ct_S2 <- count4D(originSamples[i, ], S2[, 1], S2[, 2], S2[, 3],
+                             S2[, 4])
         } else if (d == 5) {
-            ct_S1 <- count5D(originSamples[i, ], S1[, 1], S1[, 2], S1[, 3], S1[, 4], S1[, 5])
-            ct_S2 <- count5D(originSamples[i, ], S2[, 1], S2[, 2], S2[, 3], S2[, 4], S2[, 5])
+            ct_S1 <- count5D(originSamples[i, ], S1[, 1], S1[, 2], S1[, 3],
+                             S1[, 4], S1[, 5])
+            ct_S2 <- count5D(originSamples[i, ], S2[, 1], S2[, 2], S2[, 3],
+                             S2[, 4], S2[, 5])
         }
         dList[i] <- max(abs(ct_S1 - ct_S2))
     }

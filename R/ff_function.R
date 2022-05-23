@@ -1,21 +1,26 @@
 #' Fasano-Franceschini Test
 #'
-#' Performs a multidimensional two-sample Kolmogorov-Smirnov test as described by Fasano and Franceschini (1987).
-#' This test evaluates the null hypothesis that two i.i.d. random samples were drawn from the same underlying
-#' probability distribution. The data can be of any dimension, and can be of any type (continuous, discrete, or mixed).
+#' Performs a two-sample multidimensional Kolmogorov-Smirnov test as described
+#' by Fasano and Franceschini (1987). This test evaluates the null hypothesis
+#' that two i.i.d. random samples were drawn from the same underlying
+#' probability distribution. The data can be of any dimension, and can be of
+#' any type (continuous, discrete, or mixed).
 #'
 #' @param S1 \code{matrix} or \code{data.frame}.
 #' @param S2 \code{matrix} or \code{data.frame}.
-#' @param nPermute a nonnegative \code{integer} setting the number of permuted samples to generate
-#' when estimating the permutation test p-value. Default is 100. If set to 0, no p-value is estimated.
-#' @param threads a positive \code{integer} or \code{"auto"} setting the number of threads used for performing
-#' the permutation test. If set to \code{"auto"}, the number of threads is determined by
-#' \code{RcppParallel::defaultNumThreads()}. Default is 1.
-#' @param seed optional integer to seed the PRNG used for the permutation test. Default is \code{NULL}. Only available for serial
-#' version (\code{threads} = 1).
-#' @param p.conf.level confidence level for the confidence interval of the permutation test p-value.
-#' @param verbose a \code{boolean} indicating whether to display a progress bar. Default is \code{TRUE}. Only available for serial
-#' version (\code{threads} = 1).
+#' @param nPermute a nonnegative \code{integer} setting the number of permuted
+#' samples to generate when estimating the permutation test p-value. Default is
+#' 100. If set to 0, no p-value is estimated.
+#' @param threads a positive \code{integer} or \code{"auto"} setting the number
+#' of threads used for performing the permutation test. If set to \code{"auto"},
+#' the number of threads is determined by \code{RcppParallel::defaultNumThreads()}.
+#' Default is 1.
+#' @param seed optional integer to seed the PRNG used for the permutation test.
+#' Default is \code{NULL}. Only available for serial version (\code{threads} = 1).
+#' @param p.conf.level confidence level for the confidence interval of the
+#' permutation test p-value.
+#' @param verbose a \code{boolean} indicating whether to display a progress bar.
+#' Default is \code{TRUE}. Only available for serial version (\code{threads} = 1).
 #' @return A list with class \code{htest} containing the following components:
 #'   \item{statistic}{the value of the test statistic Z.}
 #'   \item{estimate}{the value of the difference statistics D1 and D2.}
@@ -25,8 +30,12 @@
 #'   \item{data.name}{a character string giving the names of the data.}
 #' @references{
 #' \itemize{
-#'   \item{Fasano, G. & Franceschini, A. (1987). A multidimensional version of the Kolmogorov-Smirnov test. \emph{Monthly Notices of the Royal Astronomical Society}, 225:155-170. \doi{10.1093/mnras/225.1.155}.}
-#'   \item{Clopper, C. J. & Pearson, E. S. (1934). The use of confidence or fiducial limits illustrated in the case of the binomial. \emph{Biometrika}, 26, 404–413. \doi{10.2307/2331986}.}
+#'   \item{Fasano, G. & Franceschini, A. (1987). A multidimensional version of the
+#'   Kolmogorov-Smirnov test. \emph{Monthly Notices of the Royal Astronomical Society},
+#'   225:155-170. \doi{10.1093/mnras/225.1.155}.}
+#'   \item{Clopper, C. J. & Pearson, E. S. (1934). The use of confidence or fiducial
+#'   limits illustrated in the case of the binomial. \emph{Biometrika}, 26, 404–413.
+#'   \doi{10.2307/2331986}.}
 #' } }
 #' @examples
 #' set.seed(0)
@@ -66,31 +75,44 @@
 #' # perform test
 #' fasano.franceschini.test(S1, S2)
 #'
-#' @details The test statistic is computed using an efficient range tree implementation with a time complexity of \emph{O(n*log(n)^(d-1))},
-#' where \emph{n} is the size of the largest sample and \emph{d} is the dimension of the data.
+#' @details The test statistic is computed using an efficient range tree
+#' implementation with a time complexity of \emph{O(n*log(n)^(d-1))}, where
+#' \emph{n} is the size of the largest sample and \emph{d} is the dimension
+#' of the data.
 #'
-#' The p-value for the test is computed empirically using a permutation test. As it is almost always infeasible to compute the exact permutation
-#' test p-value, a Monte Carlo approximation is made instead. This estimate is a binomially distributed random variable, and thus a confidence
-#' interval can be computed. The confidence interval is obtained using the procedure given in Clopper and Pearson (1934).
+#' The p-value for the test is computed empirically using a permutation test. As
+#' it is almost always infeasible to compute the exact permutation test p-value,
+#' a Monte Carlo approximation is made instead. This estimate is a binomially
+#' distributed random variable, and thus a confidence interval can be computed.
+#' The confidence interval is obtained using the procedure given in Clopper and
+#' Pearson (1934).
 #'
-#' Since p-values are calculated using a permutation test, the data can be of any dimensionality and of any type (continuous, discrete, or mixed).
-#' If there are ties in the data, points are counted with multiplicity.
+#' Since p-values are calculated using a permutation test, the data can be of any
+#' dimensionality and of any type (continuous, discrete, or mixed). If there are
+#' ties in the data, points are counted with multiplicity.
 #'
 #' @export
-fasano.franceschini.test <- function(S1, S2, nPermute = 100, threads = 1, seed = NULL, p.conf.level = 0.95, verbose = TRUE) {
+fasano.franceschini.test <- function(S1,
+                                     S2,
+                                     nPermute = 100,
+                                     threads = 1,
+                                     seed = NULL,
+                                     p.conf.level = 0.95,
+                                     verbose = TRUE) {
     # Store names of samples for output
     dname <- paste(deparse(substitute(S1)), "and", deparse(substitute(S2)))
 
     ## Validate inputs
     # Validate S1 and S2
     if (is.data.frame(S1)) {
-        S1 = as.matrix(S1);
+        S1 <- as.matrix(S1)
     }
     if (is.data.frame(S2)) {
-        S2 = as.matrix(S2);
+        S2 <- as.matrix(S2)
     }
     if (!is.matrix(S1) || !is.matrix(S2) || ncol(S1) != ncol(S2)) {
-        stop("'S1' and 'S2' must be matrices or data frames with the same number of columns")
+        stop(paste("'S1' and 'S2' must be matrices or data frames with the same",
+                   "number of columns"))
     }
     # Validate nPermute
     if (!is.numeric(nPermute) || nPermute < 0 || (nPermute %% 1 != 0)) {
@@ -139,7 +161,7 @@ fasano.franceschini.test <- function(S1, S2, nPermute = 100, threads = 1, seed =
         }
 
         # Exact Monte-Carlo p-value
-        pval <- (count + 1)/(nPermute + 1)
+        pval <- (count + 1) / (nPermute + 1)
         names(pval) <- "p-value"
 
         # Compute confidence interval for p-value

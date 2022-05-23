@@ -1,26 +1,40 @@
-Package: fasano.franceschini.test
 Type: Package
-Title: Fasano-Franceschini Test: A Multidimensional Kolmogorov-Smirnov Two-Sample Test
+Package: fasano.franceschini.test
+Title: Fasano-Franceschini Test: A Multidimensional Kolmogorov-Smirnov
+    Two-Sample Test
 Version: 2.0.0
-Authors@R: c(person("Connor", "Puritz", role = c("aut", "cre"), email = "connorpuritz2025@u.northwestern.edu", comment = c(ORCID = "0000-0001-7602-0444")),
-             person("Elan", "Ness-Cohn", role = c("aut"), email = "elanness-cohn2017@u.northwestern.edu", comment = c(ORCID = "0000-0002-3935-6667")),
-             person("Rosemary", "Braun", role = c("ctb", "ths"), email = "rbraun@northwestern.edu", comment = c(ORCID = "0000-0001-9668-9866")),
-             person("Luca", "Weihs", role = c("cph"), comment = c("Copyright holder and author of 'RangeTree' class.")))
-Description: An implementation of the multidimensional Kolmogorov-Smirnov (KS) two-sample test described by Fasano and Franceschini (1987) <doi:10.1093/mnras/225.1.155>. The 'fasano.franceschini.test' package provides three major improvements over the current multidimensional KS test on the Comprehensive R Archive Network (CRAN): (i) the computation of the test statistic has a log-linear rather than cubic time complexity; (ii) testing in arbitrary dimensions rather than just two or three; and (iii) a parallelized permutation procedure for rapid significance testing. Ultimately, the 'fasano.franceschini.test' package presents a robust statistical test for analyzing random samples defined in multiple dimensions.
+Authors@R: c(
+    person("Connor", "Puritz", , "connorpuritz2025@u.northwestern.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-7602-0444")),
+    person("Elan", "Ness-Cohn", , "elanness-cohn2017@u.northwestern.edu", role = "aut",
+           comment = c(ORCID = "0000-0002-3935-6667")),
+    person("Rosemary", "Braun", , "rbraun@northwestern.edu", role = c("ctb", "ths"),
+           comment = c(ORCID = "0000-0001-9668-9866")),
+    person("Luca", "Weihs", role = "cph",
+           comment = "Copyright holder and author of 'RangeTree' class.")
+  )
+Description: An implementation of the two-sample multidimensional
+    Kolmogorov-Smirnov test described by Fasano and Franceschini (1987)
+    <doi:10.1093/mnras/225.1.155>. This test evaluates the null hypothesis
+    that two i.i.d. random samples were drawn from the same underlying
+    probability distribution. The data can be of any dimension, and can be
+    of any type (continuous, discrete, or mixed).
 License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
-RoxygenNote: 7.2.0
+URL: https://github.com/nesscoder/fasano.franceschini.test
+BugReports: https://github.com/nesscoder/fasano.franceschini.test/issues
 Depends: 
     R (>= 3.0.2)
+Imports: 
+    Rcpp (>= 1.0.0),
+    RcppParallel (>= 5.0.1),
+    stats
+Suggests: 
+    testthat (>= 3.0.0)
 LinkingTo: 
     Rcpp (>= 1.0.0),
     RcppParallel (>= 5.0.1)
-Imports: 
-    stats,
-    Rcpp (>= 1.0.0),
-    RcppParallel (>= 5.0.1)
-Suggests: 
-    testthat (>= 3.0.0)
 Config/testthat/edition: 3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.0
 SystemRequirements: GNU make
