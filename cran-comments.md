@@ -1,4 +1,4 @@
-### fasano.franceschini.test 2.0.0
+# fasano.franceschini.test 2.0.0
 Submission of new version to CRAN.
 
 There are recurring notes on some checks. These are explained here.
@@ -30,15 +30,15 @@ Explanation: GNU make is required by the RcppParallel package.
 * Ubuntu Linux 20.04.1 LTS, R-devel with rchk (R-hub)
 
 ## R CMD Check results
-# macOS 11.6.5 R 4.2.0 (local)
+### macOS 11.6.5 R 4.2.0 (local)
 0 errors | 0 warnings | 1 note
 * checking for GNU extensions in Makefiles ... NOTE
 GNU make is a SystemRequirements.
 
-# Debian Linux, R-devel, GCC ASAN/UBSAN
+### Debian Linux, R-devel, GCC ASAN/UBSAN
 0 errors | 0 warnings | 0 notes
 
-# Windows Server 2022, R-devel, 64 bit
+### Windows Server 2022, R-devel, 64 bit
 0 errors | 0 warnings | 3 notes
 * checking CRAN incoming feasibility ... NOTE
 Maintainer: 'Connor Puritz <connorpuritz2025@u.northwestern.edu>'
@@ -61,7 +61,7 @@ GNU make is a SystemRequirements.
 Found the following files/directories:
   'lastMiKTeXException'
 
-# Fedora Linux, R-devel, clang, gfortran
+### Fedora Linux, R-devel, clang, gfortran
 0 errors | 0 warnings | 2 notes
 * checking CRAN incoming feasibility ... NOTE
 Maintainer: ‘Connor Puritz <connorpuritz2025@u.northwestern.edu>’
@@ -80,7 +80,7 @@ Found the following (possibly) invalid DOIs:
 * checking for GNU extensions in Makefiles ... NOTE
 GNU make is a SystemRequirements.
 
-# Ubuntu Linux 20.04.1 LTS, R-release, GCC
+### Ubuntu Linux 20.04.1 LTS, R-release, GCC
 0 errors | 0 warnings | 2 notes
 * checking CRAN incoming feasibility ... NOTE
 Maintainer: ‘Connor Puritz <connorpuritz2025@u.northwestern.edu>’
@@ -99,5 +99,5 @@ Found the following (possibly) invalid DOIs:
 * checking for GNU extensions in Makefiles ... NOTE
 GNU make is a SystemRequirements.
 
-# Ubuntu Linux 20.04.1 LTS, R-devel with rchk
+### Ubuntu Linux 20.04.1 LTS, R-devel with rchk
 1 error | 0 warnings | 0 notes
