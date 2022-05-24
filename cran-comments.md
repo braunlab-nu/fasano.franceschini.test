@@ -48,7 +48,7 @@ Found the following files/directories:
 GNU make is a SystemRequirements.
 
 ## win-builder
-# R-oldrelease
+### R-oldrelease
 0 errors | 0 warnings | 1 note
 * checking CRAN incoming feasibility ... NOTE
 Maintainer: 'Connor Puritz <connorpuritz2025@u.northwestern.edu>'
@@ -60,7 +60,7 @@ Old maintainer(s):
 
 GNU make is a SystemRequirements.
 
-# R-release
+### R-release
 0 errors | 0 warnings | 1 note
 * checking CRAN incoming feasibility ... NOTE
 Maintainer: 'Connor Puritz <connorpuritz2025@u.northwestern.edu>'
@@ -72,7 +72,7 @@ Old maintainer(s):
 
 GNU make is a SystemRequirements.
 
-# R-devel
+### R-devel
 0 errors | 0 warnings | 1 note
 * checking CRAN incoming feasibility ... NOTE
 Maintainer: 'Connor Puritz <connorpuritz2025@u.northwestern.edu>'
