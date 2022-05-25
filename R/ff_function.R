@@ -15,6 +15,8 @@
 #' of threads used for performing the permutation test. If set to \code{"auto"},
 #' the number of threads is determined by \code{RcppParallel::defaultNumThreads()}.
 #' Default is 1.
+#' @param cores allowed for backwards compatibility. \code{threads} is now the preferred
+#' argument name.
 #' @param seed optional integer to seed the PRNG used for the permutation test.
 #' Default is \code{NULL}. Only available for serial version (\code{threads} = 1).
 #' @param p.conf.level confidence level for the confidence interval of the
@@ -96,6 +98,7 @@ fasano.franceschini.test <- function(S1,
                                      S2,
                                      nPermute = 100,
                                      threads = 1,
+                                     cores,
                                      seed = NULL,
                                      p.conf.level = 0.95,
                                      verbose = TRUE) {
@@ -117,6 +120,12 @@ fasano.franceschini.test <- function(S1,
     # Validate nPermute
     if (!is.numeric(nPermute) || nPermute < 0 || (nPermute %% 1 != 0)) {
         stop("'nPermute' must be a nonnegative integer")
+    }
+    # Check if cores was passed
+    if (!missing(cores)) {
+        warning(paste("'cores' is deprecated. Use 'threads' instead. 'threads' is",
+                      "set equal to 'cores'"))
+        threads <- cores
     }
     # Validate threads
     if (threads == "auto") {

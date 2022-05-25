@@ -9,6 +9,7 @@ fasano.franceschini.test(
   S2,
   nPermute = 100,
   threads = 1,
+  cores,
   seed = NULL,
   p.conf.level = 0.95,
   verbose = TRUE
@@ -27,6 +28,9 @@ samples to generate when estimating the permutation test p-value. Default is
 of threads used for performing the permutation test. If set to \code{"auto"},
 the number of threads is determined by \code{RcppParallel::defaultNumThreads()}.
 Default is 1.}
+
+\item{cores}{allowed for backwards compatibility. \code{threads} is now the preferred
+argument name.}
 
 \item{seed}{optional integer to seed the PRNG used for the permutation test.
 Default is \code{NULL}. Only available for serial version (\code{threads} = 1).}

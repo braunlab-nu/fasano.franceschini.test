@@ -17,10 +17,19 @@ test_that("test for bad inputs", {
     expect_error(fasano.franceschini.test(S1, S2, nPermute = 0.1))
     expect_error(fasano.franceschini.test(S1, S2, nPermute = 1.2))
 
+    expect_error(fasano.franceschini.test(S1, S2, nPermute = 0, threads = -1))
+    expect_error(fasano.franceschini.test(S1, S2, nPermute = 0, threads = 0))
+    expect_error(fasano.franceschini.test(S1, S2, nPermute = 0, threads = 0.1))
+    expect_error(fasano.franceschini.test(S1, S2, nPermute = 0, threads = 1.1))
+
     expect_error(fasano.franceschini.test(S1, S2, nPermute = 0, cores = -1))
     expect_error(fasano.franceschini.test(S1, S2, nPermute = 0, cores = 0))
     expect_error(fasano.franceschini.test(S1, S2, nPermute = 0, cores = 0.1))
     expect_error(fasano.franceschini.test(S1, S2, nPermute = 0, cores = 1.1))
+
+    ## Check for deprecation warning, remove in future releases
+    expect_warning(fasano.franceschini.test(S1, S2, nPermute = 0, cores = 1))
+    ##
 
     S1 <- rnorm(n = 50)
     S2 <- data.frame(rnorm(n = 50))

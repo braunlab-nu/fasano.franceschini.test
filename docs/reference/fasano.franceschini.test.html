@@ -66,6 +66,7 @@ any type (continuous, discrete, or mixed).</p>
   <span class="va">S2</span>,
   nPermute <span class="op">=</span> <span class="fl">100</span>,
   threads <span class="op">=</span> <span class="fl">1</span>,
+  <span class="va">cores</span>,
   seed <span class="op">=</span> <span class="cn">NULL</span>,
   p.conf.level <span class="op">=</span> <span class="fl">0.95</span>,
   verbose <span class="op">=</span> <span class="cn">TRUE</span>
@@ -87,6 +88,9 @@ samples to generate when estimating the permutation test p-value. Default is
 of threads used for performing the permutation test. If set to <code>"auto"</code>,
 the number of threads is determined by <code><a href="https://rdrr.io/pkg/RcppParallel/man/setThreadOptions.html" class="external-link">RcppParallel::defaultNumThreads()</a></code>.
 Default is 1.</p></dd>
+<dt>cores</dt>
+<dd><p>allowed for backwards compatibility. <code>threads</code> is now the preferred
+argument name.</p></dd>
 <dt>seed</dt>
 <dd><p>optional integer to seed the PRNG used for the permutation test.
 Default is <code>NULL</code>. Only available for serial version (<code>threads</code> = 1).</p></dd>
@@ -157,9 +161,9 @@ ties in the data, points are counted with multiplicity.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.8416</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.7822</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.7555271 0.9066534</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.6889967 0.8581736</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.1333333 0.1533333 </span>
@@ -171,9 +175,9 @@ ties in the data, points are counted with multiplicity.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.7761</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.7463</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.7121387 0.8317657</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.6802505 0.8048693</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.1333333 0.1533333 </span>
@@ -199,9 +203,9 @@ ties in the data, points are counted with multiplicity.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.7921</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.802</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 99 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.6705049 0.8851065</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.6817036 0.8927150</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.1333333 0.1533333 </span>
@@ -227,9 +231,9 @@ ties in the data, points are counted with multiplicity.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 1.8443, p-value = 0.0198</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 1.8443, p-value = 0.0297</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.002407173 0.069705090</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.00616786 0.08435690</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.3323643 0.3785530 </span>
