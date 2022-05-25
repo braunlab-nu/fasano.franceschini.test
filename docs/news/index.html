@@ -52,16 +52,16 @@
 <ul><li>Major overhaul of the package. Most of the internal computations are done in C++ now rather than R.</li>
 <li>Testing has been extended from two dimensions to arbitrary dimensions.</li>
 <li>Time complexity of computing the test statistic has been reduced from quadratic to quasilinear.</li>
-<li>The ‘cores’ argument has been renamed ‘threads’.</li>
-<li>A ‘seed’ argument has been added to ensure reproducibility in the p-value estimation.</li>
-<li>A ‘verbose’ argument has been added to print a progress bar during the permutation test.</li>
-<li>The p-value distributional approximation has been removed, as it was not very accurate and only valid in two dimensions.</li>
-<li>Tie handling procedures are changed, but do not seem to affect power.</li>
+<li>The ‘cores’ argument has been renamed <code>threads</code>. <code>cores</code> is still allowed for backwards compatibility but will be removed in the next release.</li>
+<li>A <code>seed</code> argument has been added to ensure reproducibility in the p-value estimation.</li>
+<li>A <code>verbose</code> argument has been added to print a progress bar during the permutation test.</li>
+<li>The p-value distributional approximation has been removed, as the approximation is only valid in two dimensions.</li>
 <li>A confidence interval for the p-value estimate is now returned.</li>
+<li>Points that are tied along certain axes no longer add fractional counts to the test statistic. See paper for exact details on test statistic computation.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.0" id="fasanofranceschinitest-110">fasano.franceschini.test 1.1.0<small>2021-09-02</small><a class="anchor" aria-label="anchor" href="#fasanofranceschinitest-110"></a></h2>
-<ul><li>The ‘nBootstrap’ argument is deprecated, and will be removed in the next version of this package. Use ‘nPermute’ instead of ‘nBootstrap’ to compute the empirical null distribution for your data.</li>
+<ul><li>The <code>nBootstrap</code> argument is deprecated, and will be removed in the next version of this package. Use <code>nPermute</code> instead of <code>nBootstrap</code> to compute the empirical null distribution for your data.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.1" id="fasanofranceschinitest-101">fasano.franceschini.test 1.0.1<small>2021-07-17</small><a class="anchor" aria-label="anchor" href="#fasanofranceschinitest-101"></a></h2>
