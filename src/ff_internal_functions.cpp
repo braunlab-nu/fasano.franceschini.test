@@ -7,10 +7,21 @@
 #include "matrix_util.h"
 #include "permute.h"
 #include "range_count.h"
-#include "range_count_brute.h"
 #include "ProgressBar.h"
 
 using namespace Rcpp;
+
+// Helper function for maximizing difference statistics
+double propDiff(const std::vector<double>& c1,
+                const std::vector<double>& c2,
+                std::size_t n1,
+                std::size_t n2) {
+    double d = -1;
+    for (std::size_t i = 0; i < c1.size(); ++i) {
+        d = std::max(d, abs(c1[i]/n1 - c2[i]/n2));
+    }
+    return d;
+}
 
 // Compute FF test statistics
 //
@@ -42,50 +53,41 @@ std::vector<double> testStatistics(const MatrixT M,
     double d1 = -1;
     double d2 = -1;
     if (method == 'r') {
-        // Compute range trees
+        // Build range trees
         std::vector<RTree> trees = buildRangeTrees<MatrixT>(M, r1, r2, s);
 
         // Compute test statistic using first sample as origins
         for (std::size_t i = 0; i < r1; ++i) {
             std::vector<double> org = getRow<MatrixT>(M, s[i]);
-            std::vector<double> c1 = rangeCount(trees[0], org);
-            std::vector<double> c2 = rangeCount(trees[1], org);
-            for (std::size_t j = 0; j < c1.size(); ++j) {
-                d1 = std::max(d1, abs(c1[j]/n1 - c2[j]/n2));
-            }
+            d1 = std::max(d1, propDiff(rangeCountTree(trees[0], org),
+                                       rangeCountTree(trees[1], org),
+                                       n1, n2));
         }
 
         // Compute test statistic using second sample as origins
         for (std::size_t i = 0; i < r2; ++i) {
             std::vector<double> org = getRow<MatrixT>(M, s[i+r1]);
-            std::vector<double> c1 = rangeCount(trees[0], org);
-            std::vector<double> c2 = rangeCount(trees[1], org);
-            for (std::size_t j = 0; j < c1.size(); ++j) {
-                d2 = std::max(d2, abs(c1[j]/n1 - c2[j]/n2));
-            }
+            d2 = std::max(d2, propDiff(rangeCountTree(trees[0], org),
+                                       rangeCountTree(trees[1], org),
+                                       n1, n2));
         }
     } else {
         // Compute test statistic using first sample as origins
         for (std::size_t i = 0; i < r1; ++i) {
             std::vector<double> org = getRow<MatrixT>(M, s[i]);
-            std::vector<double> c1 = rangeCountBrute(M, r1, 0, s, org);
-            std::vector<double> c2 = rangeCountBrute(M, r2, r1, s, org);
-            for (std::size_t j = 0; j < c1.size(); ++j) {
-                d1 = std::max(d1, abs(c1[j]/n1 - c2[j]/n2));
-            }
+            d1 = std::max(d1, propDiff(rangeCountBrute(M, r1, 0, s, org),
+                                       rangeCountBrute(M, r2, r1, s, org),
+                                       n1, n2));
         }
 
         // Compute test statistic using second sample as origins
         for (std::size_t i = 0; i < r2; ++i) {
             std::vector<double> org = getRow<MatrixT>(M, s[i+r1]);
-            std::vector<double> c1 = rangeCountBrute(M, r1, 0, s, org);
-            std::vector<double> c2 = rangeCountBrute(M, r2, r1, s, org);
-            for (std::size_t j = 0; j < c1.size(); ++j) {
-                d2 = std::max(d2, abs(c1[j]/n1 - c2[j]/n2));
-            }
+            d2 = std::max(d2, propDiff(rangeCountBrute(M, r1, 0, s, org),
+                                       rangeCountBrute(M, r2, r1, s, org),
+                                       n1, n2));
         }
     }
-
     return {d1, d2, sqrt(n1*n2/(n1+n2))*(d1+d2)/2.0};
 }
 

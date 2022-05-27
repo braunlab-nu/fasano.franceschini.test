@@ -3,13 +3,10 @@
 #ifndef RANGECOUNT_H
 #define RANGECOUNT_H
 
-#include <Rcpp.h>
 #include <vector>
 #include <limits>
 #include "RangeTree.h"
 #include "matrix_util.h"
-
-using namespace Rcpp;
 
 typedef RangeTree::RangeTree<double,int> RTree;
 
@@ -44,13 +41,14 @@ std::vector<RTree> buildRangeTrees(const MatrixT M,
     return {RTree(pts1), RTree(pts2)};
 }
 
-// Count the number of points in each axis-aligned orthant defined by the origin
+// Count the number of points in each axis-aligned orthant defined by the origin.
+// Uses range tree method.
 //
 // @param rtree range tree
 // @param origin vector
 // @return vector counting points in each orthant
-std::vector<double> rangeCount(const RTree& rtree,
-                               const std::vector<double>& origin) {
+std::vector<double> rangeCountTree(const RTree& rtree,
+                                   const std::vector<double>& origin) {
     std::size_t ndim = origin.size();
     std::size_t noct = 1<<ndim;
     std::vector<double> res(noct);
@@ -75,6 +73,47 @@ std::vector<double> rangeCount(const RTree& rtree,
         res[i] = rtree.countInRange(lowerLims, upperLims, strict, strict);
     }
     return res;
+}
+
+// Count the number of points in each axis-aligned orthant defined by the origin.
+// Uses brute force method.
+//
+// @param M a matrix of type NumericMatrix or RMatrix<double>
+// @param npts how many points are in the sample
+// @param offset where to start counting the points
+// @param shuffle whether to shuffle the samples
+// @param s a permutation of {0,1,...,(r1+r2-1)} which indicates which points belong to each sample
+// @param origin vector
+// @return vector counting points in each orthant
+template<typename MatrixT>
+std::vector<double> rangeCountBrute(const MatrixT M,
+                                    std::size_t npts,
+                                    std::size_t offset,
+                                    const std::vector<std::size_t>& s,
+                                    const std::vector<double>& origin) {
+    std::size_t ndim = origin.size();
+    std::size_t noct = 1<<ndim;
+    std::vector<double> counts(noct);
+
+    for (std::size_t i = 0; i < npts; ++i) {
+        std::vector<double> pt = getRow<MatrixT>(M, s[i + offset]);
+        for (std::size_t j = 0; j < noct; ++j) {
+            bool in_oct = true;
+            for (std::size_t k = 0; k < ndim; ++k) {
+                // Whether bound is < (0) or > (1)
+                bool s = j & (1 << (ndim-1-k));
+                // Whether pt satisfies the correct bound in the k-th coordinate
+                bool check = s ? (pt[k] < origin[k]) : (pt[k] > origin[k]);
+                in_oct = in_oct && check;
+            }
+            if (in_oct) {
+                // The orthant containing pt has been found
+                ++counts[j];
+                break;
+            }
+        }
+    }
+    return counts;
 }
 
 #endif //RANGECOUNT_H
