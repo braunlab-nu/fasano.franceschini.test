@@ -1,4 +1,4 @@
-test_that("compare with naive 2d implementation", {
+test_that("compare with naive R 2d implementation", {
     set.seed(2)
 
     ffcomp <- function(S1, S2) {

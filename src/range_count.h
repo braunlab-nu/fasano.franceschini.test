@@ -25,17 +25,19 @@ std::vector<RTree> buildRangeTrees(const MatrixT M,
                                    std::size_t r1,
                                    std::size_t r2,
                                    const std::vector<std::size_t>& s) {
-    std::vector<RangeTree::Point<double,int> > pts1(r1);
-    std::vector<RangeTree::Point<double,int> > pts2(r2);
+    std::vector<RangeTree::Point<double,int> > pts1;
+    pts1.reserve(r1);
+    std::vector<RangeTree::Point<double,int> > pts2;
+    pts2.reserve(r2);
 
     // Extract points from first sample
     for (std::size_t i = 0; i < r1; ++i) {
-        pts1[i] = RangeTree::Point<double,int>(getRow<MatrixT>(M, s[i]), 0);
+        pts1.push_back(RangeTree::Point<double,int>(getRow<MatrixT>(M, s[i]), 0));
     }
 
     // Extract points from second sample
     for (std::size_t i = 0; i < r2; ++i) {
-        pts2[i] = RangeTree::Point<double,int>(getRow<MatrixT>(M, s[i+r1]), 0);
+        pts2.push_back(RangeTree::Point<double,int>(getRow<MatrixT>(M, s[i+r1]), 0));
     }
 
     // Construct range trees

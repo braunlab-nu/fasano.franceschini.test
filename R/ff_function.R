@@ -23,6 +23,10 @@
 #' permutation test p-value.
 #' @param verbose a \code{boolean} indicating whether to display a progress bar.
 #' Default is \code{TRUE}. Only available for serial version (\code{threads} = 1).
+#' @param method a \code{character} indicating which method to use to compute the
+#' test statistic. Must be either 'r' for the range-tree method (default), or 'b'
+#' for the brute force method. Both return the same results, but may vary in
+#' computation speed. See Details section for more information.
 #' @return A list with class \code{htest} containing the following components:
 #'   \item{statistic}{the value of the test statistic Z.}
 #'   \item{estimate}{the value of the difference statistics D1 and D2.}
@@ -74,8 +78,10 @@
 #'             rpois(n = 72, lambda = 5),
 #'             rpois(n = 72, lambda = 5))
 #'
-#' # perform test
-#' fasano.franceschini.test(S1, S2)
+#' # perform test using range tree method
+#' fasano.franceschini.test(S1, S2, seed = 0, method = 'r')
+#' # perform test using brute force method
+#' fasano.franceschini.test(S1, S2, seed = 0, method = 'b')
 #'
 #' @details The test statistic is computed using an efficient range tree
 #' implementation with a time complexity of \emph{O(n*log(n)^(d-1))}, where
@@ -101,7 +107,8 @@ fasano.franceschini.test <- function(S1,
                                      cores,
                                      seed = NULL,
                                      p.conf.level = 0.95,
-                                     verbose = TRUE) {
+                                     verbose = TRUE,
+                                     method = c('r','b')) {
     # Store names of samples for output
     dname <- paste(deparse(substitute(S1)), "and", deparse(substitute(S2)))
 
@@ -142,9 +149,11 @@ fasano.franceschini.test <- function(S1,
     if (!is.numeric(p.conf.level) || p.conf.level <= 0 || p.conf.level >= 1) {
         stop("'p.conf.level' must be a number between 0 and 1")
     }
+    # Validate method
+    method <- match.arg(method)
 
     # Perform FF test
-    ffStats <- ffTestStatistic(S1, S2)
+    ffStats <- ffTestStatistic(S1, S2, method)
     estimate <- c(ffStats[1], ffStats[2])
     names(estimate) <- c("D1", "D2")
     Z <- ffStats[3]
@@ -159,13 +168,13 @@ fasano.franceschini.test <- function(S1,
                 warning("Test cannot be seeded if using multiple threads.")
             }
             RcppParallel::setThreadOptions(numThreads = threads)
-            count <- permutationTestParallel(S1, S2, nPermute)
+            count <- permutationTestParallel(S1, S2, nPermute, method)
         } else {
             # Run serial version of permutation test
             if (is.null(seed)) {
-                count <- permutationTest(S1, S2, nPermute, verbose)
+                count <- permutationTest(S1, S2, nPermute, verbose, method)
             } else {
-                count <- permutationTestSeeded(S1, S2, nPermute, verbose, seed)
+                count <- permutationTestSeeded(S1, S2, nPermute, verbose, seed, method)
             }
         }
 

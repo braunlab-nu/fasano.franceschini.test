@@ -12,7 +12,8 @@ fasano.franceschini.test(
   cores,
   seed = NULL,
   p.conf.level = 0.95,
-  verbose = TRUE
+  verbose = TRUE,
+  method = c("r", "b")
 )
 }
 \arguments{
@@ -40,6 +41,11 @@ permutation test p-value.}
 
 \item{verbose}{a \code{boolean} indicating whether to display a progress bar.
 Default is \code{TRUE}. Only available for serial version (\code{threads} = 1).}
+
+\item{method}{a \code{character} indicating which method to use to compute the
+test statistic. Must be either 'r' for the range-tree method (default), or 'b'
+for the brute force method. Both return the same results, but may vary in
+computation speed. See Details section for more information.}
 }
 \value{
 A list with class \code{htest} containing the following components:
@@ -109,8 +115,10 @@ S2 <- cbind(rgamma(n = 72, shape = 2),
             rpois(n = 72, lambda = 5),
             rpois(n = 72, lambda = 5))
 
-# perform test
-fasano.franceschini.test(S1, S2)
+# perform test using range tree method
+fasano.franceschini.test(S1, S2, seed = 0, method = 'r')
+# perform test using brute force method
+fasano.franceschini.test(S1, S2, seed = 0, method = 'b')
 
 }
 \references{

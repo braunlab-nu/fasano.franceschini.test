@@ -1,4 +1,4 @@
-test_that("compare with naive 4d implementation", {
+test_that("compare with naive R 4d implementation", {
     set.seed(4)
 
     ffcomp <- function(S1, S2) {
