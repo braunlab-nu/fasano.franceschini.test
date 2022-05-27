@@ -21,3 +21,9 @@
 !**/.gitignore
 .Rproj.user
 inst/doc
+.Rapp.history
+.RData
+.Ruserdata
+*-Ex.R
+/*.Rcheck/
+.Rproj.user/

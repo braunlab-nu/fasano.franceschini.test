@@ -15,8 +15,8 @@
 #' of threads used for performing the permutation test. If set to \code{"auto"},
 #' the number of threads is determined by \code{RcppParallel::defaultNumThreads()}.
 #' Default is 1.
-#' @param cores allowed for backwards compatibility. \code{threads} is now the preferred
-#' argument name.
+#' @param cores allowed for backwards compatibility. \code{threads} is now the
+#' preferred argument name.
 #' @param seed optional integer to seed the PRNG used for the permutation test.
 #' Default is \code{NULL}. Only available for serial version (\code{threads} = 1).
 #' @param p.conf.level confidence level for the confidence interval of the
@@ -24,9 +24,9 @@
 #' @param verbose a \code{boolean} indicating whether to display a progress bar.
 #' Default is \code{TRUE}. Only available for serial version (\code{threads} = 1).
 #' @param method a \code{character} indicating which method to use to compute the
-#' test statistic. Must be either 'r' for the range-tree method (default), or 'b'
-#' for the brute force method. Both return the same results, but may vary in
-#' computation speed. See Details section for more information.
+#' test statistic. Must be either \code{'r'} for the range-tree method (default),
+#' or \code{'b'} for the brute force method. Both return the same results, but
+#' may vary in computation speed. See the Details section for more information.
 #' @return A list with class \code{htest} containing the following components:
 #'   \item{statistic}{the value of the test statistic Z.}
 #'   \item{estimate}{the value of the difference statistics D1 and D2.}
@@ -80,13 +80,23 @@
 #'
 #' # perform test using range tree method
 #' fasano.franceschini.test(S1, S2, seed = 0, method = 'r')
+#'
 #' # perform test using brute force method
 #' fasano.franceschini.test(S1, S2, seed = 0, method = 'b')
 #'
-#' @details The test statistic is computed using an efficient range tree
-#' implementation with a time complexity of \emph{O(n*log(n)^(d-1))}, where
-#' \emph{n} is the size of the largest sample and \emph{d} is the dimension
-#' of the data.
+#' @details The test statistic can be computed using two different methods.
+#' Both methods return identical results, but vary in computation time.
+#' \itemize{
+#'   \item Range tree method (\code{method = 'r'}): This method has a time
+#'   complexity of \emph{O(n*log(n)^(d-1))}, where \emph{n} is the size of
+#'   the larger sample and \emph{d} is the dimension of the data.
+#'   \item Brute force method (\code{method = 'b'}): This method has a time
+#'   complexity of \emph{O(n^2)}.
+#' }
+#' When \emph{d = 2}, or \emph{d > 2} and \emph{n} is large, the range tree
+#' method tends to outperform the brute force method. When \emph{d > 2} and
+#' \emph{n} is small, the brute force method tends to outperform the range
+#' tree method.
 #'
 #' The p-value for the test is computed empirically using a permutation test. As
 #' it is almost always infeasible to compute the exact permutation test p-value,
@@ -94,10 +104,6 @@
 #' distributed random variable, and thus a confidence interval can be computed.
 #' The confidence interval is obtained using the procedure given in Clopper and
 #' Pearson (1934).
-#'
-#' Since p-values are calculated using a permutation test, the data can be of any
-#' dimensionality and of any type (continuous, discrete, or mixed). If there are
-#' ties in the data, points are counted with multiplicity.
 #'
 #' @export
 fasano.franceschini.test <- function(S1,
