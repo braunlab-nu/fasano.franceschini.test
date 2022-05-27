@@ -49,10 +49,10 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2.0.0" id="fasanofranceschinitest-200">fasano.franceschini.test 2.0.0<a class="anchor" aria-label="anchor" href="#fasanofranceschinitest-200"></a></h2>
-<ul><li>Major overhaul of the package. Most of the internal computations are done in C++ now rather than R.</li>
+<ul><li>Major overhaul of the package. Most computations are now done in C++ now rather than R.</li>
 <li>Testing has been extended from two dimensions to arbitrary dimensions.</li>
-<li>Time complexity of computing the test statistic has been reduced from quadratic to quasilinear.</li>
-<li>The ‘cores’ argument has been renamed <code>threads</code>. <code>cores</code> is still allowed for backwards compatibility but will be removed in the next release.</li>
+<li>A second method for computing the test statistic has been added which has a loglinear time complexity rather than quadratic.</li>
+<li>The <code>cores</code> argument has been renamed <code>threads</code>. <code>cores</code> is still allowed for backwards compatibility but will be removed in the next release.</li>
 <li>A <code>seed</code> argument has been added to ensure reproducibility in the p-value estimation.</li>
 <li>A <code>verbose</code> argument has been added to print a progress bar during the permutation test.</li>
 <li>The p-value distributional approximation has been removed, as the approximation is only valid in two dimensions.</li>

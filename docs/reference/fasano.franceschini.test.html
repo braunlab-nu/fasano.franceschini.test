@@ -90,8 +90,8 @@ of threads used for performing the permutation test. If set to <code>"auto"</cod
 the number of threads is determined by <code><a href="https://rdrr.io/pkg/RcppParallel/man/setThreadOptions.html" class="external-link">RcppParallel::defaultNumThreads()</a></code>.
 Default is 1.</p></dd>
 <dt>cores</dt>
-<dd><p>allowed for backwards compatibility. <code>threads</code> is now the preferred
-argument name.</p></dd>
+<dd><p>allowed for backwards compatibility. <code>threads</code> is now the
+preferred argument name.</p></dd>
 <dt>seed</dt>
 <dd><p>optional integer to seed the PRNG used for the permutation test.
 Default is <code>NULL</code>. Only available for serial version (<code>threads</code> = 1).</p></dd>
@@ -103,9 +103,9 @@ permutation test p-value.</p></dd>
 Default is <code>TRUE</code>. Only available for serial version (<code>threads</code> = 1).</p></dd>
 <dt>method</dt>
 <dd><p>a <code>character</code> indicating which method to use to compute the
-test statistic. Must be either 'r' for the range-tree method (default), or 'b'
-for the brute force method. Both return the same results, but may vary in
-computation speed. See Details section for more information.</p></dd>
+test statistic. Must be either <code>'r'</code> for the range-tree method (default),
+or <code>'b'</code> for the brute force method. Both return the same results, but
+may vary in computation speed. See the Details section for more information.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -125,19 +125,22 @@ computation speed. See Details section for more information.</p></dd>
 </dl></div>
     <div id="details">
     <h2>Details</h2>
-    <p>The test statistic is computed using an efficient range tree
-implementation with a time complexity of <em>O(n*log(n)^(d-1))</em>, where
-<em>n</em> is the size of the largest sample and <em>d</em> is the dimension
-of the data.</p>
+    <p>The test statistic can be computed using two different methods.
+Both methods return identical results, but vary in computation time.</p><ul><li><p>Range tree method (<code>method = 'r'</code>): This method has a time
+  complexity of <em>O(n*log(n)^(d-1))</em>, where <em>n</em> is the size of
+  the larger sample and <em>d</em> is the dimension of the data.</p></li>
+<li><p>Brute force method (<code>method = 'b'</code>): This method has a time
+  complexity of <em>O(n^2)</em>.</p></li>
+</ul><p>When <em>d = 2</em>, or <em>d &gt; 2</em> and <em>n</em> is large, the range tree
+method tends to outperform the brute force method. When <em>d &gt; 2</em> and
+<em>n</em> is small, the brute force method tends to outperform the range
+tree method.</p>
 <p>The p-value for the test is computed empirically using a permutation test. As
 it is almost always infeasible to compute the exact permutation test p-value,
 a Monte Carlo approximation is made instead. This estimate is a binomially
 distributed random variable, and thus a confidence interval can be computed.
 The confidence interval is obtained using the procedure given in Clopper and
 Pearson (1934).</p>
-<p>Since p-values are calculated using a permutation test, the data can be of any
-dimensionality and of any type (continuous, discrete, or mixed). If there are
-ties in the data, points are counted with multiplicity.</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -167,9 +170,9 @@ ties in the data, points are counted with multiplicity.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.8119</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.8416</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.7219221 0.8827724</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.7555271 0.9066534</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.1333333 0.1533333 </span>
@@ -181,9 +184,9 @@ ties in the data, points are counted with multiplicity.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.8209</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.8308</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.7607701 0.8712922</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.7717281 0.8799205</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.1333333 0.1533333 </span>
@@ -244,6 +247,7 @@ ties in the data, points are counted with multiplicity.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.3323643 0.3785530 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"></span>
 <span class="r-in"><span class="co"># perform test using brute force method</span></span>
 <span class="r-in"><span class="fu">fasano.franceschini.test</span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span>, seed <span class="op">=</span> <span class="fl">0</span>, method <span class="op">=</span> <span class="st">'b'</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

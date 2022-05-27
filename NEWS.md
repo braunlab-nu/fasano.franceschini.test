@@ -1,8 +1,8 @@
 # fasano.franceschini.test 2.0.0
-* Major overhaul of the package. Most of the internal computations are done in C++ now rather than R.
+* Major overhaul of the package. Most computations are now done in C++ now rather than R.
 * Testing has been extended from two dimensions to arbitrary dimensions.
-* Time complexity of computing the test statistic has been reduced from quadratic to quasilinear.
-* The 'cores' argument has been renamed `threads`. `cores` is still allowed for backwards compatibility but will be removed in the next release.
+* A second method for computing the test statistic has been added which has a loglinear time complexity rather than quadratic.
+* The `cores` argument has been renamed `threads`. `cores` is still allowed for backwards compatibility but will be removed in the next release.
 * A `seed` argument has been added to ensure reproducibility in the p-value estimation.
 * A `verbose` argument has been added to print a progress bar during the permutation test.
 * The p-value distributional approximation has been removed, as the approximation is only valid in two dimensions.

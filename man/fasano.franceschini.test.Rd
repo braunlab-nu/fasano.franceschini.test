@@ -30,8 +30,8 @@ of threads used for performing the permutation test. If set to \code{"auto"},
 the number of threads is determined by \code{RcppParallel::defaultNumThreads()}.
 Default is 1.}
 
-\item{cores}{allowed for backwards compatibility. \code{threads} is now the preferred
-argument name.}
+\item{cores}{allowed for backwards compatibility. \code{threads} is now the
+preferred argument name.}
 
 \item{seed}{optional integer to seed the PRNG used for the permutation test.
 Default is \code{NULL}. Only available for serial version (\code{threads} = 1).}
@@ -44,8 +44,8 @@ Default is \code{TRUE}. Only available for serial version (\code{threads} = 1).}
 
 \item{method}{a \code{character} indicating which method to use to compute the
 test statistic. Must be either \code{'r'} for the range-tree method (default),
-or \code{'b'} for the brute force method. Both return the same results, but may
-vary in computation speed. See the Details section for more information.}
+or \code{'b'} for the brute force method. Both return the same results, but
+may vary in computation speed. See the Details section for more information.}
 }
 \value{
 A list with class \code{htest} containing the following components:
@@ -67,15 +67,16 @@ any type (continuous, discrete, or mixed).
 The test statistic can be computed using two different methods.
 Both methods return identical results, but vary in computation time.
 \itemize{
-  \item Range tree method (\code{method = 'r'}): This method has a time complexity
-  of \emph{O(n*log(n)^(d-1))}, where \emph{n} is the size of the larger sample and
-  \emph{d} is the dimension of the data.
-  \item Brute force method (\code{method = 'b'}): This method has a time complexity
-  of \emph{O(n^2)}.
+  \item Range tree method (\code{method = 'r'}): This method has a time
+  complexity of \emph{O(n*log(n)^(d-1))}, where \emph{n} is the size of
+  the larger sample and \emph{d} is the dimension of the data.
+  \item Brute force method (\code{method = 'b'}): This method has a time
+  complexity of \emph{O(n^2)}.
 }
-When \emph{d = 2}, or \emph{d > 2} and \emph{n} is large, the range tree method tends
-to outperform the brute force method. When \emph{d > 2} and \emph{n} is small, the brute
-force method tends to outperform the range tree method.
+When \emph{d = 2}, or \emph{d > 2} and \emph{n} is large, the range tree
+method tends to outperform the brute force method. When \emph{d > 2} and
+\emph{n} is small, the brute force method tends to outperform the range
+tree method.
 
 The p-value for the test is computed empirically using a permutation test. As
 it is almost always infeasible to compute the exact permutation test p-value,
