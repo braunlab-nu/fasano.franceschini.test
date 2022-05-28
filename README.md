@@ -32,8 +32,8 @@ package from [CRAN](https://CRAN.R-project.org) with:
 install.packages("fasano.franceschini.test")
 ```
 
-And the development version of the `fasano.franceschini.test` package
-from [GitHub](https://github.com/) with:
+The development version of the `fasano.franceschini.test` package can be
+installed from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")

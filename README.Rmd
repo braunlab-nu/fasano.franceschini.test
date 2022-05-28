@@ -45,7 +45,7 @@ You can install the released version of the `fasano.franceschini.test` package f
 install.packages("fasano.franceschini.test")
 ```
 
-And the development version of the `fasano.franceschini.test` package from [GitHub](https://github.com/) with:
+The development version of the `fasano.franceschini.test` package can be installed from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
