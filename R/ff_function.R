@@ -93,10 +93,10 @@
 #'   \item Brute force method (\code{method = 'b'}): This method has a time
 #'   complexity of \emph{O(n^2)}.
 #' }
-#' When \emph{d = 2}, or \emph{d > 2} and \emph{n} is large, the range tree
-#' method tends to outperform the brute force method. When \emph{d > 2} and
-#' \emph{n} is small, the brute force method tends to outperform the range
-#' tree method.
+#' When \emph{d = 2} (regardless of \emph{n}), or \emph{d > 2} and \emph{n} is
+#' large, the range tree method tends to outperform the brute force method.
+#' When \emph{d > 2} and \emph{n} is small, the brute force method tends to
+#' outperform the range tree method.
 #'
 #' The p-value for the test is computed empirically using a permutation test. As
 #' it is almost always infeasible to compute the exact permutation test p-value,
