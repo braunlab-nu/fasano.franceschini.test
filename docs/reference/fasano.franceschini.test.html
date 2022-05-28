@@ -131,10 +131,10 @@ Both methods return identical results, but vary in computation time.</p><ul><li>
   the larger sample and <em>d</em> is the dimension of the data.</p></li>
 <li><p>Brute force method (<code>method = 'b'</code>): This method has a time
   complexity of <em>O(n^2)</em>.</p></li>
-</ul><p>When <em>d = 2</em>, or <em>d &gt; 2</em> and <em>n</em> is large, the range tree
-method tends to outperform the brute force method. When <em>d &gt; 2</em> and
-<em>n</em> is small, the brute force method tends to outperform the range
-tree method.</p>
+</ul><p>When <em>d = 2</em> (regardless of <em>n</em>), or <em>d &gt; 2</em> and <em>n</em> is
+large, the range tree method tends to outperform the brute force method.
+When <em>d &gt; 2</em> and <em>n</em> is small, the brute force method tends to
+outperform the range tree method.</p>
 <p>The p-value for the test is computed empirically using a permutation test. As
 it is almost always infeasible to compute the exact permutation test p-value,
 a Monte Carlo approximation is made instead. This estimate is a binomially
@@ -170,9 +170,9 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.8713</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.8416</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.7899580 0.9296498</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.7555271 0.9066534</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.1333333 0.1533333 </span>
@@ -184,9 +184,9 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.8557</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.801</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.7994077 0.9011970</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.7390267 0.8538578</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.1333333 0.1533333 </span>
@@ -212,9 +212,9 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.7921</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.8416</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 99 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.6705049 0.8851065</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.7274736 0.9221261</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.1333333 0.1533333 </span>
