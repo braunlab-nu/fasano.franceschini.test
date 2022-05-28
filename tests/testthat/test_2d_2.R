@@ -31,4 +31,18 @@ test_that("compare with brute force 2d implementation", {
     S2 <- data.frame(rbeta(n = 1559, shape1 = 10.2, shape2 = 0.3),
                      rbeta(n = 1559, shape1 = 10.2, shape2 = 0.3))
     ffcomp(S1, S2)
+
+    S1 <- cbind(rpois(n = 100, lambda = 4),
+                rpois(n = 100, lambda = 3))
+    S2 <- cbind(rpois(n = 100, lambda = 4),
+                rpois(n = 100, lambda = 3))
+    ffcomp(S1, S2)
+
+    S1 <- cbind(rep(1, 100), rep(2, 100))
+    S2 <- cbind(rep(1, 100), rep(2, 100))
+    ffcomp(S1, S2)
+
+    S1 <- cbind(rep(1, 100), rep(2, 100))
+    S2 <- cbind(rep(2, 100), rep(1, 100))
+    ffcomp(S1, S2)
 })

@@ -38,4 +38,18 @@ test_that("compare with naive R 2d implementation", {
     S2 <- data.frame(rbeta(n = 1557, shape1 = 10.1, shape2 = 0.1),
                      rbeta(n = 1557, shape1 = 10.1, shape2 = 0.1))
     ffcomp(S1, S2)
+
+    S1 <- cbind(rpois(n = 100, lambda = 4),
+                rpois(n = 100, lambda = 3))
+    S2 <- cbind(rpois(n = 100, lambda = 4),
+                rpois(n = 100, lambda = 3))
+    ffcomp(S1, S2)
+
+    S1 <- cbind(rep(1, 100), rep(2, 100))
+    S2 <- cbind(rep(1, 100), rep(2, 100))
+    ffcomp(S1, S2)
+
+    S1 <- cbind(rep(1, 100), rep(2, 100))
+    S2 <- cbind(rep(2, 100), rep(1, 100))
+    ffcomp(S1, S2)
 })
