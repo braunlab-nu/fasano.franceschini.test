@@ -8,3 +8,4 @@
 ^.github$
 ^.vignettes$
 ^cran-comments\.md$
+^CRAN-SUBMISSION$

@@ -21,6 +21,7 @@
 !**/.gitignore
 .Rproj.user
 inst/doc
+CRAN-SUBMISSION
 .Rapp.history
 .RData
 .Ruserdata
