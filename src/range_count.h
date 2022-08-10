@@ -34,7 +34,7 @@ std::vector<RTree> buildRangeTrees(const MatrixT M,
 
     // Extract points from second sample
     for (std::size_t i = 0; i < r2; ++i) {
-        pts2.push_back(RangeTree::Point<double,int>(getRow<MatrixT>(M, s[i+r1]), 0));
+        pts2.push_back(RangeTree::Point<double,int>(getRow<MatrixT>(M, s[i + r1]), 0));
     }
 
     // Construct range trees
@@ -50,7 +50,7 @@ std::vector<RTree> buildRangeTrees(const MatrixT M,
 std::vector<double> rangeCountTree(const RTree& rtree,
                                    const std::vector<double>& origin) {
     std::size_t ndim = origin.size();
-    std::size_t noct = 1<<ndim;
+    std::size_t noct = 1 << ndim;
     std::vector<double> res(noct);
     std::vector<bool> strict(ndim, false);
     double inf = std::numeric_limits<double>::infinity();
@@ -59,16 +59,20 @@ std::vector<double> rangeCountTree(const RTree& rtree,
     for (std::size_t i = 0; i < noct; ++i) {
         // Determine the upper and lower bounds on each dimension for the given orthant.
         // That is, the orthant can be represented as the Cartesian product of the intervals
-        // (lowerLims[j],upperLims[j]) for j=0,1,...,ndim-1.
+        // (lowerLims[j], upperLims[j]) for j=0,1,...,ndim-1.
         std::vector<double> lowerLims(ndim), upperLims(ndim);
         for (std::size_t j = 0; j < ndim; ++j) {
             // The orthants in R^d can be enumerated as all length d combinations of < and >.
             // Representing < as 0 and > as 1, these combinations are given by the rows of the
             // (2^d)xd matrix whose i-th row is the integer i in binary. The (i,j) element of
             // this matrix is given by (i & (1 << (d-1-j))).
-            bool s = i & (1 << (ndim-1-j));
-            lowerLims[j] = (s ? -inf : origin[j]);
-            upperLims[j] = (s ? origin[j] : inf);
+            if (i & (1 << (ndim - 1 - j))) {
+                lowerLims[j] = -inf;
+                upperLims[j] = origin[j];
+            } else {
+                lowerLims[j] = origin[j];
+                upperLims[j] = inf;
+            }
         }
         res[i] = rtree.countInRange(lowerLims, upperLims, strict, strict);
     }
@@ -92,25 +96,24 @@ std::vector<double> rangeCountBrute(const MatrixT M,
                                     const std::vector<std::size_t>& s,
                                     const std::vector<double>& origin) {
     std::size_t ndim = origin.size();
-    std::size_t noct = 1<<ndim;
-    std::vector<double> counts(noct);
+    std::vector<double> counts(1 << ndim);
 
     for (std::size_t i = 0; i < npts; ++i) {
         std::vector<double> pt = getRow<MatrixT>(M, s[i + offset]);
-        for (std::size_t j = 0; j < noct; ++j) {
-            bool in_oct = true;
-            for (std::size_t k = 0; k < ndim; ++k) {
-                // Whether bound is < (0) or > (1)
-                bool s = j & (1 << (ndim-1-k));
-                // Whether pt satisfies the correct bound in the k-th coordinate
-                bool check = s ? (pt[k] < origin[k]) : (pt[k] > origin[k]);
-                in_oct = in_oct && check;
-            }
-            if (in_oct) {
-                // The orthant containing pt has been found
-                ++counts[j];
+        // Determine which orthant the point belongs to
+        std::size_t quad = 0;
+        bool in_oct = true;
+        for (std::size_t j = 0; j < ndim; ++j) {
+            if (pt[j] > origin[j]) {
+                quad += 1 << (ndim - j - 1);
+            } else if (pt[j] == origin[j]) {
+                // Ties are not counted
+                in_oct = false;
                 break;
             }
+        }
+        if (in_oct) {
+            ++counts[quad];
         }
     }
     return counts;

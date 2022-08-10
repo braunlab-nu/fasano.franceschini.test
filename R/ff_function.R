@@ -8,32 +8,32 @@
 #'
 #' @param S1 \code{matrix} or \code{data.frame}.
 #' @param S2 \code{matrix} or \code{data.frame}.
-#' @param nPermute a nonnegative \code{integer} setting the number of permuted
+#' @param nPermute A nonnegative \code{integer} setting the number of permuted
 #' samples to generate when estimating the permutation test p-value. Default is
 #' 100. If set to 0, no p-value is estimated.
-#' @param threads a positive \code{integer} or \code{"auto"} setting the number
+#' @param threads A positive \code{integer} or \code{"auto"} setting the number
 #' of threads used for performing the permutation test. If set to \code{"auto"},
 #' the number of threads is determined by \code{RcppParallel::defaultNumThreads()}.
 #' Default is 1.
-#' @param cores allowed for backwards compatibility. \code{threads} is now the
+#' @param cores Allowed for backwards compatibility. \code{threads} is now the
 #' preferred argument name.
-#' @param seed optional integer to seed the PRNG used for the permutation test.
+#' @param seed Optional integer to seed the PRNG used for the permutation test.
 #' Default is \code{NULL}. Only available for serial version (\code{threads} = 1).
-#' @param p.conf.level confidence level for the confidence interval of the
+#' @param p.conf.level Confidence level for the confidence interval of the
 #' permutation test p-value.
-#' @param verbose a \code{boolean} indicating whether to display a progress bar.
+#' @param verbose A \code{boolean} indicating whether to display a progress bar.
 #' Default is \code{TRUE}. Only available for serial version (\code{threads} = 1).
-#' @param method a \code{character} indicating which method to use to compute the
+#' @param method A \code{character} indicating which method to use to compute the
 #' test statistic. Must be either \code{'r'} for the range-tree method (default),
 #' or \code{'b'} for the brute force method. Both return the same results, but
 #' may vary in computation speed. See the Details section for more information.
 #' @return A list with class \code{htest} containing the following components:
-#'   \item{statistic}{the value of the test statistic Z.}
-#'   \item{estimate}{the value of the difference statistics D1 and D2.}
-#'   \item{p.value}{the permutation test p-value.}
-#'   \item{conf.int}{a binomial confidence interval for the p-value.}
-#'   \item{method}{a character string indicating what type of test was performed.}
-#'   \item{data.name}{a character string giving the names of the data.}
+#'   \item{statistic}{The value of the test statistic Z.}
+#'   \item{estimate}{The value of the difference statistics D1 and D2.}
+#'   \item{p.value}{The permutation test p-value.}
+#'   \item{conf.int}{A binomial confidence interval for the p-value.}
+#'   \item{method}{A character string indicating what type of test was performed.}
+#'   \item{data.name}{A character string giving the names of the data.}
 #' @references{
 #' \itemize{
 #'   \item{Fasano, G. & Franceschini, A. (1987). A multidimensional version of the

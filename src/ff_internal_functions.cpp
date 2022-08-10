@@ -3,9 +3,10 @@
 #include <vector>
 #include <random>
 #include <cmath>
+#include <algorithm>
+#include <numeric>
 #include "RangeTree.h"
 #include "matrix_util.h"
-#include "permute.h"
 #include "range_count.h"
 #include "ProgressBar.h"
 
@@ -43,16 +44,16 @@ std::vector<double> testStatistics(const MatrixT M,
     double n2 = static_cast<double>(r2);
 
     // Build range trees
-    std::vector<std::size_t> s;
+    std::vector<std::size_t> s(r1 + r2);
+    std::iota(s.begin(), s.end(), 0);
     if (shuffle) {
-        s = permutation(r1 + r2, prng);
-    } else {
-        s = seq(r1 + r2);
+        std::shuffle(s.begin(), s.end(), prng);
     }
 
     double d1 = -1;
     double d2 = -1;
     if (method == 'r') {
+        /* Use range tree method */
         // Build range trees
         std::vector<RTree> trees = buildRangeTrees<MatrixT>(M, r1, r2, s);
 
@@ -72,6 +73,7 @@ std::vector<double> testStatistics(const MatrixT M,
                                        n1, n2));
         }
     } else {
+        /* Use brute force method */
         // Compute test statistic using first sample as origins
         for (std::size_t i = 0; i < r1; ++i) {
             std::vector<double> org = getRow<MatrixT>(M, s[i]);
@@ -210,7 +212,7 @@ struct PermutationTest : public RcppParallel::Worker {
         std::mt19937 prng(std::random_device{}());
         for (std::size_t i = begin; i < end; ++i) {
             double z = testStatistics<RcppParallel::RMatrix<double> >(S, r1, r2, prng, method)[2];
-            pval += (z > Z) ? 1 : 0;
+            pval += (z > Z);
         }
     }
 
