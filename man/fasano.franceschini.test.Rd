@@ -13,7 +13,8 @@ fasano.franceschini.test(
   seed = NULL,
   p.conf.level = 0.95,
   verbose = TRUE,
-  method = c("r", "b")
+  method = c("o", "r", "b"),
+  times = 2
 )
 }
 \arguments{
@@ -21,40 +22,48 @@ fasano.franceschini.test(
 
 \item{S2}{\code{matrix} or \code{data.frame}.}
 
-\item{nPermute}{a nonnegative \code{integer} setting the number of permuted
+\item{nPermute}{A nonnegative \code{integer} setting the number of permuted
 samples to generate when estimating the permutation test p-value. Default is
 100. If set to 0, no p-value is estimated.}
 
-\item{threads}{a positive \code{integer} or \code{"auto"} setting the number
+\item{threads}{A positive \code{integer} or \code{"auto"} setting the number
 of threads used for performing the permutation test. If set to \code{"auto"},
 the number of threads is determined by \code{RcppParallel::defaultNumThreads()}.
 Default is 1.}
 
-\item{cores}{allowed for backwards compatibility. \code{threads} is now the
+\item{cores}{Allowed for backwards compatibility. \code{threads} is now the
 preferred argument name.}
 
-\item{seed}{optional integer to seed the PRNG used for the permutation test.
+\item{seed}{Optional integer to seed the PRNG used for the permutation test.
 Default is \code{NULL}. Only available for serial version (\code{threads} = 1).}
 
-\item{p.conf.level}{confidence level for the confidence interval of the
+\item{p.conf.level}{Confidence level for the confidence interval of the
 permutation test p-value.}
 
-\item{verbose}{a \code{boolean} indicating whether to display a progress bar.
+\item{verbose}{A \code{boolean} indicating whether to display a progress bar.
 Default is \code{TRUE}. Only available for serial version (\code{threads} = 1).}
 
-\item{method}{a \code{character} indicating which method to use to compute the
-test statistic. Must be either \code{'r'} for the range-tree method (default),
-or \code{'b'} for the brute force method. Both return the same results, but
-may vary in computation speed. See the Details section for more information.}
+\item{method}{A \code{character} indicating which method to use to compute the
+test statistic. Both methods return the same results but may vary in computation
+speed. The options are:
+\itemize{
+  \item{\code{'o'}}{Optimize: benchmarks both methods and selects the fastest.}
+  \item{\code{'r'}}{Range tree}
+  \item{\code{'b'}}{Brute force}
+}
+See the Details section for more information about each method.}
+
+\item{times}{An integer specifying how many benchmarking evaluations to perform when
+\code{method = 'o'}.}
 }
 \value{
 A list with class \code{htest} containing the following components:
-  \item{statistic}{the value of the test statistic Z.}
-  \item{estimate}{the value of the difference statistics D1 and D2.}
-  \item{p.value}{the permutation test p-value.}
-  \item{conf.int}{a binomial confidence interval for the p-value.}
-  \item{method}{a character string indicating what type of test was performed.}
-  \item{data.name}{a character string giving the names of the data.}
+  \item{statistic}{The value of the test statistic Z.}
+  \item{estimate}{The value of the difference statistics D1 and D2.}
+  \item{p.value}{The permutation test p-value.}
+  \item{conf.int}{A binomial confidence interval for the p-value.}
+  \item{method}{A character string indicating what type of test was performed.}
+  \item{data.name}{A character string giving the names of the data.}
 }
 \description{
 Performs a two-sample multidimensional Kolmogorov-Smirnov test as described
@@ -65,7 +74,7 @@ any type (continuous, discrete, or mixed).
 }
 \details{
 The test statistic can be computed using two different methods.
-Both methods return identical results, but vary in computation time.
+Both methods return identical results, but have different time complexities:
 \itemize{
   \item Range tree method (\code{method = 'r'}): This method has a time
   complexity of \emph{O(n*log(n)^(d-1))}, where \emph{n} is the size of
@@ -73,10 +82,9 @@ Both methods return identical results, but vary in computation time.
   \item Brute force method (\code{method = 'b'}): This method has a time
   complexity of \emph{O(n^2)}.
 }
-When \emph{d = 2} (regardless of \emph{n}), or \emph{d > 2} and \emph{n} is
-large, the range tree method tends to outperform the brute force method.
-When \emph{d > 2} and \emph{n} is small, the brute force method tends to
-outperform the range tree method.
+The range tree method tends to be faster for small dimensions or large
+sample sizes, while the brute force method tends to faster for high dimensions
+or small sample sizes.
 
 The p-value for the test is computed empirically using a permutation test. As
 it is almost always infeasible to compute the exact permutation test p-value,
@@ -106,25 +114,16 @@ fasano.franceschini.test(S1, S2, seed = 0)
 # change confidence level for p-value confidence interval
 fasano.franceschini.test(S1, S2, p.conf.level = 0.99)
 
-# perform test (parallel version, 2 threads)
-\dontrun{
-fasano.franceschini.test(S1, S2, threads = 2)
-}
-
-
-# create 3-D mixed samples using matrices
-S1 <- cbind(rgamma(n = 43, shape = 2),
-            rpois(n = 43, lambda = 5),
-            rpois(n = 43, lambda = 3.5))
-S2 <- cbind(rgamma(n = 72, shape = 2),
-            rpois(n = 72, lambda = 5),
-            rpois(n = 72, lambda = 5))
-
 # perform test using range tree method
 fasano.franceschini.test(S1, S2, seed = 0, method = 'r')
 
 # perform test using brute force method
 fasano.franceschini.test(S1, S2, seed = 0, method = 'b')
+
+# perform test (parallel version, 2 threads)
+\dontrun{
+fasano.franceschini.test(S1, S2, threads = 2)
+}
 
 }
 \references{

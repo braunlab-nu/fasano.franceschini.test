@@ -38,4 +38,9 @@ test_that("test for bad inputs", {
 
     expect_error(fasano.franceschini.test(S1, S2, method = "a"))
     expect_error(fasano.franceschini.test(S1, S2, method = 1))
+
+    expect_error(fasano.franceschini.test(S1, S2, method = 'o', times = 'a'))
+    expect_error(fasano.franceschini.test(S1, S2, method = 'o', times = 0))
+    expect_error(fasano.franceschini.test(S1, S2, method = 'o', times = -1))
+    expect_error(fasano.franceschini.test(S1, S2, method = 'o', times = 2.1))
 })

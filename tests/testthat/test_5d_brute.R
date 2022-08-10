@@ -1,4 +1,4 @@
-test_that("compare with brute force 5d implementation", {
+test_that("check that range tree and brute force methods return same statistics for 5d data", {
     set.seed(5)
 
     ffcomp <- function(S1, S2) {

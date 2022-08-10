@@ -1,4 +1,4 @@
-test_that("compare with brute force 4d implementation", {
+test_that("check that range tree and brute force methods return same statistics for 4d data", {
     set.seed(4)
 
     ffcomp <- function(S1, S2) {
