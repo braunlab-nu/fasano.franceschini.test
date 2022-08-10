@@ -3,5 +3,6 @@
 export(fasano.franceschini.test)
 importFrom(Rcpp,evalCpp)
 importFrom(RcppParallel,RcppParallelLibs)
+importFrom(microbenchmark,microbenchmark)
 importFrom(stats,binom.test)
 useDynLib(fasano.franceschini.test, .registration = TRUE)
