@@ -1,3 +1,7 @@
+# fasano.franceschini.test 2.0.1
+* Minor speedups introduced, particularly for the brute force method.
+* The default computation method is now `'o'` for optimize, which automatically benchmarks both the range tree and brute force methods and selects the fastest. The number of times each method is evaluated is set by the `times` argument.
+
 # fasano.franceschini.test 2.0.0
 * Major overhaul of the package. Most computations are now done in C++ now rather than R.
 * Testing has been extended from two dimensions to arbitrary dimensions.

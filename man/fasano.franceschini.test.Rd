@@ -24,32 +24,32 @@ fasano.franceschini.test(
 
 \item{nPermute}{A nonnegative \code{integer} setting the number of permuted
 samples to generate when estimating the permutation test p-value. Default is
-100. If set to 0, no p-value is estimated.}
+\code{100}. If set to \code{0}, no p-value is estimated.}
 
 \item{threads}{A positive \code{integer} or \code{"auto"} setting the number
 of threads used for performing the permutation test. If set to \code{"auto"},
 the number of threads is determined by \code{RcppParallel::defaultNumThreads()}.
-Default is 1.}
+Default is \code{1}.}
 
 \item{cores}{Allowed for backwards compatibility. \code{threads} is now the
 preferred argument name.}
 
 \item{seed}{Optional integer to seed the PRNG used for the permutation test.
-Default is \code{NULL}. Only available for serial version (\code{threads} = 1).}
+Default is \code{NULL}. Only available for serial version (\code{threads = 1}).}
 
 \item{p.conf.level}{Confidence level for the confidence interval of the
 permutation test p-value.}
 
 \item{verbose}{A \code{boolean} indicating whether to display a progress bar.
-Default is \code{TRUE}. Only available for serial version (\code{threads} = 1).}
+Default is \code{TRUE}. Only available for serial version (\code{threads = 1}).}
 
 \item{method}{A \code{character} indicating which method to use to compute the
 test statistic. Both methods return the same results but may vary in computation
 speed. The options are:
 \itemize{
-  \item{\code{'o'}}{Optimize: benchmarks both methods and selects the fastest.}
-  \item{\code{'r'}}{Range tree}
-  \item{\code{'b'}}{Brute force}
+  \item{\code{'o'} - Optimize: benchmarks both methods and selects the fastest.}
+  \item{\code{'r'} - Range tree}
+  \item{\code{'b'} - Brute force}
 }
 See the Details section for more information about each method.}
 
