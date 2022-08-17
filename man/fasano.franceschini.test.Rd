@@ -96,16 +96,16 @@ Pearson (1934).
 set.seed(0)
 
 # create 2-D samples
-S1 <- data.frame(x = rnorm(n = 30, mean = 0, sd = 1),
-                 y = rnorm(n = 30, mean = 1, sd = 2))
-S2 <- data.frame(x = rnorm(n = 60, mean = 0, sd = 1),
-                 y = rnorm(n = 60, mean = 1, sd = 2))
+S1 <- data.frame(x = rnorm(n = 20, mean = 0, sd = 1),
+                 y = rnorm(n = 20, mean = 1, sd = 2))
+S2 <- data.frame(x = rnorm(n = 40, mean = 0, sd = 1),
+                 y = rnorm(n = 40, mean = 1, sd = 2))
 
 # perform test (serial version)
 fasano.franceschini.test(S1, S2)
 
 # perform test with more permutations
-fasano.franceschini.test(S1, S2, nPermute = 200)
+fasano.franceschini.test(S1, S2, nPermute = 150)
 
 # set seed for reproducible p-value
 fasano.franceschini.test(S1, S2, seed = 0)$p.value

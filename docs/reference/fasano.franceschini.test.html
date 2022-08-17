@@ -188,10 +188,10 @@ Pearson (1934).</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create 2-D samples</span></span></span>
-<span class="r-in"><span><span class="va">S1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                 y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, mean <span class="op">=</span> <span class="fl">1</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">S2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">60</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                 y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">60</span>, mean <span class="op">=</span> <span class="fl">1</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">S1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">1</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">S2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">40</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">40</span>, mean <span class="op">=</span> <span class="fl">1</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># perform test (serial version)</span></span></span>
 <span class="r-in"><span><span class="fu">fasano.franceschini.test</span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span><span class="op">)</span></span></span>
@@ -199,35 +199,35 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.70809, p-value = 0.8812</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.63901, p-value = 0.9703</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8016549 0.9370766</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9156431 0.9938321</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1666667 0.1500000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># perform test with more permutations</span></span></span>
-<span class="r-in"><span><span class="fu">fasano.franceschini.test</span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span>, nPermute <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">fasano.franceschini.test</span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span>, nPermute <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.70809, p-value = 0.9303</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.63901, p-value = 0.9801</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8858969 0.9614001</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9430382 0.9958839</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1666667 0.1500000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># set seed for reproducible p-value</span></span></span>
 <span class="r-in"><span><span class="fu">fasano.franceschini.test</span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span>, seed <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  p-value </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.960396 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.980198 </span>
 <span class="r-in"><span><span class="fu">fasano.franceschini.test</span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span>, seed <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  p-value </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.960396 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.980198 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># change confidence level for p-value confidence interval</span></span></span>
 <span class="r-in"><span><span class="fu">fasano.franceschini.test</span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span>, p.conf.level <span class="op">=</span> <span class="fl">0.99</span><span class="op">)</span></span></span>
@@ -235,12 +235,12 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.70809, p-value = 0.901</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.63901, p-value = 0.9406</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 99 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.7999297 0.9621930</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8522366 0.9845151</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1666667 0.1500000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># perform test using range tree method</span></span></span>
@@ -249,12 +249,12 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.70809, p-value = 0.901</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.63901, p-value = 0.9703</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8254472 0.9514912</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9156431 0.9938321</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1666667 0.1500000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># perform test using brute force method</span></span></span>
@@ -263,12 +263,12 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.70809, p-value = 0.8911</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.63901, p-value = 0.9604</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8134799 0.9443628</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9016950 0.9891055</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1666667 0.1500000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># perform test (parallel version, 2 threads)</span></span></span>

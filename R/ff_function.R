@@ -52,16 +52,16 @@
 #' set.seed(0)
 #'
 #' # create 2-D samples
-#' S1 <- data.frame(x = rnorm(n = 30, mean = 0, sd = 1),
-#'                  y = rnorm(n = 30, mean = 1, sd = 2))
-#' S2 <- data.frame(x = rnorm(n = 60, mean = 0, sd = 1),
-#'                  y = rnorm(n = 60, mean = 1, sd = 2))
+#' S1 <- data.frame(x = rnorm(n = 20, mean = 0, sd = 1),
+#'                  y = rnorm(n = 20, mean = 1, sd = 2))
+#' S2 <- data.frame(x = rnorm(n = 40, mean = 0, sd = 1),
+#'                  y = rnorm(n = 40, mean = 1, sd = 2))
 #'
 #' # perform test (serial version)
 #' fasano.franceschini.test(S1, S2)
 #'
 #' # perform test with more permutations
-#' fasano.franceschini.test(S1, S2, nPermute = 200)
+#' fasano.franceschini.test(S1, S2, nPermute = 150)
 #'
 #' # set seed for reproducible p-value
 #' fasano.franceschini.test(S1, S2, seed = 0)$p.value
@@ -159,9 +159,14 @@ fasano.franceschini.test <- function(S1,
 
     # Perform FF test
     if (method == 'o') {
-        time.r <- mean(microbenchmark(ffStats <- ffTestStatistic(S1, S2, 'r'), times = 1)$time)
-        time.b <- mean(microbenchmark(ffStats <- ffTestStatistic(S1, S2, 'b'), times = 1)$time)
-        method <- if (time.r < time.b) 'r' else 'b'
+        if (nPermute > 0) {
+            time.r <- mean(microbenchmark(ffStats <- ffTestStatistic(S1, S2, 'r'), times = 1)$time)
+            time.b <- mean(microbenchmark(ffStats <- ffTestStatistic(S1, S2, 'b'), times = 1)$time)
+            method <- if (time.r < time.b) 'r' else 'b'
+        } else {
+            warning("No optimization done when nPermute = 0. Defaulting to method = 'r'.")
+            ffStats <- ffTestStatistic(S1, S2, 'r')
+        }
     } else {
         ffStats <- ffTestStatistic(S1, S2, method)
     }
