@@ -24,16 +24,14 @@
 #' @param verbose A \code{boolean} indicating whether to display a progress bar.
 #' Default is \code{TRUE}. Only available for serial version (\code{threads = 1}).
 #' @param method A \code{character} indicating which method to use to compute the
-#' test statistic. Both methods return the same results but may vary in computation
+#' test statistic. All methods return the same results but may vary in computation
 #' speed. The options are:
 #' \itemize{
-#'   \item{\code{'o'} - Optimize: benchmarks both methods and selects the fastest.}
+#'   \item{\code{'o'} - Optimize: selects the fastest method for the given data.}
 #'   \item{\code{'r'} - Range tree}
 #'   \item{\code{'b'} - Brute force}
 #' }
 #' See the Details section for more information about each method.
-#' @param times An integer specifying how many benchmarking evaluations to perform when
-#' \code{method = 'o'}.
 #' @return A list with class \code{htest} containing the following components:
 #'   \item{statistic}{The value of the test statistic Z.}
 #'   \item{estimate}{The value of the difference statistics D1 and D2.}
@@ -53,7 +51,7 @@
 #' @examples
 #' set.seed(0)
 #'
-#' # create 2-D samples using data frames
+#' # create 2-D samples
 #' S1 <- data.frame(x = rnorm(n = 50, mean = 1, sd = 2),
 #'                  y = rnorm(n = 50, mean = 3, sd = 1))
 #' S2 <- data.frame(x = rnorm(n = 150, mean = 1, sd = 2),
@@ -91,9 +89,13 @@
 #'   \item Brute force method (\code{method = 'b'}): This method has a time
 #'   complexity of \emph{O(n^2)}.
 #' }
-#' The range tree method tends to be faster for small dimensions or large
-#' sample sizes, while the brute force method tends to faster for high dimensions
-#' or small sample sizes.
+#' The range tree method tends to be faster for low dimensional data or
+#' large sample sizes, while the brute force method tends to be faster for
+#' high dimensional data or small sample sizes. When \code{method} is set
+#' to \code{`optimize`}, the test statistic is computed once using each method,
+#' and whichever method is faster is used for the permutation test. To perform
+#' more comprehensive benchmarking, \code{nPermute} can be set equal to \code{0},
+#' bypassing the permutation test and only computing the test statistic.
 #'
 #' The p-value for the test is computed empirically using a permutation test. As
 #' it is almost always infeasible to compute the exact permutation test p-value,
@@ -111,8 +113,7 @@ fasano.franceschini.test <- function(S1,
                                      seed = NULL,
                                      p.conf.level = 0.95,
                                      verbose = TRUE,
-                                     method = c('o', 'r', 'b'),
-                                     times = 2) {
+                                     method = c('o', 'r', 'b')) {
     # Store names of samples for output
     dname <- paste(deparse(substitute(S1)), "and", deparse(substitute(S2)))
 
@@ -153,20 +154,17 @@ fasano.franceschini.test <- function(S1,
     if (!is.numeric(p.conf.level) || p.conf.level <= 0 || p.conf.level >= 1) {
         stop("'p.conf.level' must be a number between 0 and 1")
     }
-    # Validate times
-    if (!is.numeric(times) || times < 1 || (times %% 1 != 0)) {
-        stop("'times' must be a positive integer")
-    }
     # Validate method
     method <- match.arg(method)
 
     # Perform FF test
     if (method == 'o') {
-        time.r <- mean(microbenchmark(ffTestStatistic(S1, S2, 'r'), times = 2)$time)
-        time.b <- mean(microbenchmark(ffTestStatistic(S1, S2, 'b'), times = 2)$time)
+        time.r <- mean(microbenchmark(ffStats <- ffTestStatistic(S1, S2, 'r'), times = 1)$time)
+        time.b <- mean(microbenchmark(ffStats <- ffTestStatistic(S1, S2, 'b'), times = 1)$time)
         method <- if (time.r < time.b) 'r' else 'b'
+    } else {
+        ffStats <- ffTestStatistic(S1, S2, method)
     }
-    ffStats <- ffTestStatistic(S1, S2, method)
     estimate <- c(ffStats[1], ffStats[2])
     names(estimate) <- c("D1", "D2")
     Z <- ffStats[3]
@@ -178,7 +176,7 @@ fasano.franceschini.test <- function(S1,
         if (threads > 1) {
             # Run parallel version of permutation test
             if (!is.null(seed)) {
-                warning("Test cannot be seeded if using multiple threads.")
+                warning("Seed unused when utilizing multiple threads.")
             }
             RcppParallel::setThreadOptions(numThreads = threads)
             count <- permutationTestParallel(S1, S2, nPermute, method)

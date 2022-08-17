@@ -13,8 +13,7 @@ fasano.franceschini.test(
   seed = NULL,
   p.conf.level = 0.95,
   verbose = TRUE,
-  method = c("o", "r", "b"),
-  times = 2
+  method = c("o", "r", "b")
 )
 }
 \arguments{
@@ -44,17 +43,14 @@ permutation test p-value.}
 Default is \code{TRUE}. Only available for serial version (\code{threads = 1}).}
 
 \item{method}{A \code{character} indicating which method to use to compute the
-test statistic. Both methods return the same results but may vary in computation
+test statistic. All methods return the same results but may vary in computation
 speed. The options are:
 \itemize{
-  \item{\code{'o'} - Optimize: benchmarks both methods and selects the fastest.}
+  \item{\code{'o'} - Optimize: selects the fastest method for the given data.}
   \item{\code{'r'} - Range tree}
   \item{\code{'b'} - Brute force}
 }
 See the Details section for more information about each method.}
-
-\item{times}{An integer specifying how many benchmarking evaluations to perform when
-\code{method = 'o'}.}
 }
 \value{
 A list with class \code{htest} containing the following components:
@@ -82,9 +78,13 @@ Both methods return identical results, but have different time complexities:
   \item Brute force method (\code{method = 'b'}): This method has a time
   complexity of \emph{O(n^2)}.
 }
-The range tree method tends to be faster for small dimensions or large
-sample sizes, while the brute force method tends to faster for high dimensions
-or small sample sizes.
+The range tree method tends to be faster for low dimensional data or
+large sample sizes, while the brute force method tends to be faster for
+high dimensional data or small sample sizes. When \code{method} is set
+to \code{`optimize`}, the test statistic is computed once using each method,
+and whichever method is faster is used for the permutation test. To perform
+more comprehensive benchmarking, \code{nPermute} can be set equal to \code{0},
+bypassing the permutation test and only computing the test statistic.
 
 The p-value for the test is computed empirically using a permutation test. As
 it is almost always infeasible to compute the exact permutation test p-value,
@@ -96,7 +96,7 @@ Pearson (1934).
 \examples{
 set.seed(0)
 
-# create 2-D samples using data frames
+# create 2-D samples
 S1 <- data.frame(x = rnorm(n = 50, mean = 1, sd = 2),
                  y = rnorm(n = 50, mean = 3, sd = 1))
 S2 <- data.frame(x = rnorm(n = 150, mean = 1, sd = 2),

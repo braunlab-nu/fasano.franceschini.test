@@ -90,7 +90,7 @@ std::vector<double> testStatistics(const MatrixT M,
                                        n1, n2));
         }
     }
-    return {d1, d2, sqrt(n1*n2/(n1+n2))*(d1+d2)/2.0};
+    return {d1, d2, sqrt(n1*n2/(n1+n2)) * (d1+d2)/2.0};
 }
 
 // Simplified wrapper for testStatistics without shuffling
@@ -186,7 +186,7 @@ unsigned int permutationTest(const NumericMatrix S1,
 
 // Worker for parallel permutation test
 struct PermutationTest : public RcppParallel::Worker {
-    // Inputs //
+    /* Inputs */
     // Pooled samples
     const RcppParallel::RMatrix<double> S;
     // Number of points in first sample
@@ -198,7 +198,7 @@ struct PermutationTest : public RcppParallel::Worker {
     // The method to use to compute the test statistic
     char method;
 
-    // Output
+    /* Output */
     unsigned int pval;
 
     // Constructors
