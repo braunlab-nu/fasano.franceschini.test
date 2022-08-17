@@ -70,8 +70,7 @@ any type (continuous, discrete, or mixed).</p>
 <span>  seed <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  p.conf.level <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"o"</span>, <span class="st">"r"</span>, <span class="st">"b"</span><span class="op">)</span>,</span>
-<span>  times <span class="op">=</span> <span class="fl">2</span></span>
+<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"o"</span>, <span class="st">"r"</span>, <span class="st">"b"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -119,17 +118,12 @@ Default is <code>TRUE</code>. Only available for serial version (<code>threads =
 
 
 <dt>method</dt>
-<dd><p>A <code>character</code> indicating which method to use to compute the
-test statistic. Both methods return the same results but may vary in computation
-speed. The options are:</p><ul><li><p><code>'o'</code> - Optimize: benchmarks both methods and selects the fastest.</p></li>
+<dd><p>A <code>character</code> indicating which method to use to compute
+the test statistic. All methods return the same results but may vary in
+computation speed. The options are:</p><ul><li><p><code>'o'</code> - Optimize: selects the fastest method for the given data.</p></li>
 <li><p><code>'r'</code> - Range tree</p></li>
 <li><p><code>'b'</code> - Brute force</p></li>
 </ul><p>See the Details section for more information about each method.</p></dd>
-
-
-<dt>times</dt>
-<dd><p>An integer specifying how many benchmarking evaluations to perform when
-<code>method = 'o'</code>.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -138,10 +132,10 @@ speed. The options are:</p><ul><li><p><code>'o'</code> - Optimize: benchmarks bo
 
 <p>A list with class <code>htest</code> containing the following components:</p>
 <dl><dt>statistic</dt>
-<dd><p>The value of the test statistic Z.</p></dd>
+<dd><p>The value of the test statistic <em>Z</em>.</p></dd>
 
   <dt>estimate</dt>
-<dd><p>The value of the difference statistics D1 and D2.</p></dd>
+<dd><p>The value of the difference statistics <em>D1</em> and <em>D2</em>.</p></dd>
 
   <dt>p.value</dt>
 <dd><p>The permutation test p-value.</p></dd>
@@ -159,14 +153,17 @@ speed. The options are:</p><ul><li><p><code>'o'</code> - Optimize: benchmarks bo
     <div id="details">
     <h2>Details</h2>
     <p>The test statistic can be computed using two different methods.
-Both methods return identical results, but have different time complexities:</p><ul><li><p>Range tree method (<code>method = 'r'</code>): This method has a time
-  complexity of <em>O(n*log(n)^(d-1))</em>, where <em>n</em> is the size of
-  the larger sample and <em>d</em> is the dimension of the data.</p></li>
-<li><p>Brute force method (<code>method = 'b'</code>): This method has a time
-  complexity of <em>O(n^2)</em>.</p></li>
-</ul><p>The range tree method tends to be faster for small dimensions or large
-sample sizes, while the brute force method tends to faster for high dimensions
-or small sample sizes.</p>
+Both methods return identical results, but have different time complexities:</p><ul><li><p>Range tree method: This method has a time complexity of
+  <em>O(n*log(n)^(d-1))</em>, where <em>n</em> is the size of the larger sample
+  and <em>d</em> is the dimension of the data.</p></li>
+<li><p>Brute force method: This method has a time complexity of <em>O(n^2)</em>.</p></li>
+</ul><p>The range tree method tends to be faster for low dimensional data or
+large sample sizes, while the brute force method tends to be faster for
+high dimensional data or small sample sizes. When <code>method</code> is set
+to <code>`o`</code>, the test statistic is computed once using each method, and
+whichever method is faster is used for the permutation test. To perform
+more comprehensive benchmarking, <code>nPermute</code> can be set equal to <code>0</code>,
+which bypasses the permutation test and only computes the test statistic.</p>
 <p>The p-value for the test is computed empirically using a permutation test. As
 it is almost always infeasible to compute the exact permutation test p-value,
 a Monte Carlo approximation is made instead. This estimate is a binomially
@@ -190,11 +187,11 @@ Pearson (1934).</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># create 2-D samples using data frames</span></span></span>
-<span class="r-in"><span><span class="va">S1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span>, mean <span class="op">=</span> <span class="fl">1</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                 y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">S2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">150</span>, mean <span class="op">=</span> <span class="fl">1</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                 y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">150</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># create 2-D samples</span></span></span>
+<span class="r-in"><span><span class="va">S1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, mean <span class="op">=</span> <span class="fl">1</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">S2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">60</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">60</span>, mean <span class="op">=</span> <span class="fl">1</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># perform test (serial version)</span></span></span>
 <span class="r-in"><span><span class="fu">fasano.franceschini.test</span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span><span class="op">)</span></span></span>
@@ -202,12 +199,12 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.7624</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.70809, p-value = 0.9307</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.6673737 0.8414316</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8624041 0.9716826</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1333333 0.1533333 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1666667 0.1500000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># perform test with more permutations</span></span></span>
@@ -216,27 +213,21 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.8607</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.70809, p-value = 0.9254</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8049975 0.9053963</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8799012 0.9576321</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1333333 0.1533333 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1666667 0.1500000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># set seed for reproducible p-value</span></span></span>
-<span class="r-in"><span><span class="fu">fasano.franceschini.test</span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span>, seed <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.8911</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8134799 0.9443628</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1333333 0.1533333 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="fu">fasano.franceschini.test</span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span>, seed <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  p-value </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.960396 </span>
+<span class="r-in"><span><span class="fu">fasano.franceschini.test</span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span>, seed <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  p-value </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.960396 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># change confidence level for p-value confidence interval</span></span></span>
 <span class="r-in"><span><span class="fu">fasano.franceschini.test</span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span>, p.conf.level <span class="op">=</span> <span class="fl">0.99</span><span class="op">)</span></span></span>
@@ -244,40 +235,40 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.7822</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.70809, p-value = 0.9109</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 99 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.6593935 0.8774069</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8126159 0.9682085</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1333333 0.1533333 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1666667 0.1500000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># perform test using range tree method</span></span></span>
-<span class="r-in"><span><span class="fu">fasano.franceschini.test</span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span>, seed <span class="op">=</span> <span class="fl">0</span>, method <span class="op">=</span> <span class="st">'r'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">fasano.franceschini.test</span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span>, method <span class="op">=</span> <span class="st">'r'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.8911</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.70809, p-value = 0.9307</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8134799 0.9443628</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8624041 0.9716826</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1333333 0.1533333 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1666667 0.1500000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># perform test using brute force method</span></span></span>
-<span class="r-in"><span><span class="fu">fasano.franceschini.test</span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span>, seed <span class="op">=</span> <span class="fl">0</span>, method <span class="op">=</span> <span class="st">'b'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">fasano.franceschini.test</span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span>, method <span class="op">=</span> <span class="st">'b'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.87773, p-value = 0.8911</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Z = 0.70809, p-value = 0.9505</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8134799 0.9443628</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8882449 0.9837328</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        D1        D2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1333333 0.1533333 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1666667 0.1500000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># perform test (parallel version, 2 threads)</span></span></span>
