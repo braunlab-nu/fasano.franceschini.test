@@ -4,8 +4,13 @@ test_that("check that range tree and brute force methods return same statistics 
     ffcomp <- function(S1, S2) {
         res1 <- fasano.franceschini.test(S1, S2, nPermute = 0, method = 'r')
         res2 <- fasano.franceschini.test(S1, S2, nPermute = 0, method = 'b')
+        res3 <- fasano.franceschini.test(S1, S2, nPermute = 0)
         expect_equal(res1$estimate, res2$estimate, tolerance = 1e-14)
         expect_equal(res1$statistic, res2$statistic, tolerance = 1e-14)
+        expect_equal(res1$estimate, res3$estimate, tolerance = 1e-14)
+        expect_equal(res1$statistic, res3$statistic, tolerance = 1e-14)
+        expect_equal(res2$estimate, res3$estimate, tolerance = 1e-14)
+        expect_equal(res2$statistic, res3$statistic, tolerance = 1e-14)
     }
 
     S1 <- data.frame(rnorm(n = 50, mean = 0, sd = 1),

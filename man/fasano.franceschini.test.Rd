@@ -9,11 +9,10 @@ fasano.franceschini.test(
   S2,
   nPermute = 100,
   threads = 1,
-  cores,
   seed = NULL,
   p.conf.level = 0.95,
   verbose = TRUE,
-  method = c("o", "r", "b")
+  method = c("r", "b")
 )
 }
 \arguments{
@@ -30,9 +29,6 @@ of threads used for performing the permutation test. If set to \code{"auto"},
 the number of threads is determined by \code{RcppParallel::defaultNumThreads()}.
 Default is \code{1}.}
 
-\item{cores}{Allowed for backwards compatibility. \code{threads} is now the
-preferred argument name.}
-
 \item{seed}{Optional integer to seed the PRNG used for the permutation test.
 Default is \code{NULL}. Only available for serial version (\code{threads = 1}).}
 
@@ -42,15 +38,12 @@ permutation test p-value.}
 \item{verbose}{A \code{boolean} indicating whether to display a progress bar.
 Default is \code{TRUE}. Only available for serial version (\code{threads = 1}).}
 
-\item{method}{A \code{character} indicating which method to use to compute
-the test statistic. All methods return the same results but may vary in
-computation speed. The options are:
-\itemize{
-  \item{\code{'o'} - Optimize: selects the fastest method for the given data.}
-  \item{\code{'r'} - Range tree}
-  \item{\code{'b'} - Brute force}
-}
-See the Details section for more information about each method.}
+\item{method}{An optional \code{character} indicating which method to use to
+compute the test statistic. The two methods are \code{'r'} (range tree) and
+\code{'b'} (brute force). Both methods return the same results but may vary in
+computation speed. If this argument is not passed, the sample sizes and dimension
+of the data are used to infer which method is likely faster. See the Details
+section for more information.}
 }
 \value{
 A list with class \code{htest} containing the following components:
@@ -75,15 +68,17 @@ Both methods return identical results, but have different time complexities:
   \item Range tree method: This method has a time complexity of
   \emph{O(n*log(n)^(d-1))}, where \emph{n} is the size of the larger sample
   and \emph{d} is the dimension of the data.
-  \item Brute force method: This method has a time complexity of \emph{O(n^2)}.
+  \item Brute force method: This method has a time complexity of \emph{O(d*n^2)}.
 }
-The range tree method tends to be faster for low dimensional data or
-large sample sizes, while the brute force method tends to be faster for
-high dimensional data or small sample sizes. When \code{method} is set
-to \code{`o`}, the test statistic is computed once using each method, and
-whichever method is faster is used for the permutation test. To perform
-more comprehensive benchmarking, \code{nPermute} can be set equal to \code{0},
-which bypasses the permutation test and only computes the test statistic.
+The range tree method tends to be faster for low dimensional data or large
+sample sizes, while the brute force method tends to be faster for high
+dimensional data or small sample sizes. When \code{method} is not passed,
+the sample sizes and dimension of the data are used to infer which method will
+likely be faster. However, as the geometry of the samples can greatly influence
+computation time, the method inferred to be faster may not actually be faster. To
+perform more comprehensive benchmarking for a specific dataset, \code{nPermute}
+can be set equal to \code{0}, which bypasses the permutation test and only
+computes the test statistic.
 
 The p-value for the test is computed empirically using a permutation test. As
 it is almost always infeasible to compute the exact permutation test p-value,
@@ -101,7 +96,7 @@ S1 <- data.frame(x = rnorm(n = 20, mean = 0, sd = 1),
 S2 <- data.frame(x = rnorm(n = 40, mean = 0, sd = 1),
                  y = rnorm(n = 40, mean = 1, sd = 2))
 
-# perform test (serial version)
+# perform test
 fasano.franceschini.test(S1, S2)
 
 # perform test with more permutations
@@ -120,7 +115,7 @@ fasano.franceschini.test(S1, S2, method = 'r')
 # perform test using brute force method
 fasano.franceschini.test(S1, S2, method = 'b')
 
-# perform test (parallel version, 2 threads)
+# perform test using multiple threads to speed up p-value computation
 \dontrun{
 fasano.franceschini.test(S1, S2, threads = 2)
 }

@@ -22,9 +22,7 @@ test_that("test for bad inputs", {
     expect_error(fasano.franceschini.test(S1, S2, nPermute = 0, threads = 0.1))
     expect_error(fasano.franceschini.test(S1, S2, nPermute = 0, threads = 1.1))
 
-    ## Check for deprecation warning, remove in future releases
-    expect_warning(fasano.franceschini.test(S1, S2, nPermute = 0, cores = 1))
-    ##
+    expect_error(fasano.franceschini.test(S1, S2, nPermute = 0, cores = 1))
 
     S1 <- rnorm(n = 50)
     S2 <- data.frame(rnorm(n = 50))
@@ -36,11 +34,8 @@ test_that("test for bad inputs", {
     expect_error(fasano.franceschini.test(S1, S2, nPermute = 0))
     expect_error(fasano.franceschini.test(S2, S1, nPermute = 0))
 
-    expect_error(fasano.franceschini.test(S1, S2, method = "a"))
     expect_error(fasano.franceschini.test(S1, S2, method = 1))
-
-    expect_error(fasano.franceschini.test(S1, S2, method = 'o', times = 'a'))
-    expect_error(fasano.franceschini.test(S1, S2, method = 'o', times = 0))
-    expect_error(fasano.franceschini.test(S1, S2, method = 'o', times = -1))
-    expect_error(fasano.franceschini.test(S1, S2, method = 'o', times = 2.1))
+    expect_error(fasano.franceschini.test(S1, S2, method = "a"))
+    expect_error(fasano.franceschini.test(S1, S2, method = "c"))
+    expect_error(fasano.franceschini.test(S1, S2, method = "o"))
 })

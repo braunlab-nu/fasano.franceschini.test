@@ -15,23 +15,18 @@
 #' of threads used for performing the permutation test. If set to \code{"auto"},
 #' the number of threads is determined by \code{RcppParallel::defaultNumThreads()}.
 #' Default is \code{1}.
-#' @param cores Allowed for backwards compatibility. \code{threads} is now the
-#' preferred argument name.
 #' @param seed Optional integer to seed the PRNG used for the permutation test.
 #' Default is \code{NULL}. Only available for serial version (\code{threads = 1}).
 #' @param p.conf.level Confidence level for the confidence interval of the
 #' permutation test p-value.
 #' @param verbose A \code{boolean} indicating whether to display a progress bar.
 #' Default is \code{TRUE}. Only available for serial version (\code{threads = 1}).
-#' @param method A \code{character} indicating which method to use to compute
-#' the test statistic. All methods return the same results but may vary in
-#' computation speed. The options are:
-#' \itemize{
-#'   \item{\code{'o'} - Optimize: selects the fastest method for the given data.}
-#'   \item{\code{'r'} - Range tree}
-#'   \item{\code{'b'} - Brute force}
-#' }
-#' See the Details section for more information about each method.
+#' @param method An optional \code{character} indicating which method to use to
+#' compute the test statistic. The two methods are \code{'r'} (range tree) and
+#' \code{'b'} (brute force). Both methods return the same results but may vary in
+#' computation speed. If this argument is not passed, the sample sizes and dimension
+#' of the data are used to infer which method is likely faster. See the Details
+#' section for more information.
 #' @return A list with class \code{htest} containing the following components:
 #'   \item{statistic}{The value of the test statistic \emph{Z}.}
 #'   \item{estimate}{The value of the difference statistics \emph{D1} and \emph{D2}.}
@@ -57,7 +52,7 @@
 #' S2 <- data.frame(x = rnorm(n = 40, mean = 0, sd = 1),
 #'                  y = rnorm(n = 40, mean = 1, sd = 2))
 #'
-#' # perform test (serial version)
+#' # perform test
 #' fasano.franceschini.test(S1, S2)
 #'
 #' # perform test with more permutations
@@ -76,7 +71,7 @@
 #' # perform test using brute force method
 #' fasano.franceschini.test(S1, S2, method = 'b')
 #'
-#' # perform test (parallel version, 2 threads)
+#' # perform test using multiple threads to speed up p-value computation
 #' \dontrun{
 #' fasano.franceschini.test(S1, S2, threads = 2)
 #' }
@@ -87,15 +82,17 @@
 #'   \item Range tree method: This method has a time complexity of
 #'   \emph{O(n*log(n)^(d-1))}, where \emph{n} is the size of the larger sample
 #'   and \emph{d} is the dimension of the data.
-#'   \item Brute force method: This method has a time complexity of \emph{O(n^2)}.
+#'   \item Brute force method: This method has a time complexity of \emph{O(d*n^2)}.
 #' }
-#' The range tree method tends to be faster for low dimensional data or
-#' large sample sizes, while the brute force method tends to be faster for
-#' high dimensional data or small sample sizes. When \code{method} is set
-#' to \code{`o`}, the test statistic is computed once using each method, and
-#' whichever method is faster is used for the permutation test. To perform
-#' more comprehensive benchmarking, \code{nPermute} can be set equal to \code{0},
-#' which bypasses the permutation test and only computes the test statistic.
+#' The range tree method tends to be faster for low dimensional data or large
+#' sample sizes, while the brute force method tends to be faster for high
+#' dimensional data or small sample sizes. When \code{method} is not passed,
+#' the sample sizes and dimension of the data are used to infer which method will
+#' likely be faster. However, as the geometry of the samples can greatly influence
+#' computation time, the method inferred to be faster may not actually be faster. To
+#' perform more comprehensive benchmarking for a specific dataset, \code{nPermute}
+#' can be set equal to \code{0}, which bypasses the permutation test and only
+#' computes the test statistic.
 #'
 #' The p-value for the test is computed empirically using a permutation test. As
 #' it is almost always infeasible to compute the exact permutation test p-value,
@@ -109,13 +106,17 @@ fasano.franceschini.test <- function(S1,
                                      S2,
                                      nPermute = 100,
                                      threads = 1,
-                                     cores,
                                      seed = NULL,
                                      p.conf.level = 0.95,
                                      verbose = TRUE,
-                                     method = c('o', 'r', 'b')) {
+                                     method = c('r', 'b')) {
     # Store names of samples for output
     dname <- paste(deparse(substitute(S1)), "and", deparse(substitute(S2)))
+
+    # Record sample sizes and dimension of data
+    d <- ncol(S1)
+    n1 <- nrow(S1)
+    n2 <- nrow(S2)
 
     ## Validate inputs
     # Validate S1 and S2
@@ -125,19 +126,13 @@ fasano.franceschini.test <- function(S1,
     if (is.data.frame(S2)) {
         S2 <- as.matrix(S2)
     }
-    if (!is.matrix(S1) || !is.matrix(S2) || ncol(S1) != ncol(S2)) {
-        stop(paste("'S1' and 'S2' must be matrices or data frames with the same",
-                   "number of columns"))
+    if (!is.matrix(S1) || !is.matrix(S2) || d != ncol(S2) || n1 == 0 || n2 == 0) {
+        stop(paste("'S1' and 'S2' must be nonempty matrices or data frames with the",
+                   "same number of columns"))
     }
     # Validate nPermute
     if (!is.numeric(nPermute) || nPermute < 0 || (nPermute %% 1 != 0)) {
         stop("'nPermute' must be a nonnegative integer")
-    }
-    # Check if cores was passed
-    if (!missing(cores)) {
-        warning(paste("'cores' is deprecated. Use 'threads' instead. 'threads' is",
-                      "set equal to 'cores'"))
-        threads <- cores
     }
     # Validate threads
     if (threads == "auto") {
@@ -155,21 +150,19 @@ fasano.franceschini.test <- function(S1,
         stop("'p.conf.level' must be a number between 0 and 1")
     }
     # Validate method
-    method <- match.arg(method)
-
-    # Perform FF test
-    if (method == 'o') {
-        if (nPermute > 0) {
-            time.r <- mean(microbenchmark(ffStats <- ffTestStatistic(S1, S2, 'r'), times = 1)$time)
-            time.b <- mean(microbenchmark(ffStats <- ffTestStatistic(S1, S2, 'b'), times = 1)$time)
-            method <- if (time.r < time.b) 'r' else 'b'
+    if (missing(method)) {
+        N <- max(n1, n2)
+        if ((d == 2 && N > 25) || (d == 3 && N > 250) || (d == 4 && N > 1000)) {
+            method <- 'r'
         } else {
-            warning("No optimization done when nPermute = 0. Defaulting to method = 'r'.")
-            ffStats <- ffTestStatistic(S1, S2, 'r')
+            method <- 'b'
         }
     } else {
-        ffStats <- ffTestStatistic(S1, S2, method)
+        method <- match.arg(method)
     }
+
+    # Perform FF test
+    ffStats <- ffTestStatistic(S1, S2, method)
     estimate <- c(ffStats[1], ffStats[2])
     names(estimate) <- c("D1", "D2")
     Z <- ffStats[3]

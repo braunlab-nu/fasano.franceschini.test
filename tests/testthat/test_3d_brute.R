@@ -4,24 +4,29 @@ test_that("check that range tree and brute force methods return same statistics 
     ffcomp <- function(S1, S2) {
         res1 <- fasano.franceschini.test(S1, S2, nPermute = 0, method = 'r')
         res2 <- fasano.franceschini.test(S1, S2, nPermute = 0, method = 'b')
+        res3 <- fasano.franceschini.test(S1, S2, nPermute = 0)
         expect_equal(res1$estimate, res2$estimate, tolerance = 1e-14)
         expect_equal(res1$statistic, res2$statistic, tolerance = 1e-14)
+        expect_equal(res1$estimate, res3$estimate, tolerance = 1e-14)
+        expect_equal(res1$statistic, res3$statistic, tolerance = 1e-14)
+        expect_equal(res2$estimate, res3$estimate, tolerance = 1e-14)
+        expect_equal(res2$statistic, res3$statistic, tolerance = 1e-14)
     }
 
-    S1 <- data.frame(rnorm(n = 35, mean = 1.4, sd = 0.2),
-                     rnorm(n = 35, mean = 1.5, sd = 2),
-                     rnorm(n = 35, mean = 1.6, sd = 1.8))
-    S2 <- data.frame(rnorm(n = 207, mean = 1.4, sd = 0.2),
-                     rnorm(n = 207, mean = 1.5, sd = 2),
-                     rnorm(n = 207, mean = 1.6, sd = 1.8))
+    S1 <- cbind(rnorm(n = 35, mean = 1.4, sd = 0.2),
+                rnorm(n = 35, mean = 1.5, sd = 2),
+                rnorm(n = 35, mean = 1.6, sd = 1.8))
+    S2 <- cbind(rnorm(n = 207, mean = 1.4, sd = 0.2),
+                rnorm(n = 207, mean = 1.5, sd = 2),
+                rnorm(n = 207, mean = 1.6, sd = 1.8))
     ffcomp(S1, S2)
 
     S1 <- data.frame(rbeta(n = 101, shape1 = 1.2, shape2 = 2.73),
                      rbeta(n = 101, shape1 = 1.2, shape2 = 0.11),
                      rbeta(n = 101, shape1 = 2.1, shape2 = 1.39))
-    S2 <- data.frame(rbeta(n = 66, shape1 = 1.3, shape2 = 2.73),
-                     rbeta(n = 66, shape1 = 1.2, shape2 = 0.12),
-                     rbeta(n = 66, shape1 = 2.1, shape2 = 1.39))
+    S2 <- cbind(rbeta(n = 66, shape1 = 1.3, shape2 = 2.73),
+                rbeta(n = 66, shape1 = 1.2, shape2 = 0.12),
+                rbeta(n = 66, shape1 = 2.1, shape2 = 1.39))
     ffcomp(S1, S2)
 
     S1 <- data.frame(rbeta(n = 403, shape1 = 1.1, shape2 = 2.71),

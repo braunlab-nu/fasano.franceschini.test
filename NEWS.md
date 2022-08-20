@@ -1,3 +1,7 @@
+# fasano.franceschini.test 2.0.2
+* The `'o'` (optimize) method has been removed as the benchmarking itself proved to be prohibitively slow. Instead, the default behavior now is to infer which method is likely faster based on the sample sizes and dimension of the data.
+* The `cores` argument has been removed. Use `threads` instead.
+
 # fasano.franceschini.test 2.0.1
 * Minor speedups introduced, particularly for the brute force method.
 * The default computation method is now `'o'` for optimize: the test statistic is computed using both the range tree and brute force methods, and the faster of the two is used for the permutation test.

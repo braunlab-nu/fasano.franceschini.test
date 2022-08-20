@@ -24,8 +24,8 @@ test_that("test that seed works for serial version", {
     expect_equal(test1$estimate, test2$estimate, tolerance = 1e-14)
     expect_equal(test1$p.value, test2$p.value, tolerance = 1e-14)
 
-    test1 <- fasano.franceschini.test(S1, S2, nPermute = 31, seed = 2, method = 'o')
-    test2 <- fasano.franceschini.test(S1, S2, nPermute = 31, seed = 2, method = 'o')
+    test1 <- fasano.franceschini.test(S1, S2, nPermute = 31, seed = 2)
+    test2 <- fasano.franceschini.test(S1, S2, nPermute = 31, seed = 2)
     expect_equal(test1$statistic, test2$statistic, tolerance = 1e-14)
     expect_equal(test1$estimate, test2$estimate, tolerance = 1e-14)
     expect_equal(test1$p.value, test2$p.value, tolerance = 1e-14)
