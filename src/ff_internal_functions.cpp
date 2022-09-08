@@ -7,44 +7,29 @@
 #include <numeric>
 #include "RangeTree.h"
 #include "matrix_util.h"
-#include "range_count.h"
+#include "distance.h"
 #include "ProgressBar.h"
 
 using namespace Rcpp;
 
-// Helper function for maximizing difference statistics
-double propDiff(const std::vector<double>& c1,
-                const std::vector<double>& c2,
-                std::size_t n1,
-                std::size_t n2) {
-    double d = -1;
-    for (std::size_t i = 0; i < c1.size(); ++i) {
-        d = std::max(d, abs(c1[i]/n1 - c2[i]/n2));
-    }
-    return d;
-}
-
 // Compute FF test statistics
 //
 // @param M a matrix of type NumericMatrix or RMatrix<double>
-// @param r1 number of rows in first sample
-// @param r2 number of rows in second sample
+// @param n1 number of rows in first sample
+// @param n2 number of rows in second sample
 // @param shuffle whether to shuffle the samples
 // @param prng a pseudorandom number generator (unused if shuffle == false)
 // @param method what method to use to compute the test statistic
 // @return FF test statistics
 template<typename MatrixT>
 std::vector<double> testStatistics(const MatrixT M,
-                                   std::size_t r1,
-                                   std::size_t r2,
+                                   std::size_t n1,
+                                   std::size_t n2,
                                    bool shuffle,
                                    std::mt19937& prng,
                                    char method) {
-    double n1 = static_cast<double>(r1);
-    double n2 = static_cast<double>(r2);
-
     // Build range trees
-    std::vector<std::size_t> s(r1 + r2);
+    std::vector<std::size_t> s(n1 + n2);
     std::iota(s.begin(), s.end(), 0);
     if (shuffle) {
         std::shuffle(s.begin(), s.end(), prng);
@@ -53,44 +38,30 @@ std::vector<double> testStatistics(const MatrixT M,
     double d1 = -1;
     double d2 = -1;
     if (method == 'r') {
-        /* Use range tree method */
         // Build range trees
-        std::vector<RTree> trees = buildRangeTrees<MatrixT>(M, r1, r2, s);
+        std::vector<RTree> trees = buildRangeTrees<MatrixT>(M, n1, n2, s);
 
         // Compute test statistic using first sample as origins
-        for (std::size_t i = 0; i < r1; ++i) {
-            std::vector<double> org = getRow<MatrixT>(M, s[i]);
-            d1 = std::max(d1, propDiff(rangeCountTree(trees[0], org),
-                                       rangeCountTree(trees[1], org),
-                                       n1, n2));
+        for (std::size_t i = 0; i < n1; ++i) {
+            d1 = std::max(d1, rangeDistance(trees[0], trees[1], n1, n2, getRow<MatrixT>(M, s[i])));
         }
 
         // Compute test statistic using second sample as origins
-        for (std::size_t i = 0; i < r2; ++i) {
-            std::vector<double> org = getRow<MatrixT>(M, s[i+r1]);
-            d2 = std::max(d2, propDiff(rangeCountTree(trees[0], org),
-                                       rangeCountTree(trees[1], org),
-                                       n1, n2));
+        for (std::size_t i = 0; i < n2; ++i) {
+            d2 = std::max(d2, rangeDistance(trees[0], trees[1], n1, n2, getRow<MatrixT>(M, s[i + n1])));
         }
     } else {
-        /* Use brute force method */
         // Compute test statistic using first sample as origins
-        for (std::size_t i = 0; i < r1; ++i) {
-            std::vector<double> org = getRow<MatrixT>(M, s[i]);
-            d1 = std::max(d1, propDiff(rangeCountBrute(M, r1, 0, s, org),
-                                       rangeCountBrute(M, r2, r1, s, org),
-                                       n1, n2));
+        for (std::size_t i = 0; i < n1; ++i) {
+            d1 = std::max(d1, bruteDistance(M, n1, n2, s, i));
         }
 
         // Compute test statistic using second sample as origins
-        for (std::size_t i = 0; i < r2; ++i) {
-            std::vector<double> org = getRow<MatrixT>(M, s[i+r1]);
-            d2 = std::max(d2, propDiff(rangeCountBrute(M, r1, 0, s, org),
-                                       rangeCountBrute(M, r2, r1, s, org),
-                                       n1, n2));
+        for (std::size_t i = 0; i < n2; ++i) {
+            d2 = std::max(d2, bruteDistance(M, n1, n2, s, i + n1));
         }
     }
-    return {d1, d2, sqrt(n1*n2/(n1+n2)) * (d1+d2)/2.0};
+    return {d1, d2, sqrt(static_cast<double>(n1*n2) / (n1+n2)) * (d1+d2)/2.0};
 }
 
 // Simplified wrapper for testStatistics without shuffling
