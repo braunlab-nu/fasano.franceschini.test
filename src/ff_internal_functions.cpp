@@ -125,7 +125,7 @@ unsigned int permutationTest(const NumericMatrix S1,
     ProgressBar p(nPermute, verbose);
     for (int i = 0; i < nPermute; ++i) {
         double z = testStatistics<NumericMatrix>(S, r1, r2, prng, method)[2];
-        pval += (z > Z) ? 1 : 0;
+        pval += (z >= Z) ? 1 : 0;
         p.step();
     }
     p.finalize();
@@ -183,7 +183,7 @@ struct PermutationTest : public RcppParallel::Worker {
         std::mt19937 prng(std::random_device{}());
         for (std::size_t i = begin; i < end; ++i) {
             double z = testStatistics<RcppParallel::RMatrix<double> >(S, r1, r2, prng, method)[2];
-            pval += (z > Z);
+            pval += (z >= Z);
         }
     }
 

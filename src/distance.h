@@ -86,7 +86,7 @@ double rangeDistance(const RTree& rtree1,
 // @return the octant the point lies in. If there is a tie along one coordinate, returns -1.
 int findOct(const std::vector<double>& pt,
             const std::vector<double>& origin) {
-    const std::size_t ndim = pt.size();
+    std::size_t ndim = pt.size();
     int oct = 0;
     for (std::size_t i = 0; i < ndim; ++i) {
         if (pt[i] > origin[i]) {
@@ -134,7 +134,7 @@ double bruteDistance(const MatrixT M,
         counts2[oct] = 1 + ((counts2.find(oct) == counts2.end()) ? 0 : counts2[oct]);
     }
 
-    // First divide every value in counts1 by n1
+    // Divide every value in counts1 by n1
     for (auto itr = counts1.begin(); itr != counts1.end(); ++itr) {
         itr->second /= static_cast<double>(n1);
     }
