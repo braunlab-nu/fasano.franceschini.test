@@ -1,3 +1,5 @@
+// Functions to compute the distance used to compute the Fasano-Franceschini test statistic
+
 #ifndef DISTANCE_H
 #define DISTANCE_H
 
@@ -6,7 +8,8 @@
 #include "RangeTree.h"
 #include "matrix_util.h"
 
-typedef RangeTree::RangeTree<double,int> RTree;
+typedef RangeTree::RangeTree<double, int> RTree;
+typedef RangeTree::Point<double, int> Point;
 
 // Build range trees for two samples
 //
@@ -20,19 +23,19 @@ std::vector<RTree> buildRangeTrees(const MatrixT M,
                                    std::size_t r1,
                                    std::size_t r2,
                                    const std::vector<std::size_t>& s) {
-    std::vector<RangeTree::Point<double,int> > pts1;
+    std::vector<Point> pts1;
+    std::vector<Point> pts2;
     pts1.reserve(r1);
-    std::vector<RangeTree::Point<double,int> > pts2;
     pts2.reserve(r2);
 
     // Extract points from first sample
     for (std::size_t i = 0; i < r1; ++i) {
-        pts1.push_back(RangeTree::Point<double,int>(getRow<MatrixT>(M, s[i]), 0));
+        pts1.push_back(Point(getRow<MatrixT>(M, s[i]), 0));
     }
 
     // Extract points from second sample
     for (std::size_t i = 0; i < r2; ++i) {
-        pts2.push_back(RangeTree::Point<double,int>(getRow<MatrixT>(M, s[i + r1]), 0));
+        pts2.push_back(Point(getRow<MatrixT>(M, s[i + r1]), 0));
     }
 
     // Construct range trees

@@ -1,11 +1,15 @@
 #include "ProgressBar.h"
 
+/****************************************************************************/
+
 ProgressBar::ProgressBar(int nsteps, bool verbose) :
     nsteps(nsteps), ticksPerStep(MAX_TICKS/nsteps + 1), verbose(verbose), ticks(0), progress(0) {
     if (!verbose) return;
     Rcpp::Rcerr << "0%   10   20   30   40   50   60   70   80   90   100%\n"
                 << "|----|----|----|----|----|----|----|----|----|----|\n";
 }
+
+/****************************************************************************/
 
 void ProgressBar::step() {
     if (!verbose) return;
@@ -20,9 +24,13 @@ void ProgressBar::step() {
     }
 }
 
+/****************************************************************************/
+
 void ProgressBar::finalize() {
     if (!verbose) return;
     for (int i = ticks; i < MAX_TICKS; ++i) {
         Rcpp::Rcerr << "*";
     }
 }
+
+/****************************************************************************/

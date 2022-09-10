@@ -34,7 +34,7 @@ MatrixT rbind(const MatrixT M1, const MatrixT M2) {
 // @param row index
 // @return the specified row represented as a std::vector
 template<typename MatrixT>
-std::vector<double> getRow(MatrixT M, std::size_t row) {
+std::vector<double> getRow(const MatrixT M, std::size_t row) {
     std::size_t ncol = M.ncol();
     std::vector<double> v(ncol);
     for (std::size_t i = 0; i < ncol; ++i) {

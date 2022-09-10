@@ -35,8 +35,8 @@ std::vector<double> testStatistics(const MatrixT M,
         std::shuffle(s.begin(), s.end(), prng);
     }
 
-    double d1 = -1;
-    double d2 = -1;
+    double d1 = 0;
+    double d2 = 0;
     if (method == 'r') {
         // Build range trees
         std::vector<RTree> trees = buildRangeTrees<MatrixT>(M, n1, n2, s);
@@ -125,7 +125,7 @@ unsigned int permutationTest(const NumericMatrix S1,
     ProgressBar p(nPermute, verbose);
     for (int i = 0; i < nPermute; ++i) {
         double z = testStatistics<NumericMatrix>(S, r1, r2, prng, method)[2];
-        pval += (z >= Z) ? 1 : 0;
+        pval += (z >= Z);
         p.step();
     }
     p.finalize();
@@ -178,7 +178,7 @@ struct PermutationTest : public RcppParallel::Worker {
     PermutationTest(const PermutationTest& p, RcppParallel::Split) :
         S(p.S), r1(p.r1), r2(p.r2), Z(p.Z), method(p.method), pval(0) {}
 
-    // Call operator, compute test statistic for (end-begin) permuted samples
+    // Call operator, compute test statistic for (end - begin) permuted samples
     void operator()(std::size_t begin, std::size_t end) {
         std::mt19937 prng(std::random_device{}());
         for (std::size_t i = begin; i < end; ++i) {
@@ -187,6 +187,7 @@ struct PermutationTest : public RcppParallel::Worker {
         }
     }
 
+    // Join operator
     void join(const PermutationTest& rhs) {
         pval += rhs.pval;
     }
