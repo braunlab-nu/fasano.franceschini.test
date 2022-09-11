@@ -121,7 +121,7 @@ double bruteDistance(const MatrixT M,
 
     // Although a std::vector would be much easier to use, memory limits can be hit for large
     // dimensions since the vector would be of length 2^d. Assuming that often many octants
-    // will be empty, we can reduce memory by using some kind of sparse structure instead.
+    // will be empty, we can reduce memory by using a sparse structure instead.
     std::unordered_map<int, double> counts1;
     std::unordered_map<int, double> counts2;
 
