@@ -127,33 +127,22 @@ double bruteDistance(const MatrixT M,
 
     // Determine which octant each point in the first sample lies in
     for (std::size_t i = 0; i < n1; ++i) {
-        int oct = findOct(getRow<MatrixT>(M, s[i]), origin);
-        counts1[oct] = 1 + ((counts1.find(oct) == counts1.end()) ? 0 : counts1[oct]);
+        ++counts1[findOct(getRow<MatrixT>(M, s[i]), origin)];
     }
-
     // Determine which octant each point in the second sample lies in
     for (std::size_t i = 0; i < n2; ++i) {
-        int oct = findOct(getRow<MatrixT>(M, s[i + n1]), origin);
-        counts2[oct] = 1 + ((counts2.find(oct) == counts2.end()) ? 0 : counts2[oct]);
+        ++counts2[findOct(getRow<MatrixT>(M, s[i + n1]), origin)];
     }
-
-    // Divide every value in counts1 by n1
-    for (auto itr = counts1.begin(); itr != counts1.end(); ++itr) {
-        itr->second /= static_cast<double>(n1);
-    }
-
-    // Subtract counts2/n2 from counts1/n1
+    // Subtract n1/n2 * counts2 from counts1
     for (const auto& kv : counts2) {
-        int key = kv.first;
-        double val = -kv.second / static_cast<double>(n2);
-        counts1[key] = val + ((counts1.find(key) == counts1.end()) ? 0 : counts1[key]);
+        counts1[kv.first] -= n1 * kv.second / n2;
     }
 
     // Return the maximum absolute difference
     double d = 0;
     for (const auto& kv : counts1) {
         // Note that oct = -1 is just used as a sink for uncounted points
-        d = (kv.first != -1) ? std::max(d, abs(kv.second)) : d;
+        d = (kv.first != -1) ? std::max(d, abs(kv.second / n1)) : d;
     }
     return d;
 }

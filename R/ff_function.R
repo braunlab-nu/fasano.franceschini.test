@@ -28,7 +28,7 @@
 #' of the data are used to infer which method is likely faster. See the Details
 #' section for more information.
 #' @return A list with class \code{htest} containing the following components:
-#'   \item{statistic}{The value of the test statistic \emph{Z}.}
+#'   \item{statistic}{The value of the test statistic \emph{D}.}
 #'   \item{estimate}{The value of the difference statistics \emph{D1} and \emph{D2}.}
 #'   \item{p.value}{The permutation test p-value.}
 #'   \item{conf.int}{A binomial confidence interval for the p-value.}
@@ -165,8 +165,8 @@ fasano.franceschini.test <- function(S1,
     ffStats <- ffTestStatistic(S1, S2, method)
     estimate <- c(ffStats[1], ffStats[2])
     names(estimate) <- c("D1", "D2")
-    Z <- ffStats[3]
-    names(Z) <- "Z"
+    Dff <- ffStats[3]
+    names(Dff) <- "D"
 
     pval <- NULL
     p.conf.int <- NULL
@@ -199,7 +199,7 @@ fasano.franceschini.test <- function(S1,
     }
 
     # Construct output
-    result <- list(statistic = Z,
+    result <- list(statistic = Dff,
                    p.value = pval,
                    conf.int = p.conf.int,
                    estimate = estimate,
