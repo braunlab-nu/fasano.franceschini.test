@@ -124,8 +124,8 @@ double bruteDistance(const MatrixT& M,
     std::vector<double> origin = getRow<MatrixT>(M, s[origin_ix]);
 
     // Although a std::vector would be much easier to use, memory limits can be hit for large
-    // dimensions since the vector would be of length 2^d. Assuming that often many octants
-    // will be empty, we can reduce memory by using a sparse structure instead.
+    // dimensions since the vector would be of length 2^d. When n1,n2 << 2^d, many octants
+    // will be empty, and we can decrease memory usage by using a sparse structure instead.
     std::unordered_map<int, double> counts1;
     std::unordered_map<int, double> counts2;
 
@@ -146,7 +146,9 @@ double bruteDistance(const MatrixT& M,
     double d = 0;
     for (const auto& kv : counts1) {
         // Note that oct = -1 is just used as a sink for uncounted points
-        d = (kv.first != -1) ? std::max(d, abs(kv.second / n1)) : d;
+        if (kv.first != -1) {
+            d = std::max(d, abs(kv.second / n1));
+        }
     }
     return d;
 }
