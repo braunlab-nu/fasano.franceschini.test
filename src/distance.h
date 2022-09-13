@@ -19,7 +19,7 @@ typedef RangeTree::Point<double, int> Point;
 // @param s a permutation of {0,1,...,(r1+r2-1)} which indicates which points belong to each sample
 // @return range trees built on each sample
 template<typename MatrixT>
-std::vector<RTree> buildRangeTrees(const MatrixT M,
+std::vector<RTree> buildRangeTrees(const MatrixT& M,
                                    std::size_t r1,
                                    std::size_t r2,
                                    const std::vector<std::size_t>& s) {
@@ -116,7 +116,7 @@ int findOct(const std::vector<double>& pt,
 // @param origin_ix row of M to use as the origin
 // @return double
 template<typename MatrixT>
-double bruteDistance(const MatrixT M,
+double bruteDistance(const MatrixT& M,
                      const std::size_t n1,
                      const std::size_t n2,
                      const std::vector<std::size_t>& s,
