@@ -8,11 +8,11 @@ test_that("compare with naive R 2d implementation", {
 
         n1 <- as.numeric(dim(S1)[1])
         n2 <- as.numeric(dim(S2)[1])
-        z <- sqrt(n1*n2/(n1+n2))*((d12[1] + d12[2])/2.0)
-        names(z) <- names(res$statistic)
+        d <- sqrt(n1*n2/(n1+n2))*((d12[1] + d12[2])/2.0)
+        names(d) <- names(res$statistic)
 
         expect_equal(d12, res$estimate, tolerance = 1e-14)
-        expect_equal(z, res$statistic, tolerance = 1e-14)
+        expect_equal(d, res$statistic, tolerance = 1e-14)
     }
 
     S1 <- data.frame(rnorm(n = 50, mean = 0, sd = 1),
@@ -51,5 +51,9 @@ test_that("compare with naive R 2d implementation", {
 
     S1 <- cbind(rep(1, 100), rep(2, 100))
     S2 <- cbind(rep(2, 100), rep(1, 100))
+    ffcomp(S1, S2)
+
+    S1 <- data.frame(rnorm(n = 50), rnorm(n = 50))
+    S2 <- data.frame(rnorm(n = 33), rnorm(n = 33))
     ffcomp(S1, S2)
 })

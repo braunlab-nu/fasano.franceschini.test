@@ -48,4 +48,8 @@ test_that("check that range tree and brute force methods return same statistics 
                      rbeta(n = 631, shape1 = 7.2, shape2 = 1.39),
                      rbeta(n = 631, shape1 = 7.2, shape2 = 1.39))
     ffcomp(S1, S2)
+
+    S1 <- data.frame(rnorm(n = 50), rnorm(n = 50), rnorm(n = 50), rnorm(n = 50), rnorm(n = 50))
+    S2 <- data.frame(rnorm(n = 33), rnorm(n = 33), rnorm(n = 33), rnorm(n = 33), rnorm(n = 33))
+    ffcomp(S1, S2)
 })

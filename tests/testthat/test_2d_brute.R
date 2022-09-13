@@ -50,4 +50,8 @@ test_that("check that range tree and brute force methods return same statistics 
     S1 <- cbind(rep(1, 100), rep(2, 100))
     S2 <- cbind(rep(2, 100), rep(1, 100))
     ffcomp(S1, S2)
+
+    S1 <- data.frame(rnorm(n = 50), rnorm(n = 50))
+    S2 <- data.frame(rnorm(n = 33), rnorm(n = 33))
+    ffcomp(S1, S2)
 })

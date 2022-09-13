@@ -17,15 +17,17 @@ test_that("test that seed works for serial version", {
     S2 <- data.frame(rnorm(n = 206, mean = 1.4, sd = 0.3),
                      rnorm(n = 206, mean = 1.5, sd = 1),
                      rnorm(n = 206, mean = 1.6, sd = 1.8))
-
     test1 <- fasano.franceschini.test(S1, S2, nPermute = 20, seed = 1, method = 'b')
     test2 <- fasano.franceschini.test(S1, S2, nPermute = 20, seed = 1, method = 'b')
     expect_equal(test1$statistic, test2$statistic, tolerance = 1e-14)
     expect_equal(test1$estimate, test2$estimate, tolerance = 1e-14)
     expect_equal(test1$p.value, test2$p.value, tolerance = 1e-14)
 
-    test1 <- fasano.franceschini.test(S1, S2, nPermute = 31, seed = 2)
-    test2 <- fasano.franceschini.test(S1, S2, nPermute = 31, seed = 2)
+
+    S1 <- data.frame(rnorm(n = 20), rnorm(n = 20), rnorm(n = 20))
+    S2 <- data.frame(rnorm(n = 35), rnorm(n = 35), rnorm(n = 35))
+    test1 <- fasano.franceschini.test(S1, S2, seed = 2)
+    test2 <- fasano.franceschini.test(S1, S2, seed = 2)
     expect_equal(test1$statistic, test2$statistic, tolerance = 1e-14)
     expect_equal(test1$estimate, test2$estimate, tolerance = 1e-14)
     expect_equal(test1$p.value, test2$p.value, tolerance = 1e-14)
