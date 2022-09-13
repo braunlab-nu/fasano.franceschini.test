@@ -70,9 +70,13 @@ double rangeDistance(const RTree& rtree1,
             // Representing < as 0 and > as 1, these combinations are given by the rows of the
             // (2^d)xd matrix whose i-th row is the integer i in binary. The (i,j) element of
             // this matrix is given by (i & (1 << (d-1-j))).
-            bool less = (i & (1 << (ndim - 1 - j)));
-            lowerLims[j] = less ? -inf : origin[j];
-            upperLims[j] = less ? origin[j] : inf;
+            if (i & (1 << (ndim - 1 - j))) {
+                lowerLims[j] = -inf;
+                upperLims[j] = origin[j];
+            } else {
+                lowerLims[j] = origin[j];
+                upperLims[j] = inf;
+            }
         }
         double res1 = rtree1.countInRange(lowerLims, upperLims, strict, strict);
         double res2 = rtree2.countInRange(lowerLims, upperLims, strict, strict);
