@@ -47,7 +47,7 @@ section for more information.}
 }
 \value{
 A list with class \code{htest} containing the following components:
-  \item{statistic}{The value of the test statistic \emph{Z}.}
+  \item{statistic}{The value of the test statistic \emph{D}.}
   \item{estimate}{The value of the difference statistics \emph{D1} and \emph{D2}.}
   \item{p.value}{The permutation test p-value.}
   \item{conf.int}{A binomial confidence interval for the p-value.}

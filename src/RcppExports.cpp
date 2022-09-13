@@ -11,26 +11,26 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // ffTestStatistic
-NumericVector ffTestStatistic(const NumericMatrix S1, const NumericMatrix S2, char method);
+NumericVector ffTestStatistic(const NumericMatrix& S1, const NumericMatrix& S2, char method);
 RcppExport SEXP _fasano_franceschini_test_ffTestStatistic(SEXP S1SEXP, SEXP S2SEXP, SEXP methodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericMatrix >::type S1(S1SEXP);
-    Rcpp::traits::input_parameter< const NumericMatrix >::type S2(S2SEXP);
+    Rcpp::traits::input_parameter< const NumericMatrix& >::type S1(S1SEXP);
+    Rcpp::traits::input_parameter< const NumericMatrix& >::type S2(S2SEXP);
     Rcpp::traits::input_parameter< char >::type method(methodSEXP);
     rcpp_result_gen = Rcpp::wrap(ffTestStatistic(S1, S2, method));
     return rcpp_result_gen;
 END_RCPP
 }
 // permutationTestSeeded
-unsigned int permutationTestSeeded(const NumericMatrix S1, const NumericMatrix S2, int nPermute, bool verbose, int seed, char method);
+unsigned int permutationTestSeeded(const NumericMatrix& S1, const NumericMatrix& S2, int nPermute, bool verbose, int seed, char method);
 RcppExport SEXP _fasano_franceschini_test_permutationTestSeeded(SEXP S1SEXP, SEXP S2SEXP, SEXP nPermuteSEXP, SEXP verboseSEXP, SEXP seedSEXP, SEXP methodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericMatrix >::type S1(S1SEXP);
-    Rcpp::traits::input_parameter< const NumericMatrix >::type S2(S2SEXP);
+    Rcpp::traits::input_parameter< const NumericMatrix& >::type S1(S1SEXP);
+    Rcpp::traits::input_parameter< const NumericMatrix& >::type S2(S2SEXP);
     Rcpp::traits::input_parameter< int >::type nPermute(nPermuteSEXP);
     Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
     Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
@@ -40,13 +40,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // permutationTest
-unsigned int permutationTest(const NumericMatrix S1, const NumericMatrix S2, int nPermute, bool verbose, char method);
+unsigned int permutationTest(const NumericMatrix& S1, const NumericMatrix& S2, int nPermute, bool verbose, char method);
 RcppExport SEXP _fasano_franceschini_test_permutationTest(SEXP S1SEXP, SEXP S2SEXP, SEXP nPermuteSEXP, SEXP verboseSEXP, SEXP methodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericMatrix >::type S1(S1SEXP);
-    Rcpp::traits::input_parameter< const NumericMatrix >::type S2(S2SEXP);
+    Rcpp::traits::input_parameter< const NumericMatrix& >::type S1(S1SEXP);
+    Rcpp::traits::input_parameter< const NumericMatrix& >::type S2(S2SEXP);
     Rcpp::traits::input_parameter< int >::type nPermute(nPermuteSEXP);
     Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
     Rcpp::traits::input_parameter< char >::type method(methodSEXP);
@@ -55,13 +55,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // permutationTestParallel
-unsigned int permutationTestParallel(const NumericMatrix S1, const NumericMatrix S2, int nPermute, char method);
+unsigned int permutationTestParallel(const NumericMatrix& S1, const NumericMatrix& S2, int nPermute, char method);
 RcppExport SEXP _fasano_franceschini_test_permutationTestParallel(SEXP S1SEXP, SEXP S2SEXP, SEXP nPermuteSEXP, SEXP methodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericMatrix >::type S1(S1SEXP);
-    Rcpp::traits::input_parameter< const NumericMatrix >::type S2(S2SEXP);
+    Rcpp::traits::input_parameter< const NumericMatrix& >::type S1(S1SEXP);
+    Rcpp::traits::input_parameter< const NumericMatrix& >::type S2(S2SEXP);
     Rcpp::traits::input_parameter< int >::type nPermute(nPermuteSEXP);
     Rcpp::traits::input_parameter< char >::type method(methodSEXP);
     rcpp_result_gen = Rcpp::wrap(permutationTestParallel(S1, S2, nPermute, method));
