@@ -128,7 +128,7 @@ double bruteDistance(const MatrixT& M,
     // If the dimension of the data is low, use a std::vector to tabulate points per octant.
     // But if the dimension of the data is high, most octants will be empty so we instead use a
     // std::unordered_map.
-    const std::size_t MAXDIM = 12;
+    const std::size_t MAXDIM = 13;
     if (ndim <= MAXDIM) {
         std::size_t noct = 1 << ndim;
         std::vector<double> counts1(noct + 1), counts2(noct + 1);
