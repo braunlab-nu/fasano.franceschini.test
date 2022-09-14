@@ -125,27 +125,10 @@ double bruteDistance(const MatrixT& M,
     std::size_t ndim = origin.size();
     double d = 0;
 
-    std::unordered_map<int, double> counts1, counts2;
-    for (std::size_t i = 0; i < n1; ++i) {
-        ++counts1[findOct(getRow<MatrixT>(M, s[i]), origin)];
-    }
-    for (std::size_t i = 0; i < n2; ++i) {
-        ++counts2[findOct(getRow<MatrixT>(M, s[i + n1]), origin)];
-    }
-    for (const auto& kv : counts2) {
-        counts1[kv.first] -= n1 * kv.second / n2;
-    }
-    for (const auto& kv : counts1) {
-        // Note that oct = 0 is just used as a sink for uncounted points
-        if (kv.first != 0) {
-            d = std::max(d, abs(kv.second / n1));
-        }
-    }
-
     // If the dimension of the data is low, use a std::vector to tabulate points per octant.
     // But if the dimension of the data is high, most octants will be empty so we instead use a
     // std::unordered_map.
-    /*const std::size_t MAXDIM = 15;
+    const std::size_t MAXDIM = 10;
     if (ndim <= MAXDIM) {
         std::size_t noct = 1 << ndim;
         std::vector<double> counts1(noct + 1), counts2(noct + 1);
@@ -176,7 +159,7 @@ double bruteDistance(const MatrixT& M,
                 d = std::max(d, abs(kv.second / n1));
             }
         }
-    }*/
+    }
     return d;
 }
 
