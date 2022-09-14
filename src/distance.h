@@ -100,10 +100,10 @@ int findOct(const std::vector<double>& pt,
             oct += 1 << (ndim - i - 1);
         } else if (pt[i] == origin[i]) {
             // Ties are not counted
-            return -1;
+            return 0;
         }
     }
-    return oct;
+    return oct + 1;
 }
 
 
@@ -122,32 +122,44 @@ double bruteDistance(const MatrixT& M,
                      const std::vector<std::size_t>& s,
                      const std::size_t origin_ix) {
     std::vector<double> origin = getRow<MatrixT>(M, s[origin_ix]);
-
-    // Although a std::vector would be much easier to use, memory limits can be hit for large
-    // dimensions since the vector would be of length 2^d. When n1,n2 << 2^d, many octants
-    // will be empty, and we can decrease memory usage by using a sparse structure instead.
-    std::unordered_map<int, double> counts1;
-    std::unordered_map<int, double> counts2;
-
-    // Determine which octant each point in the first sample lies in
-    for (std::size_t i = 0; i < n1; ++i) {
-        ++counts1[findOct(getRow<MatrixT>(M, s[i]), origin)];
-    }
-    // Determine which octant each point in the second sample lies in
-    for (std::size_t i = 0; i < n2; ++i) {
-        ++counts2[findOct(getRow<MatrixT>(M, s[i + n1]), origin)];
-    }
-    // Subtract n1/n2 * counts2 from counts1
-    for (const auto& kv : counts2) {
-        counts1[kv.first] -= n1 * kv.second / n2;
-    }
-
-    // Return the maximum absolute difference
+    std::size_t ndim = origin.size();
     double d = 0;
-    for (const auto& kv : counts1) {
-        // Note that oct = -1 is just used as a sink for uncounted points
-        if (kv.first != -1) {
-            d = std::max(d, abs(kv.second / n1));
+
+    // If the dimension of the data is low, use a std::vector to tabulate points per octant.
+    // But if the dimension of the data is high, most octants will be empty so we instead use a
+    // std::unordered_map. Although the std::vector approach is usually faster, the size of the
+    // vector is 2^d, and thus it is impossible to use for large d. On the other hand, the size
+    // of the map scales with sample size.
+    const std::size_t MAXDIM = 15;
+    if (ndim <= MAXDIM) {
+        std::size_t noct = 1 << ndim;
+        std::vector<double> counts1(noct + 1), counts2(noct + 1);
+        for (std::size_t i = 0; i < n1; ++i) {
+            ++counts1[findOct(getRow<MatrixT>(M, s[i]), origin)];
+        }
+        for (std::size_t i = 0; i < n2; ++i) {
+            ++counts2[findOct(getRow<MatrixT>(M, s[i + n1]), origin)];
+        }
+        for (std::size_t i = 1; i <= noct; ++i) {
+            // Note that oct = 0 is just used as a sink for uncounted points
+            d = std::max(d, abs(counts1[i] / n1 - counts2[i] / n2));
+        }
+    } else {
+        std::unordered_map<int, double> counts1, counts2;
+        for (std::size_t i = 0; i < n1; ++i) {
+            ++counts1[findOct(getRow<MatrixT>(M, s[i]), origin)];
+        }
+        for (std::size_t i = 0; i < n2; ++i) {
+            ++counts2[findOct(getRow<MatrixT>(M, s[i + n1]), origin)];
+        }
+        for (const auto& kv : counts2) {
+            counts1[kv.first] -= n1 * kv.second / n2;
+        }
+        for (const auto& kv : counts1) {
+            // Note that oct = 0 is just used as a sink for uncounted points
+            if (kv.first != 0) {
+                d = std::max(d, abs(kv.second / n1));
+            }
         }
     }
     return d;
