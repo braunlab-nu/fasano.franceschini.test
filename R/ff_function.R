@@ -16,7 +16,7 @@
 #' the number of threads is determined by \code{RcppParallel::defaultNumThreads()}.
 #' Default is \code{1}.
 #' @param seed Optional integer to seed the PRNG used for the permutation test.
-#' Default is \code{NULL}. Only available for serial version (\code{threads = 1}).
+#' A seed must be passed to reproducibly compute p-values.
 #' @param p.conf.level Confidence level for the confidence interval of the
 #' permutation test p-value.
 #' @param verbose A \code{boolean} indicating whether to display a progress bar.
@@ -173,17 +173,18 @@ fasano.franceschini.test <- function(S1,
     if (nPermute > 0) {
         if (threads > 1) {
             # Run parallel version of permutation test
-            if (!is.null(seed)) {
-                warning("Seed unused when utilizing multiple threads.")
-            }
             RcppParallel::setThreadOptions(numThreads = threads)
-            count <- permutationTestParallel(S1, S2, nPermute, method)
+            if (is.null(seed)) {
+                count <- permutationTestParallel(S1, S2, nPermute, method)
+            } else {
+                count <- permutationTestParallelSeeded(S1, S2, nPermute, method, seed)
+            }
         } else {
             # Run serial version of permutation test
             if (is.null(seed)) {
                 count <- permutationTest(S1, S2, nPermute, verbose, method)
             } else {
-                count <- permutationTestSeeded(S1, S2, nPermute, verbose, seed, method)
+                count <- permutationTestSeeded(S1, S2, nPermute, verbose, method, seed)
             }
         }
 

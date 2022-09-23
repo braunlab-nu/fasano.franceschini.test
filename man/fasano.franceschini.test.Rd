@@ -30,7 +30,7 @@ the number of threads is determined by \code{RcppParallel::defaultNumThreads()}.
 Default is \code{1}.}
 
 \item{seed}{Optional integer to seed the PRNG used for the permutation test.
-Default is \code{NULL}. Only available for serial version (\code{threads = 1}).}
+A seed must be passed to reproducibly compute p-values.}
 
 \item{p.conf.level}{Confidence level for the confidence interval of the
 permutation test p-value.}

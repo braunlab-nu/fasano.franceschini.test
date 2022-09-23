@@ -1,7 +1,8 @@
 # fasano.franceschini.test 2.1.0
 * The `'o'` (optimize) method has been removed as the benchmarking itself proved to be prohibitively slow. Instead, the default behavior now is to infer which method is likely faster based on the sample sizes and dimension of the data.
 * The `cores` argument has been removed. Use `threads` instead.
-* For large dimensions, memory was becoming an issue with the brute force approach as a `std::vector` was used to tabulate the number of points in each octant, and the vector is of size 2^d. Now for larger dimensions, tabulation is done using a `std::unordered_map`, the size of which scales with the sample sizes instead of dimension.i
+* For large dimensions, memory was becoming an issue with the brute force approach as a `std::vector` was used to tabulate the number of points in each octant, and the vector is of size 2^d. Now for larger dimensions, tabulation is done using a `std::unordered_map`, the size of which scales with the sample sizes instead of dimension.
+* A seeded version of the parallel permutation has been added. The `seed` argument is no longer ignored when `threads` is larger than 1.
 
 # fasano.franceschini.test 2.0.1
 * Minor speedups introduced, particularly for the brute force method.

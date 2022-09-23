@@ -98,7 +98,7 @@ Default is <code>1</code>.</p></dd>
 
 <dt>seed</dt>
 <dd><p>Optional integer to seed the PRNG used for the permutation test.
-Default is <code>NULL</code>. Only available for serial version (<code>threads = 1</code>).</p></dd>
+A seed must be passed to reproducibly compute p-values.</p></dd>
 
 
 <dt>p.conf.level</dt>
@@ -195,9 +195,9 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9406</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8751736 0.9778894</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9641354 1.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
@@ -209,9 +209,9 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9536</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9735</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9068198 0.9811614</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9335658 0.9927362</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
@@ -231,9 +231,9 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9604</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9802</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 99 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8805106 0.9932664</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9114230 0.9989707</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
@@ -245,9 +245,9 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9505</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9802</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8882449 0.9837328</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9302949 0.9975928</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
@@ -259,9 +259,9 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9802</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9406</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9302949 0.9975928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8751736 0.9778894</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
