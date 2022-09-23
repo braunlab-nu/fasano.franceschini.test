@@ -86,7 +86,7 @@ any type (continuous, discrete, or mixed).</p>
 <dt>nPermute</dt>
 <dd><p>A nonnegative <code>integer</code> setting the number of permuted
 samples to generate when estimating the permutation test p-value. Default is
-<code>100</code>. If set to <code>0</code>, no p-value is estimated.</p></dd>
+<code>100</code>. If set to <code>0</code>, only the test statistic is computed.</p></dd>
 
 
 <dt>threads</dt>
@@ -97,7 +97,7 @@ Default is <code>1</code>.</p></dd>
 
 
 <dt>seed</dt>
-<dd><p>Optional integer to seed the PRNG used for the permutation test.
+<dd><p>An optional integer to seed the PRNG used for the permutation test.
 A seed must be passed to reproducibly compute p-values.</p></dd>
 
 
@@ -108,7 +108,7 @@ permutation test p-value.</p></dd>
 
 <dt>verbose</dt>
 <dd><p>A <code>boolean</code> indicating whether to display a progress bar.
-Default is <code>TRUE</code>. Only available for serial version (<code>threads = 1</code>).</p></dd>
+Default is <code>TRUE</code>. Only available when <code>threads = 1</code>.</p></dd>
 
 
 <dt>method</dt>
@@ -195,9 +195,9 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9703</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9641354 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9156431 0.9938321</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
@@ -209,9 +209,9 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9735</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9801</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9335658 0.9927362</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9430382 0.9958839</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
@@ -259,9 +259,9 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9406</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9901</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8751736 0.9778894</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9460677 0.9997494</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>

@@ -22,21 +22,21 @@ fasano.franceschini.test(
 
 \item{nPermute}{A nonnegative \code{integer} setting the number of permuted
 samples to generate when estimating the permutation test p-value. Default is
-\code{100}. If set to \code{0}, no p-value is estimated.}
+\code{100}. If set to \code{0}, only the test statistic is computed.}
 
 \item{threads}{A positive \code{integer} or \code{"auto"} setting the number
 of threads used for performing the permutation test. If set to \code{"auto"},
 the number of threads is determined by \code{RcppParallel::defaultNumThreads()}.
 Default is \code{1}.}
 
-\item{seed}{Optional integer to seed the PRNG used for the permutation test.
+\item{seed}{An optional integer to seed the PRNG used for the permutation test.
 A seed must be passed to reproducibly compute p-values.}
 
 \item{p.conf.level}{Confidence level for the confidence interval of the
 permutation test p-value.}
 
 \item{verbose}{A \code{boolean} indicating whether to display a progress bar.
-Default is \code{TRUE}. Only available for serial version (\code{threads = 1}).}
+Default is \code{TRUE}. Only available when \code{threads = 1}.}
 
 \item{method}{An optional \code{character} indicating which method to use to
 compute the test statistic. The two methods are \code{'r'} (range tree) and
