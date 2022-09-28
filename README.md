@@ -61,7 +61,7 @@ fasano.franceschini.test(S1, S2, seed = 0)
 #>  Fasano-Francheschini Test
 #> 
 #> data:  S1 and S2
-#> Z = 0.9815, p-value = 0.6535
+#> D = 0.9815, p-value = 0.6535
 #> 95 percent confidence interval:
 #>  0.5522616 0.7454075
 #> sample estimates:
@@ -88,7 +88,7 @@ fasano.franceschini.test(S1, S2, seed = 1)
 #>  Fasano-Francheschini Test
 #> 
 #> data:  S1 and S2
-#> Z = 1.6943, p-value = 0.0198
+#> D = 1.6943, p-value = 0.0198
 #> 95 percent confidence interval:
 #>  0.002407173 0.069705090
 #> sample estimates:

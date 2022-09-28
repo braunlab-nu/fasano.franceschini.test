@@ -1,4 +1,4 @@
-# fasano.franceschini.test 2.0.1
+# fasano.franceschini.test 2.1.0
 Submission of new version to CRAN.
 
 # Test environments
