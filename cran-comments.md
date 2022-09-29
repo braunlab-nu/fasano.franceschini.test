@@ -42,17 +42,12 @@ Possibly mis-spelled words in DESCRIPTION:
 0 errors | 0 warnings | 0 notes
 
 ### Fedora Linux, R-devel, clang, gfortran
-0 errors | 0 warnings | 2 notes
+0 errors | 0 warnings | 1 note
 
 * checking for GNU extensions in Makefiles ... NOTE
 GNU make is a SystemRequirements.
 
 **GNU make is required by the RcppParallel package.**
-
-* checking HTML version of manual ... NOTE
-Skipping checking HTML validation: no command 'tidy' found
-
-**This appears to be an issue with the testing environment and not the package.**
 
 ### Ubuntu Linux 20.04.1 LTS, R-release, GCC
 0 errors | 0 warnings | 2 notes
