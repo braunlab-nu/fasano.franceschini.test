@@ -152,7 +152,7 @@ fasano.franceschini.test <- function(S1,
     # Validate method
     if (missing(method)) {
         N <- max(n1, n2)
-        if ((d == 2 && N > 25) || (d == 3 && N > 150) || (d == 4 && N > 3500)) {
+        if ((d == 2 && N > 25) || (d == 3 && N > 200)) {
             method <- 'r'
         } else {
             method <- 'b'
