@@ -80,7 +80,7 @@ double rangeDistance(const RTree& rtree1,
         }
         double res1 = rtree1.countInRange(lowerLims, upperLims, strict, strict);
         double res2 = rtree2.countInRange(lowerLims, upperLims, strict, strict);
-        d = std::max(d, abs(res1 / n1 - res2 / n2));
+        d = std::max(d, std::abs(res1 / n1 - res2 / n2));
     }
     return d;
 }
@@ -140,7 +140,7 @@ double bruteDistance(const MatrixT& M,
         }
         for (std::size_t i = 1; i <= noct; ++i) {
             // Note that oct = 0 is just used as a sink for uncounted points
-            d = std::max(d, abs(counts1[i] / n1 - counts2[i] / n2));
+            d = std::max(d, std::abs(counts1[i] / n1 - counts2[i] / n2));
         }
     } else {
         std::unordered_map<int, double> counts1, counts2;
@@ -156,7 +156,7 @@ double bruteDistance(const MatrixT& M,
         for (const auto& kv : counts1) {
             // Note that oct = 0 is just used as a sink for uncounted points
             if (kv.first != 0) {
-                d = std::max(d, abs(kv.second / n1));
+                d = std::max(d, std::abs(kv.second / n1));
             }
         }
     }
