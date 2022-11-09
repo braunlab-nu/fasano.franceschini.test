@@ -21,7 +21,7 @@ any type (continuous, discrete, or mixed)."><meta property="og:image" content="/
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fasano.franceschini.test</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.1</span>
       </span>
     </div>
 
@@ -148,9 +148,9 @@ section for more information.</p></dd>
     <h2>Details</h2>
     <p>The test statistic can be computed using two different methods.
 Both methods return identical results, but have different time complexities:</p><ul><li><p>Range tree method: This method has a time complexity of
-  <em>O(n*log(n)^(d-1))</em>, where <em>n</em> is the size of the larger sample
+  <em>O(N*log(N)^(d-1))</em>, where <em>N</em> is the size of the larger sample
   and <em>d</em> is the dimension of the data.</p></li>
-<li><p>Brute force method: This method has a time complexity of <em>O(d*n^2)</em>.</p></li>
+<li><p>Brute force method: This method has a time complexity of <em>O(N^2)</em>.</p></li>
 </ul><p>The range tree method tends to be faster for low dimensional data or large
 sample sizes, while the brute force method tends to be faster for high
 dimensional data or small sample sizes. When <code>method</code> is not passed,
@@ -195,9 +195,9 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9703</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9604</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9156431 0.9938321</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9016950 0.9891055</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
@@ -209,9 +209,9 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9735</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9868</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9335658 0.9927362</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9529750 0.9983919</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
@@ -245,9 +245,9 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9604</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9505</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9016950 0.9891055</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8882449 0.9837328</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
@@ -259,9 +259,9 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9505</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9802</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8882449 0.9837328</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9302949 0.9975928</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>

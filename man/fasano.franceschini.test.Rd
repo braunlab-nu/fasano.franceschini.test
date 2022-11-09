@@ -66,9 +66,9 @@ The test statistic can be computed using two different methods.
 Both methods return identical results, but have different time complexities:
 \itemize{
   \item Range tree method: This method has a time complexity of
-  \emph{O(n*log(n)^(d-1))}, where \emph{n} is the size of the larger sample
+  \emph{O(N*log(N)^(d-1))}, where \emph{N} is the size of the larger sample
   and \emph{d} is the dimension of the data.
-  \item Brute force method: This method has a time complexity of \emph{O(d*n^2)}.
+  \item Brute force method: This method has a time complexity of \emph{O(N^2)}.
 }
 The range tree method tends to be faster for low dimensional data or large
 sample sizes, while the brute force method tends to be faster for high
