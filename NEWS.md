@@ -1,6 +1,7 @@
 # fasano.franceschini.test 2.1.1
 * Minor changes in documentation
 * Slight update to the range tree vs. brute force cutoffs
+* Fixed issue that prevented compilation on some machines
 
 # fasano.franceschini.test 2.1.0
 * The `'o'` (optimize) method has been removed as the benchmarking itself proved to be prohibitively slow. Instead, the default behavior now is to infer which method is likely faster based on the sample sizes and dimension of the data.
