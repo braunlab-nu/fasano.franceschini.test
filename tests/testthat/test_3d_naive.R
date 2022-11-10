@@ -50,4 +50,8 @@ test_that("compare with naive R 3d implementation", {
     S1 <- data.frame(rnorm(n = 50), rnorm(n = 50), rnorm(n = 50))
     S2 <- data.frame(rnorm(n = 33), rnorm(n = 33), rnorm(n = 33))
     ffcomp(S1, S2)
+
+    S1 <- cbind(c(1, 2, 3), c(2, 3, 4), c(4, 5, 6))
+    S2 <- cbind(c(2, 3, 4), c(1, 2, 3), c(4, 5, 6))
+    ffcomp(S1, S2)
 })
