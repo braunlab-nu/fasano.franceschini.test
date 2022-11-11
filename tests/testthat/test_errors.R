@@ -50,4 +50,18 @@ test_that("test for bad inputs", {
     expect_error(fasano.franceschini.test(S1, S2, method = "c"))
     expect_error(fasano.franceschini.test(S1, S2, method = "q"))
     expect_error(fasano.franceschini.test(S1, S2, method = "s"))
+
+    expect_error(fasano.franceschini.test(S1, S2, p.conf.level = 0))
+    expect_error(fasano.franceschini.test(S1, S2, p.conf.level = -0.05))
+    expect_error(fasano.franceschini.test(S1, S2, p.conf.level = 1.0))
+    expect_error(fasano.franceschini.test(S1, S2, p.conf.level = 1.05))
+    expect_error(fasano.franceschini.test(S1, S2, p.conf.level = 'a'))
+
+    expect_error(fasano.franceschini.test(S1, S2, verbose = 0))
+    expect_error(fasano.franceschini.test(S1, S2, verbose = 'a'))
+
+    expect_error(fasano.franceschini.test(S1, S2, seed = 1.1))
+    expect_error(fasano.franceschini.test(S1, S2, seed = 'a'))
+    expect_error(fasano.franceschini.test(S1, S2, seed = FALSE))
+    expect_error(fasano.franceschini.test(S1, S2, seed = TRUE))
 })

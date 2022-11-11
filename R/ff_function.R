@@ -141,6 +141,10 @@ fasano.franceschini.test <- function(S1,
     if (!is.numeric(threads) || threads < 1 || (threads %% 1 != 0)) {
         stop("'threads' must be a positive integer or \"auto\"")
     }
+    # Validate seed
+    if (!is.null(seed) && (!is.numeric(seed) || (seed %% 1 != 0))) {
+        stop("'seed' must be an integer")
+    }
     # Validate verbose
     if (!is.logical(verbose)) {
         stop("'verbose' must be of type logical")
