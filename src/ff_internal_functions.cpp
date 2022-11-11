@@ -63,7 +63,7 @@ std::vector<double> testStatistics(const MatrixT& M,
             d2 = std::max(d2, bruteDistance(M, n1, n2, s, i + n1));
         }
     }
-    return {d1, d2, sqrt(static_cast<double>(n1 * n2)/(n1 + n2))*(d1 + d2)/2.0};
+    return {d1, d2, sqrt(static_cast<double>(n1 * n2)/(n1 + n2)) * (d1 + d2)/2.0};
 }
 
 // Compute FF test statistics. Used only for seeded parallel test.
@@ -106,7 +106,7 @@ std::vector<double> testStatistics(const MatrixT& M,
             d2 = std::max(d2, bruteDistance(M, n1, n2, s, i + n1));
         }
     }
-    return {d1, d2, sqrt(static_cast<double>(n1 * n2)/(n1 + n2))*(d1 + d2)/2.0};
+    return {d1, d2, sqrt(static_cast<double>(n1 * n2)/(n1 + n2)) * (d1 + d2)/2.0};
 }
 
 // Simplified wrapper for testStatistics without shuffling

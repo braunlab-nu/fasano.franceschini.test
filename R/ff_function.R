@@ -137,8 +137,7 @@ fasano.franceschini.test <- function(S1,
     # Validate threads
     if (threads == "auto") {
         threads <- RcppParallel::defaultNumThreads()
-    }
-    if (!is.numeric(threads) || threads < 1 || (threads %% 1 != 0)) {
+    } else if (!is.numeric(threads) || threads < 1 || (threads %% 1 != 0)) {
         stop("'threads' must be a positive integer or \"auto\"")
     }
     # Validate seed
