@@ -1,4 +1,4 @@
-# fasano.franceschini.test 2.1.0
+# fasano.franceschini.test 2.1.1
 Submission of new version to CRAN.
 
 # Test environments
@@ -42,12 +42,17 @@ Possibly mis-spelled words in DESCRIPTION:
 0 errors | 0 warnings | 0 notes
 
 ### Fedora Linux, R-devel, clang, gfortran
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 2 notes
 
 * checking for GNU extensions in Makefiles ... NOTE
 GNU make is a SystemRequirements.
 
 **GNU make is required by the RcppParallel package.**
+
+* checking HTML version of manual ... NOTE
+Skipping checking HTML validation: no command 'tidy' found
+
+**This seems to be an issue with R-hub as opposed to our package.**
 
 ### Ubuntu Linux 20.04.1 LTS, R-release, GCC
 0 errors | 0 warnings | 2 notes
@@ -60,7 +65,7 @@ Found the following (possibly) invalid DOIs:
     From: DESCRIPTION
     Status: Forbidden
     Message: 403
-
+    
 **I have checked this DOI and it is correct.**
 
 * checking for GNU extensions in Makefiles ... NOTE
