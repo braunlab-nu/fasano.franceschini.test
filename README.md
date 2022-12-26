@@ -22,6 +22,8 @@ and Franceschini (1987).
     Fasano, G. & Franceschini, A. (1987). A multidimensional version of the
     Kolmogorov-Smirnov test. Monthly Notices of the Royal Astronomical Society,
     225:155-170. doi: 10.1093/mnras/225.1.155.
+    
+A preprint of our accompanying manuscript is available [here](https://arxiv.org/abs/2106.10539).
 
 ## Installation
 
