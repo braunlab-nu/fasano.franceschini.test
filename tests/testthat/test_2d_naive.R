@@ -2,6 +2,8 @@ test_that("compare with naive R 2d implementation", {
     set.seed(2)
 
     ffcomp <- function(S1, S2) {
+        delta <- 1e-15
+
         res <- fasano.franceschini.test(S1, S2, nPermute = 0)
         d12 <- c(getDstat_naive(S1, S1, S2), getDstat_naive(S2, S1, S2))
         names(d12) <- names(res$estimate)
@@ -11,8 +13,8 @@ test_that("compare with naive R 2d implementation", {
         d <- sqrt(n1*n2/(n1+n2))*((d12[1] + d12[2])/2.0)
         names(d) <- names(res$statistic)
 
-        expect_equal(d12, res$estimate, tolerance = 1e-14)
-        expect_equal(d, res$statistic, tolerance = 1e-14)
+        expect_equal(d12, res$estimate, tolerance = delta)
+        expect_equal(d, res$statistic, tolerance = delta)
     }
 
     S1 <- data.frame(rnorm(n = 50, mean = 0, sd = 1),

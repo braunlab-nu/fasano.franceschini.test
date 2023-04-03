@@ -27,6 +27,8 @@
 #' computation speed. If this argument is not passed, the sample sizes and dimension
 #' of the data are used to infer which method is likely faster. See the Details
 #' section for more information.
+#' @param tol Account for machine precision when comparing test statistics during the
+#' permutation test.
 #' @return A list with class \code{htest} containing the following components:
 #'   \item{statistic}{The value of the test statistic \emph{D}.}
 #'   \item{estimate}{The value of the difference statistics \emph{D1} and \emph{D2}.}
@@ -109,7 +111,8 @@ fasano.franceschini.test <- function(S1,
                                      seed = NULL,
                                      p.conf.level = 0.95,
                                      verbose = TRUE,
-                                     method = c('r', 'b')) {
+                                     method = c('r', 'b'),
+                                     tol = 1e-15) {
     # Store names of samples for output
     dname <- paste(deparse(substitute(S1)), "and", deparse(substitute(S2)))
 
@@ -163,6 +166,10 @@ fasano.franceschini.test <- function(S1,
     } else {
         method <- match.arg(method)
     }
+    # Validate tol
+    if (!is.numeric(tol) || tol < 0 || tol > 1) {
+        stop("'tol' must be a small nonnegative floating point number")
+    }
 
     # Perform FF test
     ffStats <- ffTestStatistic(S1, S2, method)
@@ -178,16 +185,16 @@ fasano.franceschini.test <- function(S1,
             # Run parallel version of permutation test
             RcppParallel::setThreadOptions(numThreads = threads)
             if (is.null(seed)) {
-                count <- permutationTestParallel(S1, S2, nPermute, method)
+                count <- permutationTestParallel(S1, S2, nPermute, method, tol)
             } else {
-                count <- permutationTestParallelSeeded(S1, S2, nPermute, method, seed)
+                count <- permutationTestParallelSeeded(S1, S2, nPermute, method, seed, tol)
             }
         } else {
             # Run serial version of permutation test
             if (is.null(seed)) {
-                count <- permutationTest(S1, S2, nPermute, verbose, method)
+                count <- permutationTest(S1, S2, nPermute, verbose, method, tol)
             } else {
-                count <- permutationTestSeeded(S1, S2, nPermute, verbose, method, seed)
+                count <- permutationTestSeeded(S1, S2, nPermute, verbose, method, seed, tol)
             }
         }
 

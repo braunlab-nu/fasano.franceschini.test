@@ -12,7 +12,8 @@ fasano.franceschini.test(
   seed = NULL,
   p.conf.level = 0.95,
   verbose = TRUE,
-  method = c("r", "b")
+  method = c("r", "b"),
+  tol = 1e-15
 )
 }
 \arguments{
@@ -44,6 +45,9 @@ compute the test statistic. The two methods are \code{'r'} (range tree) and
 computation speed. If this argument is not passed, the sample sizes and dimension
 of the data are used to infer which method is likely faster. See the Details
 section for more information.}
+
+\item{tol}{Account for machine precision when comparing test statistics during the
+permutation test.}
 }
 \value{
 A list with class \code{htest} containing the following components:
