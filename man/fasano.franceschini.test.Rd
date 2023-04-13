@@ -10,10 +10,8 @@ fasano.franceschini.test(
   nPermute = 100,
   threads = 1,
   seed = NULL,
-  p.conf.level = 0.95,
   verbose = TRUE,
-  method = c("r", "b"),
-  tol = 1e-15
+  method = c("r", "b")
 )
 }
 \arguments{
@@ -33,9 +31,6 @@ Default is \code{1}.}
 \item{seed}{An optional integer to seed the PRNG used for the permutation test.
 A seed must be passed to reproducibly compute p-values.}
 
-\item{p.conf.level}{Confidence level for the confidence interval of the
-permutation test p-value.}
-
 \item{verbose}{A \code{boolean} indicating whether to display a progress bar.
 Default is \code{TRUE}. Only available when \code{threads = 1}.}
 
@@ -45,16 +40,11 @@ compute the test statistic. The two methods are \code{'r'} (range tree) and
 computation speed. If this argument is not passed, the sample sizes and dimension
 of the data are used to infer which method is likely faster. See the Details
 section for more information.}
-
-\item{tol}{Account for machine precision when comparing test statistics during the
-permutation test.}
 }
 \value{
 A list with class \code{htest} containing the following components:
   \item{statistic}{The value of the test statistic \emph{D}.}
-  \item{estimate}{The value of the difference statistics \emph{D1} and \emph{D2}.}
   \item{p.value}{The permutation test p-value.}
-  \item{conf.int}{A binomial confidence interval for the p-value.}
   \item{method}{A character string indicating what type of test was performed.}
   \item{data.name}{A character string giving the names of the data.}
 }
@@ -83,13 +73,6 @@ computation time, the method inferred to be faster may not actually be faster. T
 perform more comprehensive benchmarking for a specific dataset, \code{nPermute}
 can be set equal to \code{0}, which bypasses the permutation test and only
 computes the test statistic.
-
-The p-value for the test is computed empirically using a permutation test. As
-it is almost always infeasible to compute the exact permutation test p-value,
-a Monte Carlo approximation is made instead. This estimate is a binomially
-distributed random variable, and thus a confidence interval can be computed.
-The confidence interval is obtained using the procedure given in Clopper and
-Pearson (1934).
 }
 \examples{
 set.seed(0)
@@ -110,9 +93,6 @@ fasano.franceschini.test(S1, S2, nPermute = 150)
 fasano.franceschini.test(S1, S2, seed = 0)$p.value
 fasano.franceschini.test(S1, S2, seed = 0)$p.value
 
-# change confidence level for p-value confidence interval
-fasano.franceschini.test(S1, S2, p.conf.level = 0.99)
-
 # perform test using range tree method
 fasano.franceschini.test(S1, S2, method = 'r')
 
@@ -131,8 +111,5 @@ fasano.franceschini.test(S1, S2, threads = 2)
   \item{Fasano, G. & Franceschini, A. (1987). A multidimensional version of the
   Kolmogorov-Smirnov test. \emph{Monthly Notices of the Royal Astronomical Society},
   225:155-170. \doi{10.1093/mnras/225.1.155}.}
-  \item{Clopper, C. J. & Pearson, E. S. (1934). The use of confidence or fiducial
-  limits illustrated in the case of the binomial. \emph{Biometrika}, 26, 404–413.
-  \doi{10.2307/2331986}.}
 } }
 }

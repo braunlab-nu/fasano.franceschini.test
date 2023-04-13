@@ -5,19 +5,19 @@ ffTestStatistic <- function(S1, S2, method) {
     .Call(`_fasano_franceschini_test_ffTestStatistic`, S1, S2, method)
 }
 
-permutationTestSeeded <- function(S1, S2, nPermute, verbose, method, seed, tol) {
-    .Call(`_fasano_franceschini_test_permutationTestSeeded`, S1, S2, nPermute, verbose, method, seed, tol)
+permutationTestSeeded <- function(S1, S2, nPermute, verbose, method, seed) {
+    .Call(`_fasano_franceschini_test_permutationTestSeeded`, S1, S2, nPermute, verbose, method, seed)
 }
 
-permutationTest <- function(S1, S2, nPermute, verbose, method, tol) {
-    .Call(`_fasano_franceschini_test_permutationTest`, S1, S2, nPermute, verbose, method, tol)
+permutationTest <- function(S1, S2, nPermute, verbose, method) {
+    .Call(`_fasano_franceschini_test_permutationTest`, S1, S2, nPermute, verbose, method)
 }
 
-permutationTestParallel <- function(S1, S2, nPermute, method, tol) {
-    .Call(`_fasano_franceschini_test_permutationTestParallel`, S1, S2, nPermute, method, tol)
+permutationTestParallel <- function(S1, S2, nPermute, method) {
+    .Call(`_fasano_franceschini_test_permutationTestParallel`, S1, S2, nPermute, method)
 }
 
-permutationTestParallelSeeded <- function(S1, S2, nPermute, method, seed, tol) {
-    .Call(`_fasano_franceschini_test_permutationTestParallelSeeded`, S1, S2, nPermute, method, seed, tol)
+permutationTestParallelSeeded <- function(S1, S2, nPermute, method, seed) {
+    .Call(`_fasano_franceschini_test_permutationTestParallelSeeded`, S1, S2, nPermute, method, seed)
 }
 

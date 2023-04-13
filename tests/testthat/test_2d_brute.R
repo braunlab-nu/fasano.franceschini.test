@@ -2,16 +2,12 @@ test_that("check that range tree and brute force methods return same statistics 
     set.seed(0)
 
     ffcomp <- function(S1, S2) {
-        delta <- 1e-15
         res1 <- fasano.franceschini.test(S1, S2, nPermute = 0, method = 'r')
         res2 <- fasano.franceschini.test(S1, S2, nPermute = 0, method = 'b')
         res3 <- fasano.franceschini.test(S1, S2, nPermute = 0)
-        expect_equal(res1$estimate, res2$estimate, tolerance = delta)
-        expect_equal(res1$statistic, res2$statistic, tolerance = delta)
-        expect_equal(res1$estimate, res3$estimate, tolerance = delta)
-        expect_equal(res1$statistic, res3$statistic, tolerance = delta)
-        expect_equal(res2$estimate, res3$estimate, tolerance = delta)
-        expect_equal(res2$statistic, res3$statistic, tolerance = delta)
+        expect_equal(res1$statistic, res2$statistic, tolerance = 1e-15)
+        expect_equal(res1$statistic, res3$statistic, tolerance = 1e-15)
+        expect_equal(res2$statistic, res3$statistic, tolerance = 1e-15)
     }
 
     S1 <- data.frame(rnorm(n = 50, mean = 0, sd = 1),
@@ -58,5 +54,9 @@ test_that("check that range tree and brute force methods return same statistics 
 
     S1 <- cbind(c(1, 2, 3), c(2, 3, 4))
     S2 <- cbind(c(1, 2, 3), c(1, 2, 3))
+    ffcomp(S1, S2)
+
+    S1 <- cbind(c(1, 1), c(1, 1))
+    S2 <- cbind(c(1, 1), c(1, 1))
     ffcomp(S1, S2)
 })

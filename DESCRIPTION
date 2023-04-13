@@ -2,7 +2,7 @@ Type: Package
 Package: fasano.franceschini.test
 Title: Fasano-Franceschini Test: A Multidimensional Kolmogorov-Smirnov
     Two-Sample Test
-Version: 2.1.1
+Version: 2.2.0
 Authors@R: c(
     person("Connor", "Puritz", , "connorpuritz2025@u.northwestern.edu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7602-0444")),
@@ -26,8 +26,7 @@ Depends:
     R (>= 3.0.2)
 Imports: 
     Rcpp (>= 1.0.0),
-    RcppParallel (>= 5.0.1),
-    stats
+    RcppParallel (>= 5.0.1)
 Suggests: 
     testthat (>= 3.0.0)
 LinkingTo: 

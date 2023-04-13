@@ -1,5 +1,3 @@
-delta <- 1e-15
-
 test_that("check that range tree and brute force methods return same statistics for high dimensional data", {
     # This test takes a while, so skip on CRAN
     skip_on_cran()
@@ -17,8 +15,17 @@ test_that("check that range tree and brute force methods return same statistics 
     }
     res1 <- fasano.franceschini.test(S1, S2, nPermute = 0, method = 'r')
     res2 <- fasano.franceschini.test(S1, S2, nPermute = 0, method = 'b')
-    expect_equal(res1$estimate, res2$estimate, tolerance = delta)
-    expect_equal(res1$statistic, res2$statistic, tolerance = delta)
+    expect_equal(res1$statistic, res2$statistic, tolerance = 1e-15)
+
+    S1 <- data.frame(rep(1, n))
+    S2 <- data.frame(rep(1, n))
+    for (i in 1:(d - 1)) {
+        S1 <- cbind(S1, rep(1, n))
+        S2 <- cbind(S2, rep(1, n))
+    }
+    res1 <- fasano.franceschini.test(S1, S2, nPermute = 0, method = 'r')
+    res2 <- fasano.franceschini.test(S1, S2, nPermute = 0, method = 'b')
+    expect_equal(res1$statistic, res2$statistic, tolerance = 1e-15)
 
     # Different distributions
     S1 <- data.frame(rnorm(n, mean = 1))
@@ -29,8 +36,17 @@ test_that("check that range tree and brute force methods return same statistics 
     }
     res1 <- fasano.franceschini.test(S1, S2, nPermute = 0, method = 'r')
     res2 <- fasano.franceschini.test(S1, S2, nPermute = 0, method = 'b')
-    expect_equal(res1$estimate, res2$estimate, tolerance = delta)
-    expect_equal(res1$statistic, res2$statistic, tolerance = delta)
+    expect_equal(res1$statistic, res2$statistic, tolerance = 1e-15)
+
+    S1 <- data.frame(rep(1, n))
+    S2 <- data.frame(rep(2, n))
+    for (i in 1:(d - 1)) {
+        S1 <- cbind(S1, rep(1, n))
+        S2 <- cbind(S2, rep(2, n))
+    }
+    res1 <- fasano.franceschini.test(S1, S2, nPermute = 0, method = 'r')
+    res2 <- fasano.franceschini.test(S1, S2, nPermute = 0, method = 'b')
+    expect_equal(res1$statistic, res2$statistic, tolerance = 1e-15)
 })
 
 test_that("check that range tree and brute force methods return same statistics for high dimensional data", {
@@ -51,6 +67,5 @@ test_that("check that range tree and brute force methods return same statistics 
 
     res1 <- fasano.franceschini.test(S1, S2, nPermute = 0, method = 'r')
     res2 <- fasano.franceschini.test(S1, S2, nPermute = 0, method = 'b')
-    expect_equal(res1$estimate, res2$estimate, tolerance = delta)
-    expect_equal(res1$statistic, res2$statistic, tolerance = delta)
+    expect_equal(res1$statistic, res2$statistic, tolerance = 1e-15)
 })

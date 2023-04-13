@@ -14,7 +14,7 @@ using namespace Rcpp;
 
 /********** These are functions for the computing the test statistic. **********/
 
-// Compute FF test statistics
+// Compute FF test statistic
 //
 // @param M a matrix of type NumericMatrix or RMatrix<double>
 // @param n1 number of rows in first sample
@@ -22,14 +22,14 @@ using namespace Rcpp;
 // @param shuffle whether to shuffle the samples
 // @param prng a pseudorandom number generator (unused if shuffle == false)
 // @param method what method to use to compute the test statistic
-// @return FF test statistics
+// @return FF test statistic
 template<typename MatrixT>
-std::vector<double> testStatistics(const MatrixT& M,
-                                   std::size_t n1,
-                                   std::size_t n2,
-                                   bool shuffle,
-                                   std::mt19937& prng,
-                                   char method) {
+long testStatistic(const MatrixT& M,
+                   std::size_t n1,
+                   std::size_t n2,
+                   bool shuffle,
+                   std::mt19937& prng,
+                   char method) {
     // Build range trees
     std::vector<std::size_t> s(n1 + n2);
     std::iota(s.begin(), s.end(), 0);
@@ -37,8 +37,8 @@ std::vector<double> testStatistics(const MatrixT& M,
         std::shuffle(s.begin(), s.end(), prng);
     }
 
-    double d1 = 0;
-    double d2 = 0;
+    long d1 = 0;
+    long d2 = 0;
     if (method == 'r') {
         // Build range trees
         std::vector<RTree> trees = buildRangeTrees<MatrixT>(M, n1, n2, s);
@@ -63,25 +63,25 @@ std::vector<double> testStatistics(const MatrixT& M,
             d2 = std::max(d2, bruteDistance(M, n1, n2, s, i + n1));
         }
     }
-    return {d1, d2, sqrt(static_cast<double>(n1 * n2)/(n1 + n2)) * (d1 + d2)/2.0};
+    return d1 + d2;
 }
 
-// Compute FF test statistics. Used only for seeded parallel test.
+// Compute FF test statistic. Used only for seeded parallel test.
 //
 // @param M a matrix of type NumericMatrix or RMatrix<double>
 // @param n1 number of rows in first sample
 // @param n2 number of rows in second sample
 // @param s a permutation of (n1 + n2)
 // @param method what method to use to compute the test statistic
-// @return FF test statistics
+// @return FF test statistic
 template<typename MatrixT>
-std::vector<double> testStatistics(const MatrixT& M,
-                                   std::size_t n1,
-                                   std::size_t n2,
-                                   const std::vector<std::size_t>& s,
-                                   char method) {
-    double d1 = 0;
-    double d2 = 0;
+long testStatistic(const MatrixT& M,
+                   std::size_t n1,
+                   std::size_t n2,
+                   const std::vector<std::size_t>& s,
+                   char method) {
+    long d1 = 0;
+    long d2 = 0;
     if (method == 'r') {
         // Build range trees
         std::vector<RTree> trees = buildRangeTrees<MatrixT>(M, n1, n2, s);
@@ -106,28 +106,28 @@ std::vector<double> testStatistics(const MatrixT& M,
             d2 = std::max(d2, bruteDistance(M, n1, n2, s, i + n1));
         }
     }
-    return {d1, d2, sqrt(static_cast<double>(n1 * n2)/(n1 + n2)) * (d1 + d2)/2.0};
+    return d1 + d2;
 }
 
-// Simplified wrapper for testStatistics without shuffling
+// Simplified wrapper for testStatistic without shuffling
 template<typename MatrixT>
-std::vector<double> testStatistics(const MatrixT& M,
-                                   std::size_t r1,
-                                   std::size_t r2,
-                                   char method) {
+long testStatistic(const MatrixT& M,
+                   std::size_t r1,
+                   std::size_t r2,
+                   char method) {
     // prng is unused, just a place holder
     std::mt19937 prng;
-    return testStatistics<MatrixT>(M, r1, r2, false, prng, method);
+    return testStatistic<MatrixT>(M, r1, r2, false, prng, method);
 }
 
-// Simplified wrapper for testStatistics with shuffling
+// Simplified wrapper for testStatistic with shuffling
 template<typename MatrixT>
-std::vector<double> testStatistics(const MatrixT& M,
-                                   std::size_t r1,
-                                   std::size_t r2,
-                                   std::mt19937& prng,
-                                   char method) {
-    return testStatistics<MatrixT>(M, r1, r2, true, prng, method);
+long testStatistic(const MatrixT& M,
+                   std::size_t r1,
+                   std::size_t r2,
+                   std::mt19937& prng,
+                   char method) {
+    return testStatistic<MatrixT>(M, r1, r2, true, prng, method);
 }
 
 // Compute FF test statistic (callable from R)
@@ -135,12 +135,12 @@ std::vector<double> testStatistics(const MatrixT& M,
 // @param S1 first sample
 // @param S2 second sample
 // @param method what method to use to compute the test statistic
-// @return FF test statistics
+// @return FF test statistic
 // [[Rcpp::export(ffTestStatistic)]]
-NumericVector ffTestStatistic(const NumericMatrix& S1,
-                              const NumericMatrix& S2,
-                              char method) {
-    return wrap(testStatistics<NumericMatrix>(rbind(S1, S2), S1.nrow(), S2.nrow(), method));
+long ffTestStatistic(const NumericMatrix& S1,
+                     const NumericMatrix& S2,
+                     char method) {
+    return testStatistic<NumericMatrix>(rbind(S1, S2), S1.nrow(), S2.nrow(), method);
 }
 
 /**************************************************************************/
@@ -156,30 +156,26 @@ NumericVector ffTestStatistic(const NumericMatrix& S1,
 // @param verbose whether to display a progress bar
 // @param prng a pseudorandom number generator for permuting the samples
 // @param method what method to use to compute the test statistic
-// @param tol account for machine precision when comparing test statistics
-// @return empirical p-value
+// @return numerator of p-value
 unsigned int permutationTest(const NumericMatrix& S1,
                              const NumericMatrix& S2,
-                             int nPermute,
+                             unsigned int nPermute,
                              bool verbose,
                              std::mt19937& prng,
-                             char method,
-                             double tol) {
+                             char method) {
     std::size_t r1 = S1.nrow();
     std::size_t r2 = S2.nrow();
     NumericMatrix S = rbind(S1, S2);
 
     // Compute test statistic for original data
-    double Z = testStatistics<NumericMatrix>(S, r1, r2, method)[2];
+    long Z = testStatistic<NumericMatrix>(S, r1, r2, method);
 
     // Permute data 'nPermute' times and compute test statistic in each case
     unsigned int pval = 0;
     ProgressBar p(nPermute, verbose);
-    for (int i = 0; i < nPermute; ++i) {
-        double z = testStatistics<NumericMatrix>(S, r1, r2, prng, method)[2];
-        if (z >= Z - tol) {
-            ++pval;
-        }
+    for (unsigned int i = 0; i < nPermute; ++i) {
+        long z = testStatistic<NumericMatrix>(S, r1, r2, prng, method);
+        pval += (z >= Z);
         p.step();
     }
     p.finalize();
@@ -190,25 +186,23 @@ unsigned int permutationTest(const NumericMatrix& S1,
 // [[Rcpp::export(permutationTestSeeded)]]
 unsigned int permutationTestSeeded(const NumericMatrix& S1,
                                    const NumericMatrix& S2,
-                                   int nPermute,
+                                   unsigned int nPermute,
                                    bool verbose,
                                    char method,
-                                   int seed,
-                                   double tol) {
+                                   int seed) {
     std::mt19937 prng(seed);
-    return permutationTest(S1, S2, nPermute, verbose, prng, method, tol);
+    return permutationTest(S1, S2, nPermute, verbose, prng, method);
 }
 
 // Unseeded version of permutationTest (callable from R)
 // [[Rcpp::export(permutationTest)]]
 unsigned int permutationTest(const NumericMatrix& S1,
                              const NumericMatrix& S2,
-                             int nPermute,
+                             unsigned int nPermute,
                              bool verbose,
-                             char method,
-                             double tol) {
+                             char method) {
     std::mt19937 prng(std::random_device{}());
-    return permutationTest(S1, S2, nPermute, verbose, prng, method, tol);
+    return permutationTest(S1, S2, nPermute, verbose, prng, method);
 }
 
 /****************************************************************************/
@@ -226,30 +220,25 @@ struct PermutationTest : public RcppParallel::Worker {
     // Number of points in second sample
     const std::size_t r2;
     // Test statistic for original data
-    const double Z;
+    const long Z;
     // The method to use to compute the test statistic
     char method;
-    // Account for machine precision when comparing test statistics
-    double tol;
 
     /* Output */
     unsigned int pval;
 
     // Constructors
-    PermutationTest(const NumericMatrix& S, std::size_t r1, std::size_t r2, double Z, char method, double tol) :
-        S(S), r1(r1), r2(r2), Z(Z), method(method), tol(tol), pval(0) {}
+    PermutationTest(const NumericMatrix& S, std::size_t r1, std::size_t r2, long Z, char method) :
+        S(S), r1(r1), r2(r2), Z(Z), method(method), pval(0) {}
     PermutationTest(const PermutationTest& p, RcppParallel::Split) :
-        S(p.S), r1(p.r1), r2(p.r2), Z(p.Z), method(p.method), tol(p.tol), pval(0) {}
+        S(p.S), r1(p.r1), r2(p.r2), Z(p.Z), method(p.method), pval(0) {}
 
     // Call operator, compute test statistic for (end - begin) permuted samples
     void operator()(std::size_t begin, std::size_t end) {
         std::mt19937 prng(std::random_device{}());
         for (std::size_t i = begin; i < end; ++i) {
-            double z = testStatistics<RcppParallel::RMatrix<double> >(S, r1, r2, prng, method)[2];
-            // The test statistics are floating point numbers, account for machine error
-            if (z >= Z - std::pow(10.0, -14)) {
-                ++pval;
-            }
+            long z = testStatistic<RcppParallel::RMatrix<double> >(S, r1, r2, prng, method);
+            pval += (z >= Z);
         }
     }
 
@@ -269,32 +258,28 @@ struct PermutationTestSeeded : public RcppParallel::Worker {
     // Number of points in second sample
     const std::size_t r2;
     // Test statistic for original data
-    const double Z;
+    const long Z;
     // The method to use to compute the test statistic
     char method;
     // List of permutations
     std::vector<std::vector<std::size_t> > shuffles;
-    // Account for machine precision when comparing test statistics
-    double tol;
 
     /* Output */
     unsigned int pval;
 
     // Constructors
-    PermutationTestSeeded(const NumericMatrix& S, std::size_t r1, std::size_t r2, double Z, char method,
-                          const std::vector<std::vector<std::size_t> >& shuffles, double tol) :
-        S(S), r1(r1), r2(r2), Z(Z), method(method), shuffles(shuffles), tol(tol), pval(0) {}
+    PermutationTestSeeded(const NumericMatrix& S, std::size_t r1, std::size_t r2, long Z, char method,
+                          const std::vector<std::vector<std::size_t> >& shuffles) :
+        S(S), r1(r1), r2(r2), Z(Z), method(method), shuffles(shuffles), pval(0) {}
     PermutationTestSeeded(const PermutationTestSeeded& p, RcppParallel::Split) :
-        S(p.S), r1(p.r1), r2(p.r2), Z(p.Z), method(p.method), shuffles(p.shuffles), tol(p.tol), pval(0) {}
+        S(p.S), r1(p.r1), r2(p.r2), Z(p.Z), method(p.method), shuffles(p.shuffles), pval(0) {}
 
     // Call operator, compute test statistic for (end - begin) permuted samples
     void operator()(std::size_t begin, std::size_t end) {
         for (std::size_t i = begin; i < end; ++i) {
             std::vector<std::size_t> shuffle = shuffles[i];
-            double z = testStatistics<RcppParallel::RMatrix<double> >(S, r1, r2, shuffle, method)[2];
-            if (z >= Z - tol) {
-                ++pval;
-            }
+            long z = testStatistic<RcppParallel::RMatrix<double> >(S, r1, r2, shuffle, method);
+            pval += (z >= Z);
         }
     }
 
@@ -310,23 +295,21 @@ struct PermutationTestSeeded : public RcppParallel::Worker {
 // @param S2 second sample
 // @param nPermute number of iterations to perform
 // @param method what method to use to compute the test statistic
-// @param tol account for machine precision when comparing test statistics
 // @return empirical p-value
 // [[Rcpp::export(permutationTestParallel)]]
 unsigned int permutationTestParallel(const NumericMatrix& S1,
                                      const NumericMatrix& S2,
-                                     int nPermute,
-                                     char method,
-                                     double tol) {
+                                     unsigned int nPermute,
+                                     char method) {
     std::size_t r1 = S1.nrow();
     std::size_t r2 = S2.nrow();
     NumericMatrix S = rbind(S1, S2);
 
     // Compute test statistic for original data
-    double Z = testStatistics<NumericMatrix>(S, r1, r2, method)[2];
+    long Z = testStatistic<NumericMatrix>(S, r1, r2, method);
 
     // Permute data 'nPermute' times and compute test statistic in each case
-    PermutationTest pt(S, r1, r2, Z, method, tol);
+    PermutationTest pt(S, r1, r2, Z, method);
     parallelReduce(0, nPermute, pt);
     return pt.pval;
 }
@@ -338,15 +321,13 @@ unsigned int permutationTestParallel(const NumericMatrix& S1,
 // @param nPermute number of iterations to perform
 // @param method what method to use to compute the test statistic
 // @param seed seed for PRNH
-// @param tol account for machine precision when comparing test statistics
 // @return empirical p-value
 // [[Rcpp::export(permutationTestParallelSeeded)]]
 unsigned int permutationTestParallelSeeded(const NumericMatrix& S1,
                                            const NumericMatrix& S2,
-                                           int nPermute,
+                                           unsigned int nPermute,
                                            char method,
-                                           int seed,
-                                           double tol) {
+                                           int seed) {
     std::size_t r1 = S1.nrow();
     std::size_t r2 = S2.nrow();
     NumericMatrix S = rbind(S1, S2);
@@ -356,17 +337,17 @@ unsigned int permutationTestParallelSeeded(const NumericMatrix& S1,
     std::vector<std::size_t> s(r1 + r2);
     std::iota(s.begin(), s.end(), 0);
     std::vector<std::vector<std::size_t> > shuffles;
-    for (int i = 0; i < nPermute; ++i) {
+    for (unsigned int i = 0; i < nPermute; ++i) {
         std::vector<std::size_t> s2 = s;
         std::shuffle(s2.begin(), s2.end(), prng);
         shuffles.push_back(s2);
     }
 
     // Compute test statistic for original data
-    double Z = testStatistics<NumericMatrix>(S, r1, r2, method)[2];
+    long Z = testStatistic<NumericMatrix>(S, r1, r2, method);
 
     // Permute data 'nPermute' times and compute test statistic in each case
-    PermutationTestSeeded pt(S, r1, r2, Z, method, shuffles, tol);
+    PermutationTestSeeded pt(S, r1, r2, Z, method, shuffles);
     parallelReduce(0, nPermute, pt);
     return pt.pval;
 }

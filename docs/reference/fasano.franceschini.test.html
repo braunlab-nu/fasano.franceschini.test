@@ -21,7 +21,7 @@ any type (continuous, discrete, or mixed)."><meta property="og:image" content="/
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fasano.franceschini.test</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.2.0</span>
       </span>
     </div>
 
@@ -67,7 +67,6 @@ any type (continuous, discrete, or mixed).</p>
 <span>  nPermute <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  threads <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  seed <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  p.conf.level <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"r"</span>, <span class="st">"b"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -101,11 +100,6 @@ Default is <code>1</code>.</p></dd>
 A seed must be passed to reproducibly compute p-values.</p></dd>
 
 
-<dt>p.conf.level</dt>
-<dd><p>Confidence level for the confidence interval of the
-permutation test p-value.</p></dd>
-
-
 <dt>verbose</dt>
 <dd><p>A <code>boolean</code> indicating whether to display a progress bar.
 Default is <code>TRUE</code>. Only available when <code>threads = 1</code>.</p></dd>
@@ -128,14 +122,8 @@ section for more information.</p></dd>
 <dl><dt>statistic</dt>
 <dd><p>The value of the test statistic <em>D</em>.</p></dd>
 
-  <dt>estimate</dt>
-<dd><p>The value of the difference statistics <em>D1</em> and <em>D2</em>.</p></dd>
-
   <dt>p.value</dt>
 <dd><p>The permutation test p-value.</p></dd>
-
-  <dt>conf.int</dt>
-<dd><p>A binomial confidence interval for the p-value.</p></dd>
 
   <dt>method</dt>
 <dd><p>A character string indicating what type of test was performed.</p></dd>
@@ -160,22 +148,12 @@ computation time, the method inferred to be faster may not actually be faster. T
 perform more comprehensive benchmarking for a specific dataset, <code>nPermute</code>
 can be set equal to <code>0</code>, which bypasses the permutation test and only
 computes the test statistic.</p>
-<p>The p-value for the test is computed empirically using a permutation test. As
-it is almost always infeasible to compute the exact permutation test p-value,
-a Monte Carlo approximation is made instead. This estimate is a binomially
-distributed random variable, and thus a confidence interval can be computed.
-The confidence interval is obtained using the procedure given in Clopper and
-Pearson (1934).</p>
     </div>
     <div id="references">
     <h2>References</h2>
     <p></p><ul><li><p>Fasano, G. &amp; Franceschini, A. (1987). A multidimensional version of the
   Kolmogorov-Smirnov test. <em>Monthly Notices of the Royal Astronomical Society</em>,
   225:155-170. <a href="https://doi.org/10.1093/mnras/225.1.155" class="external-link">doi:10.1093/mnras/225.1.155</a>
-.</p></li>
-<li><p>Clopper, C. J. &amp; Pearson, E. S. (1934). The use of confidence or fiducial
-  limits illustrated in the case of the binomial. <em>Biometrika</em>, 26, 404–413.
-  <a href="https://doi.org/10.2307/2331986" class="external-link">doi:10.2307/2331986</a>
 .</p></li>
 </ul></div>
 
@@ -195,12 +173,7 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9703</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9156431 0.9938321</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 280, p-value = 0.9802</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># perform test with more permutations</span></span></span>
@@ -209,12 +182,7 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9868</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9529750 0.9983919</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 280, p-value = 0.9536</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># set seed for reproducible p-value</span></span></span>
@@ -225,32 +193,13 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  p-value </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.980198 </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># change confidence level for p-value confidence interval</span></span></span>
-<span class="r-in"><span><span class="fu">fasano.franceschini.test</span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span>, p.conf.level <span class="op">=</span> <span class="fl">0.99</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9604</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 99 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.8805106 0.9932664</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># perform test using range tree method</span></span></span>
 <span class="r-in"><span><span class="fu">fasano.franceschini.test</span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span>, method <span class="op">=</span> <span class="st">'r'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9901</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9460677 0.9997494</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 280, p-value = 0.9703</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># perform test using brute force method</span></span></span>
@@ -259,12 +208,7 @@ Pearson (1934).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Francheschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 0.63901, p-value = 0.9604</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 95 percent confidence interval:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.9016950 0.9891055</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sample estimates:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    D1    D2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.175 0.175 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 280, p-value = 0.9703</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># perform test using multiple threads to speed up p-value computation</span></span></span>
@@ -286,7 +230,7 @@ Pearson (1934).</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
