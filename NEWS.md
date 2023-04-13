@@ -1,3 +1,5 @@
+# fasano.franceschini.test 2.2.0
+
 # fasano.franceschini.test 2.1.1
 * Minor changes in documentation
 * Slight update to the range tree vs. brute force cutoffs
