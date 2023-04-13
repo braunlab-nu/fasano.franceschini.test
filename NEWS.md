@@ -1,7 +1,3 @@
-# fasano.franceschini.test 2.2.0
-* The confidence interval calculation was removed as it was not correct.
-* The test statistic was replaced with a scaled version so it is now integer valued. This does not affect p-values.
-
 # fasano.franceschini.test 2.1.1
 * Minor changes in documentation
 * Slight update to the range tree vs. brute force cutoffs
