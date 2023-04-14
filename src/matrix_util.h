@@ -20,10 +20,10 @@ MatrixT rbind(const MatrixT M1, const MatrixT M2) {
 
     MatrixT S(r1 + r2, M1.ncol());
     for (std::size_t i = 0; i < r1; ++i) {
-        S(i,_) = M1(i,_);
+        S(i, _) = M1(i, _);
     }
     for (std::size_t i = 0; i < r2; ++i) {
-        S(i+r1,_) = M2(i,_);
+        S(i + r1, _) = M2(i, _);
     }
     return S;
 }

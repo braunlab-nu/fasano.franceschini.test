@@ -16,7 +16,8 @@ typedef RangeTree::Point<double, int> Point;
 // @param M matrix of two data samples row binded
 // @param r1 number of points in first sample
 // @param r2 number of points in second sample
-// @param s a permutation of {0,1,...,(r1+r2-1)} which indicates which points belong to each sample
+// @param s a permutation of {0,1,...,(r1+r2-1)} which indicates which points belong to
+// each sample
 // @return range trees built on each sample
 template<typename MatrixT>
 std::vector<RTree> buildRangeTrees(const MatrixT& M,
@@ -67,9 +68,9 @@ long rangeDistance(const RTree& rtree1,
         std::vector<double> lowerLims(ndim), upperLims(ndim);
         for (std::size_t j = 0; j < ndim; ++j) {
             // The orthants in R^d can be enumerated as all length d combinations of < and >.
-            // Representing < as 0 and > as 1, these combinations are given by the rows of the
-            // (2^d)xd matrix whose i-th row is the integer i in binary. The (i,j) element of
-            // this matrix is given by (i & (1 << (d-1-j))).
+            // Representing < as 0 and > as 1, these combinations are given by the rows of
+            // the (2^d) x d matrix whose i-th row is the integer i in binary. The (i,j)
+            // element of this matrix is given by (i & (1 << (d-1-j))).
             if (i & (1 << (ndim - 1 - j))) {
                 lowerLims[j] = -inf;
                 upperLims[j] = origin[j];
@@ -78,8 +79,10 @@ long rangeDistance(const RTree& rtree1,
                 upperLims[j] = inf;
             }
         }
-        long res1 = static_cast<long>(n2 * rtree1.countInRange(lowerLims, upperLims, strict, strict));
-        long res2 = static_cast<long>(n1 * rtree2.countInRange(lowerLims, upperLims, strict, strict));
+        long res1 = static_cast<long>(n2 * rtree1.countInRange(lowerLims, upperLims, strict,
+                                                               strict));
+        long res2 = static_cast<long>(n1 * rtree2.countInRange(lowerLims, upperLims, strict,
+                                                               strict));
         d = std::max(d, std::abs(res1 - res2));
     }
     return d;
@@ -112,7 +115,8 @@ std::size_t findOct(const std::vector<double>& pt,
 // @param M a matrix of type NumericMatrix or RMatrix<double>
 // @param n1 the number of points in the first sample
 // @param n2 the number of points in the second sample
-// @param s a permutation of {0,1,...,(r1+r2-1)} which indicates which points belong to each sample
+// @param s a permutation of {0, 1, ..., (r1+r2-1)} which indicates which points belong to
+// each sample
 // @param origin_ix row of M to use as the origin
 // @return long
 template<typename MatrixT>
@@ -129,8 +133,8 @@ long bruteDistance(const MatrixT& M,
     long l2 = static_cast<long>(n2);
 
     // If the dimension of the data is low, use a std::vector to tabulate points per octant.
-    // But if the dimension of the data is high, most octants will be empty so we instead use a
-    // std::unordered_map.
+    // But if the dimension of the data is high, most octants will be empty so we instead
+    // use a std::unordered_map.
     const std::size_t MAXDIM = 13;
     if (ndim <= MAXDIM) {
         std::size_t noct = 1 << ndim;

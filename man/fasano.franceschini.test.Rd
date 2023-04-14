@@ -19,13 +19,13 @@ fasano.franceschini.test(
 
 \item{S2}{\code{matrix} or \code{data.frame}.}
 
-\item{nPermute}{A nonnegative \code{integer} setting the number of permuted
-samples to generate when estimating the permutation test p-value. Default is
-\code{100}. If set to \code{0}, only the test statistic is computed.}
+\item{nPermute}{A nonnegative \code{integer} setting the number of permutations
+to use for performing the permutation test. Default is \code{100}. If set to
+\code{0}, only the test statistic is computed.}
 
 \item{threads}{A positive \code{integer} or \code{"auto"} setting the number
-of threads used for performing the permutation test. If set to \code{"auto"},
-the number of threads is determined by \code{RcppParallel::defaultNumThreads()}.
+of threads to use during the permutation test. If set to \code{"auto"}, the
+number of threads is determined by \code{RcppParallel::defaultNumThreads()}.
 Default is \code{1}.}
 
 \item{seed}{An optional integer to seed the PRNG used for the permutation test.
@@ -42,18 +42,18 @@ of the data are used to infer which method is likely faster. See the Details
 section for more information.}
 }
 \value{
-A list with class \code{htest} containing the following components:
-  \item{statistic}{The value of the test statistic \emph{D}.}
+A list of class \code{htest} containing the following components:
+  \item{statistic}{The value of the test statistic.}
   \item{p.value}{The permutation test p-value.}
-  \item{method}{A character string indicating what type of test was performed.}
-  \item{data.name}{A character string giving the names of the data.}
+  \item{method}{The name of the test.}
+  \item{data.name}{The names of the original data objects.}
 }
 \description{
 Performs a two-sample multidimensional Kolmogorov-Smirnov test as described
 by Fasano and Franceschini (1987). This test evaluates the null hypothesis
 that two i.i.d. random samples were drawn from the same underlying
-probability distribution. The data can be of any dimension, and can be of
-any type (continuous, discrete, or mixed).
+probability distribution. The data can be of any dimension and of any
+type (continuous, discrete, or mixed).
 }
 \details{
 The test statistic can be computed using two different methods.
@@ -68,7 +68,7 @@ The range tree method tends to be faster for low dimensional data or large
 sample sizes, while the brute force method tends to be faster for high
 dimensional data or small sample sizes. When \code{method} is not passed,
 the sample sizes and dimension of the data are used to infer which method will
-likely be faster. However, as the geometry of the samples can greatly influence
+likely be faster. However, as the geometry of the samples can influence
 computation time, the method inferred to be faster may not actually be faster. To
 perform more comprehensive benchmarking for a specific dataset, \code{nPermute}
 can be set equal to \code{0}, which bypasses the permutation test and only

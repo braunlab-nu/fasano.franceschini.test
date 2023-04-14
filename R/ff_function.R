@@ -3,17 +3,17 @@
 #' Performs a two-sample multidimensional Kolmogorov-Smirnov test as described
 #' by Fasano and Franceschini (1987). This test evaluates the null hypothesis
 #' that two i.i.d. random samples were drawn from the same underlying
-#' probability distribution. The data can be of any dimension, and can be of
-#' any type (continuous, discrete, or mixed).
+#' probability distribution. The data can be of any dimension and of any
+#' type (continuous, discrete, or mixed).
 #'
 #' @param S1 \code{matrix} or \code{data.frame}.
 #' @param S2 \code{matrix} or \code{data.frame}.
-#' @param nPermute A nonnegative \code{integer} setting the number of permuted
-#' samples to generate when estimating the permutation test p-value. Default is
-#' \code{100}. If set to \code{0}, only the test statistic is computed.
+#' @param nPermute A nonnegative \code{integer} setting the number of permutations
+#' to use for performing the permutation test. Default is \code{100}. If set to
+#' \code{0}, only the test statistic is computed.
 #' @param threads A positive \code{integer} or \code{"auto"} setting the number
-#' of threads used for performing the permutation test. If set to \code{"auto"},
-#' the number of threads is determined by \code{RcppParallel::defaultNumThreads()}.
+#' of threads to use during the permutation test. If set to \code{"auto"}, the
+#' number of threads is determined by \code{RcppParallel::defaultNumThreads()}.
 #' Default is \code{1}.
 #' @param seed An optional integer to seed the PRNG used for the permutation test.
 #' A seed must be passed to reproducibly compute p-values.
@@ -25,11 +25,11 @@
 #' computation speed. If this argument is not passed, the sample sizes and dimension
 #' of the data are used to infer which method is likely faster. See the Details
 #' section for more information.
-#' @return A list with class \code{htest} containing the following components:
-#'   \item{statistic}{The value of the test statistic \emph{D}.}
+#' @return A list of class \code{htest} containing the following components:
+#'   \item{statistic}{The value of the test statistic.}
 #'   \item{p.value}{The permutation test p-value.}
-#'   \item{method}{A character string indicating what type of test was performed.}
-#'   \item{data.name}{A character string giving the names of the data.}
+#'   \item{method}{The name of the test.}
+#'   \item{data.name}{The names of the original data objects.}
 #' @references{
 #' \itemize{
 #'   \item{Fasano, G. & Franceschini, A. (1987). A multidimensional version of the
@@ -78,7 +78,7 @@
 #' sample sizes, while the brute force method tends to be faster for high
 #' dimensional data or small sample sizes. When \code{method} is not passed,
 #' the sample sizes and dimension of the data are used to infer which method will
-#' likely be faster. However, as the geometry of the samples can greatly influence
+#' likely be faster. However, as the geometry of the samples can influence
 #' computation time, the method inferred to be faster may not actually be faster. To
 #' perform more comprehensive benchmarking for a specific dataset, \code{nPermute}
 #' can be set equal to \code{0}, which bypasses the permutation test and only
@@ -142,10 +142,11 @@ fasano.franceschini.test <- function(S1,
         method <- match.arg(method)
     }
 
-    # Perform FF test
+    # Compute the test statistic
     Dff <- ffTestStatistic(S1, S2, method)
     names(Dff) <- "D"
 
+    # Compute the p-value (if necessary)
     pval <- NULL
     if (nPermute > 0) {
         if (threads > 1) {
@@ -164,8 +165,6 @@ fasano.franceschini.test <- function(S1,
                 count <- permutationTestSeeded(S1, S2, nPermute, verbose, method, seed)
             }
         }
-
-        # Exact Monte-Carlo p-value
         pval <- (count + 1) / (nPermute + 1)
         names(pval) <- "p-value"
     }
