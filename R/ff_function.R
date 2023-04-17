@@ -172,7 +172,7 @@ fasano.franceschini.test <- function(S1,
     # Construct output
     result <- list(statistic = Dff,
                    p.value = pval,
-                   method = "Fasano-Francheschini Test",
+                   method = "Fasano-Franceschini Test",
                    data.name = dname)
     class(result) <- "htest"
     return(result)
