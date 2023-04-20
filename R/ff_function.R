@@ -148,30 +148,35 @@ fasano.franceschini.test <- function(S1,
 
     # Compute the p-value (if necessary)
     pval <- NULL
+    pval2 <- NULL
     if (nPermute > 0) {
         if (threads > 1) {
             # Run parallel version of permutation test
             RcppParallel::setThreadOptions(numThreads = threads)
             if (is.null(seed)) {
-                count <- permutationTestParallel(S1, S2, nPermute, method)
+                counts <- permutationTestParallel(S1, S2, nPermute, method)
             } else {
-                count <- permutationTestParallelSeeded(S1, S2, nPermute, method, seed)
+                counts <- permutationTestParallelSeeded(S1, S2, nPermute, method, seed)
             }
         } else {
             # Run serial version of permutation test
             if (is.null(seed)) {
-                count <- permutationTest(S1, S2, nPermute, verbose, method)
+                counts <- permutationTest(S1, S2, nPermute, verbose, method)
             } else {
-                count <- permutationTestSeeded(S1, S2, nPermute, verbose, method, seed)
+                counts <- permutationTestSeeded(S1, S2, nPermute, verbose, method, seed)
             }
         }
-        pval <- (count + 1) / (nPermute + 1)
+
+        pval <- (1 + counts[1] + counts[2]) / (1 + nPermute)
+        pval2 <- (counts[1] + (1 + counts[2]) * runif(1)) / (1 + nPermute)
         names(pval) <- "p-value"
+        names(pval2) <- "p-value2"
     }
 
     # Construct output
     result <- list(statistic = Dff,
                    p.value = pval,
+                   p.value2 = pval2,
                    method = "Fasano-Franceschini Test",
                    data.name = dname)
     class(result) <- "htest"

@@ -24,7 +24,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // permutationTestSeeded
-unsigned int permutationTestSeeded(const NumericMatrix& S1, const NumericMatrix& S2, unsigned int nPermute, bool verbose, char method, int seed);
+IntegerVector permutationTestSeeded(const NumericMatrix& S1, const NumericMatrix& S2, unsigned int nPermute, bool verbose, char method, int seed);
 RcppExport SEXP _fasano_franceschini_test_permutationTestSeeded(SEXP S1SEXP, SEXP S2SEXP, SEXP nPermuteSEXP, SEXP verboseSEXP, SEXP methodSEXP, SEXP seedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -40,7 +40,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // permutationTest
-unsigned int permutationTest(const NumericMatrix& S1, const NumericMatrix& S2, unsigned int nPermute, bool verbose, char method);
+IntegerVector permutationTest(const NumericMatrix& S1, const NumericMatrix& S2, unsigned int nPermute, bool verbose, char method);
 RcppExport SEXP _fasano_franceschini_test_permutationTest(SEXP S1SEXP, SEXP S2SEXP, SEXP nPermuteSEXP, SEXP verboseSEXP, SEXP methodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -55,7 +55,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // permutationTestParallel
-unsigned int permutationTestParallel(const NumericMatrix& S1, const NumericMatrix& S2, unsigned int nPermute, char method);
+IntegerVector permutationTestParallel(const NumericMatrix& S1, const NumericMatrix& S2, unsigned int nPermute, char method);
 RcppExport SEXP _fasano_franceschini_test_permutationTestParallel(SEXP S1SEXP, SEXP S2SEXP, SEXP nPermuteSEXP, SEXP methodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -69,7 +69,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // permutationTestParallelSeeded
-unsigned int permutationTestParallelSeeded(const NumericMatrix& S1, const NumericMatrix& S2, unsigned int nPermute, char method, int seed);
+IntegerVector permutationTestParallelSeeded(const NumericMatrix& S1, const NumericMatrix& S2, unsigned int nPermute, char method, int seed);
 RcppExport SEXP _fasano_franceschini_test_permutationTestParallelSeeded(SEXP S1SEXP, SEXP S2SEXP, SEXP nPermuteSEXP, SEXP methodSEXP, SEXP seedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
