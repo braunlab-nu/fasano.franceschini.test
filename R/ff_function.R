@@ -168,7 +168,7 @@ fasano.franceschini.test <- function(S1,
         }
 
         pval <- (1 + counts[1] + counts[2]) / (1 + nPermute)
-        pval2 <- (counts[1] + (1 + counts[2]) * runif(1)) / (1 + nPermute)
+        pval2 <- (counts[1] + (1 + counts[2]) * stats::runif(1)) / (1 + nPermute)
         names(pval) <- "p-value"
         names(pval2) <- "p-value2"
     }
