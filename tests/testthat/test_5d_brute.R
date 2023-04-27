@@ -5,9 +5,13 @@ test_that("check that range tree and brute force methods return same statistics 
         res1 <- fasano.franceschini.test(S1, S2, nPermute = 0, method = 'r')
         res2 <- fasano.franceschini.test(S1, S2, nPermute = 0, method = 'b')
         res3 <- fasano.franceschini.test(S1, S2, nPermute = 0)
+        res4 <- fasano.franceschini.test(S1, S2, nPermute = 1)
         expect_equal(res1$statistic, res2$statistic, tolerance = 1e-15)
         expect_equal(res1$statistic, res3$statistic, tolerance = 1e-15)
+        expect_equal(res1$statistic, res4$statistic, tolerance = 1e-15)
         expect_equal(res2$statistic, res3$statistic, tolerance = 1e-15)
+        expect_equal(res2$statistic, res4$statistic, tolerance = 1e-15)
+        expect_equal(res3$statistic, res4$statistic, tolerance = 1e-15)
     }
 
     S1 <- data.frame(rnorm(n = 70, mean = 1.4, sd = 0.3),
@@ -21,6 +25,8 @@ test_that("check that range tree and brute force methods return same statistics 
                      rnorm(n = 106, mean = 2.2, sd = 0.01),
                      rnorm(n = 106, mean = 2.2, sd = 0.05))
     ffcomp(S1, S2)
+    ffcomp(S1, S1)
+    ffcomp(S2, S2)
 
     S1 <- data.frame(rbeta(n = 102, shape1 = 1.3, shape2 = 2.63),
                      rgamma(n = 102, shape = 4.4, rate = 0.4),
@@ -33,6 +39,8 @@ test_that("check that range tree and brute force methods return same statistics 
                      rexp(n = 65, rate = 33.3),
                      rexp(n = 65, rate = 33.3))
     ffcomp(S1, S2)
+    ffcomp(S1, S1)
+    ffcomp(S2, S2)
 
     S1 <- data.frame(rbeta(n = 300, shape1 = 1.3, shape2 = 2.73),
                      rbeta(n = 300, shape1 = 1.2, shape2 = 0.11),
@@ -45,12 +53,18 @@ test_that("check that range tree and brute force methods return same statistics 
                      rbeta(n = 631, shape1 = 7.2, shape2 = 1.39),
                      rbeta(n = 631, shape1 = 7.2, shape2 = 1.39))
     ffcomp(S1, S2)
+    ffcomp(S1, S1)
+    ffcomp(S2, S2)
 
     S1 <- data.frame(rnorm(n = 50), rnorm(n = 50), rnorm(n = 50), rnorm(n = 50), rnorm(n = 50))
     S2 <- data.frame(rnorm(n = 33), rnorm(n = 33), rnorm(n = 33), rnorm(n = 33), rnorm(n = 33))
     ffcomp(S1, S2)
+    ffcomp(S1, S1)
+    ffcomp(S2, S2)
 
     S1 <- cbind(c(1, 1), c(1, 1), c(1, 1), c(1, 1), c(1, 1))
     S2 <- cbind(c(1, 1), c(1, 1), c(1, 1), c(1, 1), c(1, 1))
     ffcomp(S1, S2)
+    ffcomp(S1, S1)
+    ffcomp(S2, S2)
 })

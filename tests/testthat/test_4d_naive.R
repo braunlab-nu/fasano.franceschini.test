@@ -23,6 +23,8 @@ test_that("compare with naive R 4d implementation", {
                      rnorm(n = 206, mean = 1.6, sd = 1.8),
                      rnorm(n = 206, mean = 2.2, sd = 0.01))
     ffcomp(S1, S2)
+    ffcomp(S1, S1)
+    ffcomp(S2, S2)
 
     S1 <- data.frame(rbeta(n = 102, shape1 = 1.3, shape2 = 2.73),
                      rgamma(n = 102, shape = 4.4, rate = 0.4),
@@ -33,6 +35,8 @@ test_that("compare with naive R 4d implementation", {
                      rbeta(n = 65, shape1 = 2.1, shape2 = 1.39),
                      rexp(n = 65, rate = 33.3))
     ffcomp(S1, S2)
+    ffcomp(S1, S1)
+    ffcomp(S2, S2)
 
     S1 <- data.frame(rbeta(n = 400, shape1 = 1.3, shape2 = 2.73),
                      rbeta(n = 400, shape1 = 1.2, shape2 = 0.11),
@@ -43,12 +47,18 @@ test_that("compare with naive R 4d implementation", {
                      rbeta(n = 761, shape1 = 0.2, shape2 = 1.39),
                      rbeta(n = 761, shape1 = 0.2, shape2 = 1.39))
     ffcomp(S1, S2)
+    ffcomp(S1, S1)
+    ffcomp(S2, S2)
 
     S1 <- data.frame(rnorm(n = 50), rnorm(n = 50), rnorm(n = 50), rnorm(n = 50))
     S2 <- data.frame(rnorm(n = 33), rnorm(n = 33), rnorm(n = 33), rnorm(n = 33))
     ffcomp(S1, S2)
+    ffcomp(S1, S1)
+    ffcomp(S2, S2)
 
     S1 <- cbind(c(1, 1), c(1, 1), c(1, 1), c(1, 1))
     S2 <- cbind(c(1, 1), c(1, 1), c(1, 1), c(1, 1))
     ffcomp(S1, S2)
+    ffcomp(S1, S1)
+    ffcomp(S2, S2)
 })

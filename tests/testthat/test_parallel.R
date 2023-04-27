@@ -84,4 +84,11 @@ test_that("test that serial and parallel versions return same statistics", {
     expect_equal(fasano.franceschini.test(S1, S2, nPermute = 2, threads = 1)$statistic,
                  fasano.franceschini.test(S1, S2, nPermute = 2, threads = 4)$statistic,
                  tolerance = 1e-15)
+
+    expect_equal(fasano.franceschini.test(S1, S2, nPermute = 2, threads = 1, seed = 0)$p.value,
+                 fasano.franceschini.test(S1, S2, nPermute = 2, threads = 4, seed = 0)$p.value,
+                 tolerance = 1e-15)
+    expect_equal(fasano.franceschini.test(S1, S2, nPermute = 21, threads = 2, seed = 0)$p.value,
+                 fasano.franceschini.test(S1, S2, nPermute = 21, threads = 3, seed = 0)$p.value,
+                 tolerance = 1e-15)
 })

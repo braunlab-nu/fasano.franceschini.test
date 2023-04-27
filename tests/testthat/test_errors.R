@@ -4,6 +4,7 @@ test_that("test for bad inputs", {
     # Test for issues with either sample
     S1 <- "a"
     S2 <- data.frame(rnorm(n = 50))
+    expect_error(fasano.franceschini.test(S1, S1))
     expect_error(fasano.franceschini.test(S1, S2))
     expect_error(fasano.franceschini.test(S2, S1))
 
@@ -27,10 +28,9 @@ test_that("test for bad inputs", {
     expect_error(fasano.franceschini.test(S1, S2))
     expect_error(fasano.franceschini.test(S2, S1))
 
-
     # Test for bad inputs to other arguments
     S1 <- data.frame(rnorm(n = 61), rnorm(n = 61))
-    S2 <- data.frame(rnorm(n = 72), rnorm(n = 72))
+    S2 <- data.frame(rep(1, 72), rep(2, 72))
 
     expect_error(fasano.franceschini.test(S1, S2, nPermute = -1.1))
     expect_error(fasano.franceschini.test(S1, S2, nPermute = -1))
@@ -46,6 +46,7 @@ test_that("test for bad inputs", {
     expect_error(fasano.franceschini.test(S1, S2, threads = 0.1))
     expect_error(fasano.franceschini.test(S1, S2, threads = 0.9))
     expect_error(fasano.franceschini.test(S1, S2, threads = 1.1))
+    expect_error(fasano.franceschini.test(S1, S2, threads = 2.1))
 
     expect_error(fasano.franceschini.test(S1, S2, cores = 1))
     expect_error(fasano.franceschini.test(S1, S2, cores = 1, threads = 1))
@@ -61,6 +62,8 @@ test_that("test for bad inputs", {
     expect_error(fasano.franceschini.test(S1, S2, verbose = 0))
     expect_error(fasano.franceschini.test(S1, S2, verbose = 1))
     expect_error(fasano.franceschini.test(S1, S2, verbose = 'a'))
+    expect_error(fasano.franceschini.test(S1, S2, verbose = "TRUE"))
+    expect_error(fasano.franceschini.test(S1, S2, verbose = "FALSE"))
 
     expect_error(fasano.franceschini.test(S1, S2, seed = 1.1))
     expect_error(fasano.franceschini.test(S1, S2, seed = -1.1))

@@ -148,7 +148,6 @@ fasano.franceschini.test <- function(S1,
 
     # Compute the p-value (if necessary)
     pval <- NULL
-    pval2 <- NULL
     if (nPermute > 0) {
         if (threads > 1) {
             # Run parallel version of permutation test
@@ -167,16 +166,17 @@ fasano.franceschini.test <- function(S1,
             }
         }
 
-        pval <- (1 + counts[1] + counts[2]) / (1 + nPermute)
-        pval2 <- (counts[1] + (1 + counts[2]) * stats::runif(1)) / (1 + nPermute)
+        if (is.null(seed)) {
+            pval <- permutationTestPvalue(counts[1], counts[2], nPermute)
+        } else {
+            pval <- permutationTestPvalueSeeded(counts[1], counts[2], nPermute, seed)
+        }
         names(pval) <- "p-value"
-        names(pval2) <- "p-value2"
     }
 
     # Construct output
     result <- list(statistic = Dff,
                    p.value = pval,
-                   p.value2 = pval2,
                    method = "Fasano-Franceschini Test",
                    data.name = dname)
     class(result) <- "htest"

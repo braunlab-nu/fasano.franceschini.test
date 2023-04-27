@@ -5,6 +5,14 @@ ffTestStatistic <- function(S1, S2, method) {
     .Call(`_fasano_franceschini_test_ffTestStatistic`, S1, S2, method)
 }
 
+permutationTestPvalue <- function(zLess, zEqual, nPermute) {
+    .Call(`_fasano_franceschini_test_permutationTestPvalue`, zLess, zEqual, nPermute)
+}
+
+permutationTestPvalueSeeded <- function(zLess, zEqual, nPermute, seed) {
+    .Call(`_fasano_franceschini_test_permutationTestPvalueSeeded`, zLess, zEqual, nPermute, seed)
+}
+
 permutationTestSeeded <- function(S1, S2, nPermute, verbose, method, seed) {
     .Call(`_fasano_franceschini_test_permutationTestSeeded`, S1, S2, nPermute, verbose, method, seed)
 }

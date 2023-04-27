@@ -147,10 +147,32 @@ long ffTestStatistic(const NumericMatrix& S1,
     return testStatistic<NumericMatrix>(rbind(S1, S2), S1.nrow(), S2.nrow(), method);
 }
 
-/**************************************************************************/
+/*******************************************************************************/
 
+/***************** This function is for computing the p-value. *****************/
 
-/********** These are functions for the serial permutation test. **********/
+// [[Rcpp::export(permutationTestPvalue)]]
+double permutationTestPvalue(unsigned int zLess,
+                             unsigned int zEqual,
+                             unsigned int nPermute) {
+    std::mt19937 prng(std::random_device{}());
+    std::uniform_real_distribution<double> dis(0.0, 1.0);
+    return (zLess + (1 + zEqual) * dis(prng)) / static_cast<double>(nPermute);
+}
+
+// [[Rcpp::export(permutationTestPvalueSeeded)]]
+double permutationTestPvalueSeeded(unsigned int zLess,
+                                   unsigned int zEqual,
+                                   unsigned int nPermute,
+                                   unsigned int seed) {
+    std::mt19937 prng(seed);
+    std::uniform_real_distribution<double> dis(0.0, 1.0);
+    return (zLess + (1 + zEqual) * dis(prng)) / static_cast<double>(nPermute);
+}
+
+/*******************************************************************************/
+
+/************ These are functions for the serial permutation test. *************/
 
 // Perform serial permutation test
 //
@@ -215,10 +237,10 @@ IntegerVector permutationTest(const NumericMatrix& S1,
     return permutationTest(S1, S2, nPermute, verbose, prng, method);
 }
 
-/****************************************************************************/
+/*******************************************************************************/
 
 
-/********** These are functions for the parallel permutation test. **********/
+/*********** These are functions for the parallel permutation test. ************/
 
 // Worker for parallel permutation test
 struct PermutationTest : public RcppParallel::Worker {
@@ -374,4 +396,4 @@ IntegerVector permutationTestParallelSeeded(const NumericMatrix& S1,
     return res;
 }
 
-/****************************************************************************/
+/*******************************************************************************/
