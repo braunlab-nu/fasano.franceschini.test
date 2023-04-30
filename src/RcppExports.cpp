@@ -37,7 +37,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // permutationTestPvalueSeeded
-double permutationTestPvalueSeeded(unsigned int zLess, unsigned int zEqual, unsigned int nPermute, unsigned int seed);
+double permutationTestPvalueSeeded(unsigned int zLess, unsigned int zEqual, unsigned int nPermute, int seed);
 RcppExport SEXP _fasano_franceschini_test_permutationTestPvalueSeeded(SEXP zLessSEXP, SEXP zEqualSEXP, SEXP nPermuteSEXP, SEXP seedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -45,7 +45,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< unsigned int >::type zLess(zLessSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type zEqual(zEqualSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type nPermute(nPermuteSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type seed(seedSEXP);
+    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
     rcpp_result_gen = Rcpp::wrap(permutationTestPvalueSeeded(zLess, zEqual, nPermute, seed));
     return rcpp_result_gen;
 END_RCPP

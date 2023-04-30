@@ -14,7 +14,8 @@ using namespace Rcpp;
 // @param M2 second matrix with dimensions r2 x c
 // @return the input matrices row-binded
 template<typename MatrixT>
-MatrixT rbind(const MatrixT M1, const MatrixT M2) {
+MatrixT rbind(const MatrixT M1,
+              const MatrixT M2) {
     std::size_t r1 = M1.nrow();
     std::size_t r2 = M2.nrow();
 
@@ -34,7 +35,8 @@ MatrixT rbind(const MatrixT M1, const MatrixT M2) {
 // @param row index
 // @return the specified row represented as a std::vector
 template<typename MatrixT>
-std::vector<double> getRow(const MatrixT M, std::size_t row) {
+std::vector<double> getRow(const MatrixT M,
+                           std::size_t row) {
     std::size_t ncol = M.ncol();
     std::vector<double> v(ncol);
     for (std::size_t i = 0; i < ncol; ++i) {

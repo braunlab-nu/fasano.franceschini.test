@@ -164,7 +164,7 @@ double permutationTestPvalue(unsigned int zLess,
 double permutationTestPvalueSeeded(unsigned int zLess,
                                    unsigned int zEqual,
                                    unsigned int nPermute,
-                                   unsigned int seed) {
+                                   int seed) {
     std::mt19937 prng(seed);
     std::uniform_real_distribution<double> dis(0.0, 1.0);
     return (zLess + (1 + zEqual) * dis(prng)) / static_cast<double>(nPermute);
@@ -261,16 +261,22 @@ struct PermutationTest : public RcppParallel::Worker {
     unsigned int zEqual;
 
     // Constructors
-    PermutationTest(const NumericMatrix& S, std::size_t r1, std::size_t r2, long Z, char method) :
+    PermutationTest(const NumericMatrix& S,
+                    std::size_t r1,
+                    std::size_t r2,
+                    long Z,
+                    char method) :
         S(S), r1(r1), r2(r2), Z(Z), method(method), zGreater(0), zEqual(0) {}
-    PermutationTest(const PermutationTest& p, RcppParallel::Split) :
+    PermutationTest(const PermutationTest& p,
+                    RcppParallel::Split) :
         S(p.S), r1(p.r1), r2(p.r2), Z(p.Z), method(p.method), zGreater(0), zEqual(0) {}
 
     // Call operator, compute test statistic for (end - begin) permuted samples
     void operator()(std::size_t begin, std::size_t end) {
         std::mt19937 prng(std::random_device{}());
         for (std::size_t i = begin; i < end; ++i) {
-            long z = testStatistic<RcppParallel::RMatrix<double> >(S, r1, r2, prng, method);
+            long z = testStatistic<RcppParallel::RMatrix<double> >(S, r1, r2, prng,
+                                                                   method);
             zGreater += (z > Z);
             zEqual += (z == Z);
         }
@@ -304,19 +310,26 @@ struct PermutationTestSeeded : public RcppParallel::Worker {
     unsigned int zEqual;
 
     // Constructors
-    PermutationTestSeeded(const NumericMatrix& S, std::size_t r1, std::size_t r2, long Z,
+    PermutationTestSeeded(const NumericMatrix& S,
+                          std::size_t r1,
+                          std::size_t r2,
+                          long Z,
                           char method,
                           const std::vector<std::vector<std::size_t> >& shuffles) :
-        S(S), r1(r1), r2(r2), Z(Z), method(method), shuffles(shuffles), zGreater(0), zEqual(0) {}
-    PermutationTestSeeded(const PermutationTestSeeded& p, RcppParallel::Split) :
+        S(S), r1(r1), r2(r2), Z(Z), method(method), shuffles(shuffles), zGreater(0),
+        zEqual(0) {}
+    PermutationTestSeeded(const PermutationTestSeeded& p,
+                          RcppParallel::Split) :
         S(p.S), r1(p.r1), r2(p.r2), Z(p.Z), method(p.method), shuffles(p.shuffles),
         zGreater(0), zEqual(0) {}
 
     // Call operator, compute test statistic for (end - begin) permuted samples
-    void operator()(std::size_t begin, std::size_t end) {
+    void operator()(std::size_t begin,
+                    std::size_t end) {
         for (std::size_t i = begin; i < end; ++i) {
             std::vector<std::size_t> shuffle = shuffles[i];
-            long z = testStatistic<RcppParallel::RMatrix<double> >(S, r1, r2, shuffle, method);
+            long z = testStatistic<RcppParallel::RMatrix<double> >(S, r1, r2, shuffle,
+                                                                   method);
             zGreater += (z > Z);
             zEqual += (z == Z);
         }
