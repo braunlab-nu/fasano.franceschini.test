@@ -1,94 +1,80 @@
-test_that("test that serial and parallel versions return same statistics", {
+test_that("test that serial and parallel versions return same results", {
     ## To avoid ASAN/UBSAN errors on CRAN, following advice given at
     ## https://github.com/RcppCore/RcppParallel/issues/169
     Sys.setenv(RCPP_PARALLEL_BACKEND = "tinythread")
 
     set.seed(0)
 
+    ff_comp <- function(S1, S2, p, t1, t2, m1, m2, seed = NULL) {
+        test1 <- fasano.franceschini.test(S1, S2, nPermute = p, threads = t1,
+                                          method = m1, seed = seed)
+        test2 <- fasano.franceschini.test(S1, S2, nPermute = p, threads = t2,
+                                          method = m2, seed = seed)
+        expect_equal(test1$statistic, test2$statistic, tolerance = 1e-15)
+        if (!is.null(seed)) {
+            expect_equal(test1$p.value, test2$p.value, tolerance = 1e-15)
+        }
+
+
+        test1 <- fasano.franceschini.test(S2, S1, nPermute = p, threads = t1,
+                                          method = m1, seed = seed)
+        test2 <- fasano.franceschini.test(S2, S1, nPermute = p, threads = t2,
+                                          method = m2, seed = seed)
+        expect_equal(test1$statistic, test2$statistic, tolerance = 1e-15)
+        if (!is.null(seed)) {
+            expect_equal(test1$p.value, test2$p.value, tolerance = 1e-15)
+        }
+
+        test1 <- fasano.franceschini.test(S1, S1, nPermute = p, threads = t1,
+                                          method = m1, seed = seed)
+        test2 <- fasano.franceschini.test(S1, S1, nPermute = p, threads = t2,
+                                          method = m2, seed = seed)
+        expect_equal(test1$statistic, test2$statistic, tolerance = 1e-15)
+        if (!is.null(seed)) {
+            expect_equal(test1$p.value, test2$p.value, tolerance = 1e-15)
+        }
+
+        test1 <- fasano.franceschini.test(S2, S2, nPermute = p, threads = t1,
+                                          method = m1, seed = seed)
+        test2 <- fasano.franceschini.test(S2, S2, nPermute = p, threads = t2,
+                                          method = m2, seed = seed)
+        expect_equal(test1$statistic, test2$statistic, tolerance = 1e-15)
+        if (!is.null(seed)) {
+            expect_equal(test1$p.value, test2$p.value, tolerance = 1e-15)
+        }
+    }
+
+
     S1 <- data.frame(rnorm(n = 100, mean = 1, sd = 1),
                      rnorm(n = 100, mean = 1, sd = 1))
     S2 <- data.frame(rnorm(n = 103, mean = 1, sd = 1),
                      rnorm(n = 103, mean = 1, sd = 1))
-    expect_equal(fasano.franceschini.test(S1, S2, nPermute = 20, threads = 1, method = 'r')$statistic,
-                 fasano.franceschini.test(S1, S2, nPermute = 20, threads = 4, method = 'r')$statistic,
-                 tolerance = 1e-15)
-    expect_equal(fasano.franceschini.test(S1, S2, nPermute = 22, threads = 1, method = 'b')$statistic,
-                 fasano.franceschini.test(S1, S2, nPermute = 22, threads = 4, method = 'b')$statistic,
-                 tolerance = 1e-15)
-    expect_equal(fasano.franceschini.test(S1, S1, nPermute = 24, threads = 1, method = 'r')$statistic,
-                 fasano.franceschini.test(S1, S1, nPermute = 24, threads = 4, method = 'r')$statistic,
-                 tolerance = 1e-15)
-    expect_equal(fasano.franceschini.test(S1, S1, nPermute = 26, threads = 1, method = 'b')$statistic,
-                 fasano.franceschini.test(S1, S1, nPermute = 26, threads = 4, method = 'r')$statistic,
-                 tolerance = 1e-15)
-    expect_equal(fasano.franceschini.test(S2, S2, nPermute = 26, threads = 1, method = 'r')$statistic,
-                 fasano.franceschini.test(S2, S2, nPermute = 26, threads = 4, method = 'b')$statistic,
-                 tolerance = 1e-15)
-    expect_equal(fasano.franceschini.test(S1, S2, nPermute = 34, threads = 1, method = 'r')$statistic,
-                 fasano.franceschini.test(S1, S2, nPermute = 20, threads = 4, method = 'b')$statistic,
-                 tolerance = 1e-15)
-    expect_equal(fasano.franceschini.test(S1, S2, nPermute = 34, threads = 1, method = 'b')$statistic,
-                 fasano.franceschini.test(S1, S2, nPermute = 20, threads = 4, method = 'r')$statistic,
-                 tolerance = 1e-15)
-
+    ff_comp(S1, S2, 20, 1, 4, 'r', 'r')
+    ff_comp(S1, S2, 22, 1, 4, 'b', 'b', seed = 1)
+    ff_comp(S1, S2, 8, 1, 4, 'r', 'b')
+    ff_comp(S1, S2, 8, 1, 4, 'b', 'r', seed = 0)
+    ff_comp(S1, S2, 8, 1, 3, 'r', 'b')
+    ff_comp(S1, S2, 8, 1, 2, 'r', 'b', seed = 2)
+    ff_comp(S1, S2, 8, 2, 3, 'r', 'b', seed = 4)
+    ff_comp(S1, S2, 8, 4, 2, 'b', 'r')
 
     S1 <- data.frame(rnorm(n = 100, mean = 1, sd = 2),
                      rnorm(n = 100, mean = 1, sd = 1))
     S2 <- data.frame(rnorm(n = 103, mean = 1, sd = 1),
                      rnorm(n = 103, mean = 1, sd = 2))
-    expect_equal(fasano.franceschini.test(S1, S2, nPermute = 31, threads = 1)$statistic,
-                 fasano.franceschini.test(S1, S2, nPermute = 37, threads = 4)$statistic,
-                 tolerance = 1e-15)
-    expect_equal(fasano.franceschini.test(S1, S2, nPermute = 1, threads = 1)$statistic,
-                 fasano.franceschini.test(S1, S2, nPermute = 1, threads = 4)$statistic,
-                 tolerance = 1e-15)
-    expect_equal(fasano.franceschini.test(S1, S1, nPermute = 2, threads = 1)$statistic,
-                 fasano.franceschini.test(S1, S1, nPermute = 2, threads = 4)$statistic,
-                 tolerance = 1e-15)
-    expect_equal(fasano.franceschini.test(S2, S2, nPermute = 0, threads = 1)$statistic,
-                 fasano.franceschini.test(S2, S2, nPermute = 0, threads = 4)$statistic,
-                 tolerance = 1e-15)
-
-    test1 <- fasano.franceschini.test(S1, S2, nPermute = 10, threads = 1)
-    test2 <- fasano.franceschini.test(S1, S2, nPermute = 20, threads = 2)
-    test3 <- fasano.franceschini.test(S1, S2, nPermute = 30, threads = 3)
-    test4 <- fasano.franceschini.test(S1, S2, nPermute = 40, threads = 4)
-    expect_equal(test1$statistic, test2$statistic, tolerance = 1e-15)
-    expect_equal(test1$statistic, test3$statistic, tolerance = 1e-15)
-    expect_equal(test1$statistic, test4$statistic, tolerance = 1e-15)
-    expect_equal(test2$statistic, test3$statistic, tolerance = 1e-15)
-    expect_equal(test2$statistic, test4$statistic, tolerance = 1e-15)
-    expect_equal(test3$statistic, test4$statistic, tolerance = 1e-15)
-
+    ff_comp(S1, S2, 11, 1, 1, 'r', 'b')
+    ff_comp(S1, S2, 11, 1, 2, 'b', 'b', seed = 0)
+    ff_comp(S1, S2, 11, 1, 3, 'b', 'r', seed = 0)
+    ff_comp(S1, S2, 11, 1, 4, 'r', 'b')
 
     S1 <- data.frame(rep(1, 10), rep(1, 10))
     S2 <- data.frame(rep(2, 12), rep(2, 12))
-    expect_equal(fasano.franceschini.test(S1, S1, nPermute = 10, threads = 1, method = 'r')$statistic,
-                 fasano.franceschini.test(S1, S1, nPermute = 10, threads = 4, method = 'b')$statistic,
-                 tolerance = 1e-15)
-    expect_equal(fasano.franceschini.test(S2, S2, nPermute = 10, threads = 1, method = 'r')$statistic,
-                 fasano.franceschini.test(S2, S2, nPermute = 10, threads = 4, method = 'b')$statistic,
-                 tolerance = 1e-15)
-    expect_equal(fasano.franceschini.test(S1, S2, nPermute = 10, threads = 1, method = 'r')$statistic,
-                 fasano.franceschini.test(S1, S2, nPermute = 10, threads = 4, method = 'b')$statistic,
-                 tolerance = 1e-15)
-    expect_equal(fasano.franceschini.test(S1, S2, nPermute = 10, threads = 1, method = 'r')$statistic,
-                 fasano.franceschini.test(S1, S2, nPermute = 10, threads = 4, method = 'b')$statistic,
-                 tolerance = 1e-15)
-    expect_equal(fasano.franceschini.test(S1, S2, nPermute = 0, threads = 1)$statistic,
-                 fasano.franceschini.test(S1, S2, nPermute = 0, threads = 4)$statistic,
-                 tolerance = 1e-15)
-    expect_equal(fasano.franceschini.test(S1, S2, nPermute = 1, threads = 1)$statistic,
-                 fasano.franceschini.test(S1, S2, nPermute = 1, threads = 4)$statistic,
-                 tolerance = 1e-15)
-    expect_equal(fasano.franceschini.test(S1, S2, nPermute = 2, threads = 1)$statistic,
-                 fasano.franceschini.test(S1, S2, nPermute = 2, threads = 4)$statistic,
-                 tolerance = 1e-15)
-
-    expect_equal(fasano.franceschini.test(S1, S2, nPermute = 2, threads = 1, seed = 0)$p.value,
-                 fasano.franceschini.test(S1, S2, nPermute = 2, threads = 4, seed = 0)$p.value,
-                 tolerance = 1e-15)
-    expect_equal(fasano.franceschini.test(S1, S2, nPermute = 21, threads = 2, seed = 0)$p.value,
-                 fasano.franceschini.test(S1, S2, nPermute = 21, threads = 3, seed = 0)$p.value,
-                 tolerance = 1e-15)
+    ff_comp(S1, S2, 60, 1, 1, 'r', 'r', seed = 0)
+    ff_comp(S1, S2, 61, 2, 1, 'r', 'b')
+    ff_comp(S1, S2, 62, 3, 1, 'r', 'r', seed = 1)
+    ff_comp(S1, S2, 63, 4, 1, 'b', 'r')
+    ff_comp(S1, S2, 64, 2, 3, 'r', 'r', seed = 2)
+    ff_comp(S1, S2, 65, 4, 2, 'b', 'b')
+    ff_comp(S1, S2, 66, 3, 4, 'r', 'b', seed = 3)
+    ff_comp(S1, S2, 67, 4, 4, 'b', 'r', seed = 4)
 })
