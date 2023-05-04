@@ -8,8 +8,8 @@
 <!-- badges: start -->
 
 [![](https://img.shields.io/badge/arXiv-abs/2106.10539-yellow.svg)](https://arxiv.org/abs/2106.10539)
-[![](https://www.r-pkg.org/badges/version/fasano.franceschini.test?color=orange)](https://cran.r-project.org/package=fasano.franceschini.test)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/fasano.franceschini.test?color=green)](https://cran.r-project.org/package=fasano.franceschini.test)
+[![](https://www.r-pkg.org/badges/version/fasano.franceschini.test?color=blue)](https://cran.r-project.org/package=fasano.franceschini.test)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/fasano.franceschini.test?color=orange)](https://cran.r-project.org/package=fasano.franceschini.test)
 [![R build
 status](https://github.com/braunlab-nu/fasano.franceschini.test/workflows/R-CMD-check/badge.svg)](https://github.com/braunlab-nu/fasano.franceschini.test/actions)
 <!-- badges: end -->
