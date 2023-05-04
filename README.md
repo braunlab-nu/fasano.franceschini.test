@@ -9,10 +9,9 @@
 
 [![](https://img.shields.io/badge/arXiv-abs/2106.10539-yellow.svg)](https://arxiv.org/abs/2106.10539)
 [![](https://www.r-pkg.org/badges/version/fasano.franceschini.test?color=orange)](https://cran.r-project.org/package=fasano.franceschini.test)
-[![](https://img.shields.io/badge/devel%20version-2.1.1-blue.svg)](https://github.com/nesscoder/fasano.franceschini.test)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/fasano.franceschini.test?color=green)](https://cran.r-project.org/package=fasano.franceschini.test)
 [![R build
-status](https://github.com/nesscoder/fasano.franceschini.test/workflows/R-CMD-check/badge.svg)](https://github.com/nesscoder/fasano.franceschini.test/actions)
+status](https://github.com/braunlab-nu/fasano.franceschini.test/workflows/R-CMD-check/badge.svg)](https://github.com/braunlab-nu/fasano.franceschini.test/actions)
 <!-- badges: end -->
 
 The `fasano.franceschini.test` package is an R implementation of the
@@ -39,7 +38,7 @@ installed from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("nesscoder/fasano.franceschini.test")
+devtools::install_github("braunlab-nu/fasano.franceschini.test")
 ```
 
 ## Examples
