@@ -8,10 +8,11 @@
 <!-- badges: start -->
 
 [![](https://img.shields.io/badge/arXiv-abs/2106.10539-yellow.svg)](https://arxiv.org/abs/2106.10539)
-[![](https://www.r-pkg.org/badges/version/fasano.franceschini.test?color=blue)](https://cran.r-project.org/package=fasano.franceschini.test)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/fasano.franceschini.test?color=orange)](https://cran.r-project.org/package=fasano.franceschini.test)
+[![](https://www.r-pkg.org/badges/version/fasano.franceschini.test?color=orange)](https://cran.r-project.org/package=fasano.franceschini.test)
+[![](https://img.shields.io/badge/devel%20version-2.2.0-blue.svg)](https://github.com/nesscoder/fasano.franceschini.test)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/fasano.franceschini.test?color=green)](https://cran.r-project.org/package=fasano.franceschini.test)
 [![R build
-status](https://github.com/braunlab-nu/fasano.franceschini.test/workflows/R-CMD-check/badge.svg)](https://github.com/braunlab-nu/fasano.franceschini.test/actions)
+status](https://github.com/nesscoder/fasano.franceschini.test/workflows/R-CMD-check/badge.svg)](https://github.com/nesscoder/fasano.franceschini.test/actions)
 <!-- badges: end -->
 
 The `fasano.franceschini.test` package is an R implementation of the
@@ -21,24 +22,25 @@ and Franceschini (1987).
     Fasano, G. & Franceschini, A. (1987). A multidimensional version of the
     Kolmogorov-Smirnov test. Monthly Notices of the Royal Astronomical Society,
     225:155-170. doi: 10.1093/mnras/225.1.155.
-    
-A preprint of our accompanying manuscript is available [here](https://arxiv.org/abs/2106.10539).
 
 ## Installation
 
 You can install the released version of the `fasano.franceschini.test`
-package from [CRAN](https://CRAN.R-project.org) with:
+package from
+[CRAN](https://cran.r-project.org/web/packages/fasano.franceschini.test/index.html)
+with:
 
 ``` r
 install.packages("fasano.franceschini.test")
 ```
 
 The development version of the `fasano.franceschini.test` package can be
-installed from [GitHub](https://github.com/) with:
+installed from
+[GitHub](https://github.com/braunlab-nu/fasano.franceschini.test/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("braunlab-nu/fasano.franceschini.test")
+devtools::install_github("nesscoder/fasano.franceschini.test")
 ```
 
 ## Examples
@@ -59,15 +61,10 @@ S2 <- data.frame(x = rnorm(n = 100, mean = 0, sd = 1),
 
 fasano.franceschini.test(S1, S2, seed = 0)
 #> 
-#>  Fasano-Francheschini Test
+#>  Fasano-Franceschini Test
 #> 
 #> data:  S1 and S2
-#> D = 0.9815, p-value = 0.6535
-#> 95 percent confidence interval:
-#>  0.5522616 0.7454075
-#> sample estimates:
-#>   D1   D2 
-#> 0.18 0.16
+#> D = 1700, p-value = 0.6396
 ```
 
 #### Underlying distributions are different
@@ -86,13 +83,8 @@ S2 <- cbind(rgamma(n = 72, shape = 2),
 
 fasano.franceschini.test(S1, S2, seed = 1)
 #> 
-#>  Fasano-Francheschini Test
+#>  Fasano-Franceschini Test
 #> 
 #> data:  S1 and S2
-#> D = 1.6943, p-value = 0.0198
-#> 95 percent confidence interval:
-#>  0.002407173 0.069705090
-#> sample estimates:
-#>        D1        D2 
-#> 0.2845607 0.3685401
+#> D = 2022, p-value = 0.01997
 ```

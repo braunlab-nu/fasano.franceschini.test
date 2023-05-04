@@ -90,17 +90,16 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>Fasano, G. <span class="sc">&amp;</span> Franceschini, <span class="fu">A.</span> (<span class="dv">1987</span>). A multidimensional version of the</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>Kolmogorov<span class="sc">-</span>Smirnov test. Monthly Notices of the Royal Astronomical Society,</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="dv">225</span><span class="sc">:</span><span class="dv">155</span><span class="fl">-170.</span> doi<span class="sc">:</span> <span class="fl">10.1093</span><span class="sc">/</span>mnras<span class="sc">/</span><span class="dv">225</span>.<span class="dv">1</span>.<span class="fl">155.</span></span></code></pre></div>
-<p>A preprint of our accompanying manuscript is available <a href="https://arxiv.org/abs/2106.10539" class="external-link">here</a>.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the released version of the <code>fasano.franceschini.test</code> package from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
+<p>You can install the released version of the <code>fasano.franceschini.test</code> package from <a href="https://cran.r-project.org/web/packages/fasano.franceschini.test/index.html" class="external-link">CRAN</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"fasano.franceschini.test"</span><span class="op">)</span></span></code></pre></div>
-<p>The development version of the <code>fasano.franceschini.test</code> package can be installed from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>The development version of the <code>fasano.franceschini.test</code> package can be installed from <a href="https://github.com/braunlab-nu/fasano.franceschini.test/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"braunlab-nu/fasano.franceschini.test"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"nesscoder/fasano.franceschini.test"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
@@ -122,15 +121,10 @@
 <span></span>
 <span><span class="fu"><a href="reference/fasano.franceschini.test.html">fasano.franceschini.test</a></span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span>, seed <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Fasano-Francheschini Test</span></span>
+<span><span class="co">#&gt;  Fasano-Franceschini Test</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; data:  S1 and S2</span></span>
-<span><span class="co">#&gt; D = 0.9815, p-value = 0.6535</span></span>
-<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span><span class="co">#&gt;  0.5522616 0.7454075</span></span>
-<span><span class="co">#&gt; sample estimates:</span></span>
-<span><span class="co">#&gt;   D1   D2 </span></span>
-<span><span class="co">#&gt; 0.18 0.16</span></span></code></pre></div>
+<span><span class="co">#&gt; D = 1700, p-value = 0.6396</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="underlying-distributions-are-different">Underlying distributions are different<a class="anchor" aria-label="anchor" href="#underlying-distributions-are-different"></a>
@@ -149,15 +143,10 @@
 <span></span>
 <span><span class="fu"><a href="reference/fasano.franceschini.test.html">fasano.franceschini.test</a></span><span class="op">(</span><span class="va">S1</span>, <span class="va">S2</span>, seed <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Fasano-Francheschini Test</span></span>
+<span><span class="co">#&gt;  Fasano-Franceschini Test</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; data:  S1 and S2</span></span>
-<span><span class="co">#&gt; D = 1.6943, p-value = 0.0198</span></span>
-<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span><span class="co">#&gt;  0.002407173 0.069705090</span></span>
-<span><span class="co">#&gt; sample estimates:</span></span>
-<span><span class="co">#&gt;        D1        D2 </span></span>
-<span><span class="co">#&gt; 0.2845607 0.3685401</span></span></code></pre></div>
+<span><span class="co">#&gt; D = 2022, p-value = 0.01997</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -203,9 +192,10 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://arxiv.org/abs/2106.10539" class="external-link"><img src="https://img.shields.io/badge/arXiv-abs/2106.10539-yellow.svg"></a></li>
-<li><a href="https://cran.r-project.org/package=fasano.franceschini.test" class="external-link"><img src="https://www.r-pkg.org/badges/version/fasano.franceschini.test?color=blue"></a></li>
-<li><a href="https://cran.r-project.org/package=fasano.franceschini.test" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/fasano.franceschini.test?color=orange"></a></li>
-<li><a href="https://github.com/braunlab-nu/fasano.franceschini.test/actions" class="external-link"><img src="https://github.com/braunlab-nu/fasano.franceschini.test/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://cran.r-project.org/package=fasano.franceschini.test" class="external-link"><img src="https://www.r-pkg.org/badges/version/fasano.franceschini.test?color=orange"></a></li>
+<li><a href="https://github.com/nesscoder/fasano.franceschini.test" class="external-link"><img src="https://img.shields.io/badge/devel%20version-2.2.0-blue.svg"></a></li>
+<li><a href="https://cran.r-project.org/package=fasano.franceschini.test" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/fasano.franceschini.test?color=green"></a></li>
+<li><a href="https://github.com/nesscoder/fasano.franceschini.test/actions" class="external-link"><img src="https://github.com/nesscoder/fasano.franceschini.test/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 </ul>
 </div>
 
