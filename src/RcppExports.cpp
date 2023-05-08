@@ -36,6 +36,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// permutationTestPvalueOld
+double permutationTestPvalueOld(unsigned int zLess, unsigned int zEqual, unsigned int nPermute);
+RcppExport SEXP _fasano_franceschini_test_permutationTestPvalueOld(SEXP zLessSEXP, SEXP zEqualSEXP, SEXP nPermuteSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< unsigned int >::type zLess(zLessSEXP);
+    Rcpp::traits::input_parameter< unsigned int >::type zEqual(zEqualSEXP);
+    Rcpp::traits::input_parameter< unsigned int >::type nPermute(nPermuteSEXP);
+    rcpp_result_gen = Rcpp::wrap(permutationTestPvalueOld(zLess, zEqual, nPermute));
+    return rcpp_result_gen;
+END_RCPP
+}
 // permutationTestPvalueSeeded
 double permutationTestPvalueSeeded(unsigned int zLess, unsigned int zEqual, unsigned int nPermute, int seed);
 RcppExport SEXP _fasano_franceschini_test_permutationTestPvalueSeeded(SEXP zLessSEXP, SEXP zEqualSEXP, SEXP nPermuteSEXP, SEXP seedSEXP) {
@@ -114,6 +127,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_fasano_franceschini_test_ffTestStatistic", (DL_FUNC) &_fasano_franceschini_test_ffTestStatistic, 3},
     {"_fasano_franceschini_test_permutationTestPvalue", (DL_FUNC) &_fasano_franceschini_test_permutationTestPvalue, 3},
+    {"_fasano_franceschini_test_permutationTestPvalueOld", (DL_FUNC) &_fasano_franceschini_test_permutationTestPvalueOld, 3},
     {"_fasano_franceschini_test_permutationTestPvalueSeeded", (DL_FUNC) &_fasano_franceschini_test_permutationTestPvalueSeeded, 4},
     {"_fasano_franceschini_test_permutationTestSeeded", (DL_FUNC) &_fasano_franceschini_test_permutationTestSeeded, 6},
     {"_fasano_franceschini_test_permutationTest", (DL_FUNC) &_fasano_franceschini_test_permutationTest, 5},

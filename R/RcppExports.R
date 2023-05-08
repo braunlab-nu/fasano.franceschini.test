@@ -9,6 +9,10 @@ permutationTestPvalue <- function(zLess, zEqual, nPermute) {
     .Call(`_fasano_franceschini_test_permutationTestPvalue`, zLess, zEqual, nPermute)
 }
 
+permutationTestPvalueOld <- function(zLess, zEqual, nPermute) {
+    .Call(`_fasano_franceschini_test_permutationTestPvalueOld`, zLess, zEqual, nPermute)
+}
+
 permutationTestPvalueSeeded <- function(zLess, zEqual, nPermute, seed) {
     .Call(`_fasano_franceschini_test_permutationTestPvalueSeeded`, zLess, zEqual, nPermute, seed)
 }
