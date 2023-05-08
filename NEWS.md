@@ -1,3 +1,6 @@
+# fasano.franceschini.test 2.2.1
+* Fixed issue with p-value computation
+
 # fasano.franceschini.test 2.2.0
 * The confidence interval calculation was removed as it was not correct.
 * The test statistic was replaced with a scaled version so it is now integer valued. This does not affect p-values.
