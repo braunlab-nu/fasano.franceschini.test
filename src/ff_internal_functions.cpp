@@ -149,7 +149,7 @@ long ffTestStatistic(const NumericMatrix& S1,
 
 /*******************************************************************************/
 
-/***************** This function is for computing the p-value. *****************/
+/************** These functions are for computing the p-value. *****************/
 
 // [[Rcpp::export(permutationTestPvalue)]]
 double permutationTestPvalue(unsigned int zLess,
@@ -157,7 +157,7 @@ double permutationTestPvalue(unsigned int zLess,
                              unsigned int nPermute) {
     std::mt19937 prng(std::random_device{}());
     std::uniform_real_distribution<double> dis(0.0, 1.0);
-    return (zLess + (1 + zEqual) * dis(prng)) / static_cast<double>(nPermute);
+    return (zLess + (1 + zEqual) * dis(prng)) / static_cast<double>(1 + nPermute);
 }
 
 // [[Rcpp::export(permutationTestPvalueSeeded)]]
@@ -167,7 +167,7 @@ double permutationTestPvalueSeeded(unsigned int zLess,
                                    int seed) {
     std::mt19937 prng(seed);
     std::uniform_real_distribution<double> dis(0.0, 1.0);
-    return (zLess + (1 + zEqual) * dis(prng)) / static_cast<double>(nPermute);
+    return (zLess + (1 + zEqual) * dis(prng)) / static_cast<double>(1 + nPermute);
 }
 
 /*******************************************************************************/
