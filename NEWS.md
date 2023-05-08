@@ -2,6 +2,7 @@
 * The confidence interval calculation was removed as it was not correct.
 * The test statistic was replaced with a scaled version so it is now integer valued. This does not affect p-values.
 * The test is now exact (i.e. the type I error rate is exactly alpha).
+* If you are using R <= 3.5, you may need to add `CXX_STD=CXX11` to your `~/.R/Makevars` file in order to compile.
  
 # fasano.franceschini.test 2.1.1
 * Minor changes in documentation
