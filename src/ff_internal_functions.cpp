@@ -161,7 +161,7 @@ double permutationTestPvalue(unsigned int zLess,
 }
 
 // [[Rcpp::export(permutationTestPvalueOld)]]
-double permutationTestPvalue(unsigned int zLess,
+double permutationTestPvalueOld(unsigned int zLess,
                              unsigned int zEqual,
                              unsigned int nPermute) {
     return (1 + zLess + zEqual) / static_cast<double>(1 + nPermute);
