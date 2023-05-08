@@ -24,9 +24,9 @@ library(badger)
 
 `r badge_custom(x = "arXiv", y = "abs/2106.10539", color = "yellow", url = "https://arxiv.org/abs/2106.10539")` 
 `r badge_cran_release("fasano.franceschini.test", "orange")`
-`r badge_devel("nesscoder/fasano.franceschini.test", "blue")` 
+`r badge_devel("braunlab-nu/fasano.franceschini.test", "blue")` 
 `r badge_cran_download("fasano.franceschini.test", "grand-total", "green")`
-`r badge_github_actions("nesscoder/fasano.franceschini.test")`
+`r badge_github_actions("braunlab-nu/fasano.franceschini.test")`
 <!-- badges: end -->
 
 The `fasano.franceschini.test` package is an R implementation of the multidimensional Kolmogorov-Smirnov two-sample test as defined by Fasano and Franceschini (1987).
@@ -39,17 +39,17 @@ Kolmogorov-Smirnov test. Monthly Notices of the Royal Astronomical Society,
 
 ## Installation
 
-You can install the released version of the `fasano.franceschini.test` package from [CRAN](https://cran.r-project.org/web/packages/fasano.franceschini.test/index.html) with:
+You can install the released version of the `fasano.franceschini.test` package from [CRAN](https://cran.r-project.org/) with:
 
 ``` r
 install.packages("fasano.franceschini.test")
 ```
 
-The development version of the `fasano.franceschini.test` package can be installed from [GitHub](https://github.com/braunlab-nu/fasano.franceschini.test/) with:
+The development version of the `fasano.franceschini.test` package can be installed from Github with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("nesscoder/fasano.franceschini.test")
+devtools::install_github("braunlab-nu/fasano.franceschini.test")
 ```
 
 ## Examples

@@ -9,10 +9,10 @@
 
 [![](https://img.shields.io/badge/arXiv-abs/2106.10539-yellow.svg)](https://arxiv.org/abs/2106.10539)
 [![](https://www.r-pkg.org/badges/version/fasano.franceschini.test?color=orange)](https://cran.r-project.org/package=fasano.franceschini.test)
-[![](https://img.shields.io/badge/devel%20version-2.2.0-blue.svg)](https://github.com/nesscoder/fasano.franceschini.test)
+[![](https://img.shields.io/badge/devel%20version-2.2.0-blue.svg)](https://github.com/braunlab-nu/fasano.franceschini.test)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/fasano.franceschini.test?color=green)](https://cran.r-project.org/package=fasano.franceschini.test)
 [![R build
-status](https://github.com/nesscoder/fasano.franceschini.test/workflows/R-CMD-check/badge.svg)](https://github.com/nesscoder/fasano.franceschini.test/actions)
+status](https://github.com/braunlab-nu/fasano.franceschini.test/workflows/R-CMD-check/badge.svg)](https://github.com/braunlab-nu/fasano.franceschini.test/actions)
 <!-- badges: end -->
 
 The `fasano.franceschini.test` package is an R implementation of the
@@ -26,21 +26,18 @@ and Franceschini (1987).
 ## Installation
 
 You can install the released version of the `fasano.franceschini.test`
-package from
-[CRAN](https://cran.r-project.org/web/packages/fasano.franceschini.test/index.html)
-with:
+package from [CRAN](https://cran.r-project.org/) with:
 
 ``` r
 install.packages("fasano.franceschini.test")
 ```
 
 The development version of the `fasano.franceschini.test` package can be
-installed from
-[GitHub](https://github.com/braunlab-nu/fasano.franceschini.test/) with:
+installed from Github with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("nesscoder/fasano.franceschini.test")
+devtools::install_github("braunlab-nu/fasano.franceschini.test")
 ```
 
 ## Examples

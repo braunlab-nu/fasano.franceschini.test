@@ -1,8 +1,8 @@
-# fasano.franceschini.test 2.1.1
+# fasano.franceschini.test 2.2.0
 Submission of new version to CRAN.
 
 # Test environments
-* macOS 11.6.8 (64-bit) R 4.2.1 (local)
+* macOS 12.6.5 (64-bit) R 4.2.2 (local)
 * Windows, R-oldrelease (win-builder)
 * Windows, R-release (win-builder)
 * Windows, R-devel (win-builder)
