@@ -11,38 +11,7 @@ Submission of new version to CRAN.
 * Ubuntu Linux 20.04.1 LTS, R-release, GCC (R-hub)
 
 # R CMD Check results
-## macOS 11.6.8 R 4.2.1 (local)
-0 errors | 0 warnings | 1 note
-* checking for GNU extensions in Makefiles ... NOTE
-GNU make is a SystemRequirements.
-
-**GNU make is required by the RcppParallel package.**
-
-## win-builder
-### R-oldrelease
-0 errors | 0 warnings | 1 note
-
-* checking CRAN incoming feasibility ... NOTE
-Maintainer: 'Connor Puritz <connorpuritz2025@u.northwestern.edu>'
-
-Possibly mis-spelled words in DESCRIPTION:
-  Fasano (3:8, 17:42)
-  Franceschini (3:15, 17:53)
-
-**These words are not misspelled.**
-
-### R-release
-0 errors | 0 warnings | 0 notes
-
-### R-devel
-0 errors | 0 warnings | 0 notes
-
-## R-hub
-### Debian Linux, R-devel, GCC ASAN/UBSAN
-0 errors | 0 warnings | 0 notes
-
-### Fedora Linux, R-devel, clang, gfortran
-0 errors | 0 warnings | 2 notes
+These are the various notes outputted during checks.
 
 * checking for GNU extensions in Makefiles ... NOTE
 GNU make is a SystemRequirements.
@@ -54,21 +23,13 @@ Skipping checking HTML validation: no command 'tidy' found
 
 **This seems to be an issue with R-hub as opposed to our package.**
 
-### Ubuntu Linux 20.04.1 LTS, R-release, GCC
-0 errors | 0 warnings | 2 notes
+* checking for non-standard things in the check directory ... NOTE
+Found the following files/directories:
+  ''NULL''
+  
+**There is no folder or file in the check directory named 'NULL'.**
 
-* checking CRAN incoming feasibility ... NOTE
-Maintainer: ‘Connor Puritz <connorpuritz2025@u.northwestern.edu>’
-
-Found the following (possibly) invalid DOIs:
-  DOI: 10.1093/mnras/225.1.155
-    From: DESCRIPTION
-    Status: Forbidden
-    Message: 403
-    
-**I have checked this DOI and it is correct.**
-
-* checking for GNU extensions in Makefiles ... NOTE
-GNU make is a SystemRequirements.
-
-**GNU make is required by the RcppParallel package.**
+* checking for detritus in the temp directory ... NOTE
+  'lastMiKTeXException'
+  
+**This seems to be an issue with MiKTeX as opposed to our package.**
