@@ -160,13 +160,6 @@ double permutationTestPvalue(unsigned int zLess,
     return (zLess + (1 + zEqual) * dis(prng)) / static_cast<double>(1 + nPermute);
 }
 
-// [[Rcpp::export(permutationTestPvalueOld)]]
-double permutationTestPvalueOld(unsigned int zLess,
-                                unsigned int zEqual,
-                                unsigned int nPermute) {
-    return (1 + zLess + zEqual) / static_cast<double>(1 + nPermute);
-}
-
 // [[Rcpp::export(permutationTestPvalueSeeded)]]
 double permutationTestPvalueSeeded(unsigned int zLess,
                                    unsigned int zEqual,
