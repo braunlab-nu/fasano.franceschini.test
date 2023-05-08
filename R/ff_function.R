@@ -172,13 +172,11 @@ fasano.franceschini.test <- function(S1,
             pval <- permutationTestPvalueSeeded(counts[1], counts[2], nPermute, seed)
         }
         names(pval) <- "p-value"
-        pval_old <- permutationTestPvalueOld(counts[1], counts[2], nPermute)
     }
 
     # Construct output
     result <- list(statistic = Dff,
                    p.value = pval,
-                   p.value.old = pval_old,
                    method = "Fasano-Franceschini Test",
                    data.name = dname)
     class(result) <- "htest"
