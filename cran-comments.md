@@ -1,4 +1,4 @@
-# fasano.franceschini.test 2.2.0
+# fasano.franceschini.test 2.2.1
 Submission of new version to CRAN.
 
 # Test environments
@@ -13,6 +13,13 @@ Submission of new version to CRAN.
 # R CMD Check results
 These are the various notes outputted during checks.
 
+* checking CRAN incoming feasibility ... [8s/22s] NOTE
+Maintainer: ‘Connor Puritz <connorpuritz2025@u.northwestern.edu>’
+
+Days since last update: 1
+
+**Apologies for the quick resubmission, a critical bug was found shortly after submission of 2.2.0.**
+
 * checking for GNU extensions in Makefiles ... NOTE
 GNU make is a SystemRequirements.
 
@@ -25,9 +32,8 @@ Skipping checking HTML validation: no command 'tidy' found
 
 * checking for non-standard things in the check directory ... NOTE
 Found the following files/directories:
-  ''NULL''
-  
-**There is no folder or file in the check directory named 'NULL'.**
+
+**There are no files/directories printed, so it's not clear why this note is being raised.**
 
 * checking for detritus in the temp directory ... NOTE
   'lastMiKTeXException'
