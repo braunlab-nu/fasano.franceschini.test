@@ -1,4 +1,6 @@
 # fasano.franceschini.test 2.2.2
+* Minor documentation changes
+* Added citation
 
 # fasano.franceschini.test 2.2.1
 * Fixed issue with p-value computation

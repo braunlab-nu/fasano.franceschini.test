@@ -1,8 +1,8 @@
-# fasano.franceschini.test 2.2.1
+# fasano.franceschini.test 2.2.2
 Submission of new version to CRAN.
 
 # Test environments
-* macOS 12.6.5 (64-bit) R 4.2.2 (local)
+* macOS 14.1 (64-bit) R 4.3.2 (local)
 * Windows, R-oldrelease (win-builder)
 * Windows, R-release (win-builder)
 * Windows, R-devel (win-builder)
@@ -15,10 +15,6 @@ These are the various notes outputted during checks.
 
 * checking CRAN incoming feasibility ... [8s/22s] NOTE
 Maintainer: ‘Connor Puritz <connorpuritz2025@u.northwestern.edu>’
-
-Days since last update: 1
-
-**Apologies for the quick resubmission, a critical bug was found shortly after submission of 2.2.0.**
 
 * checking for GNU extensions in Makefiles ... NOTE
 GNU make is a SystemRequirements.

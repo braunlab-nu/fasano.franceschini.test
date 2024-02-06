@@ -1,0 +1,13 @@
+bibentry(
+  bibtype  = "Article",
+  title    = "fasano.franceschini.test: An Implementation of a Multivariate KS Test in R",
+  author   = c(as.person("Connor Puritz"), as.person("Elan Ness-Cohn"), as.person("Rosemary Braun")),
+  journal  = "The R Journal",
+  year     = 2023,
+  volume   = 15,
+  issue    = 3,
+  pages    = "159-171",
+  issn     = "2073-4859",
+  doi      = "10.32614/RJ-2023-067",
+  textVersion = "Puritz, et al. (2023) fasano.franceschini.test: An Implementation of a Multivariate KS Test in R. The R Journal."
+)
