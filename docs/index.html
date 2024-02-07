@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fasano-Franceschini Test: A Multidimensional Kolmogorov-Smirnov
+<title>Fasano-Franceschini Test: A Multivariate Kolmogorov-Smirnov
     Two-Sample Test • fasano.franceschini.test</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -18,9 +18,9 @@
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Fasano-Franceschini Test: A Multidimensional Kolmogorov-Smirnov
+<script src="pkgdown.js"></script><meta property="og:title" content="Fasano-Franceschini Test: A Multivariate Kolmogorov-Smirnov
     Two-Sample Test">
-<meta property="og:description" content="An implementation of the two-sample multidimensional
+<meta property="og:description" content="An implementation of the two-sample multivariate
     Kolmogorov-Smirnov test described by Fasano and Franceschini (1987)
     &lt;doi:10.1093/mnras/225.1.155&gt;. This test evaluates the null hypothesis
     that two i.i.d. random samples were drawn from the same underlying
@@ -47,7 +47,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">fasano.franceschini.test</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.2.2</span>
       </span>
     </div>
 
@@ -86,19 +86,23 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The <code>fasano.franceschini.test</code> package is an R implementation of the multidimensional Kolmogorov-Smirnov two-sample test as defined by Fasano and Franceschini (1987).</p>
+<p>The <code>fasano.franceschini.test</code> package is an R implementation of the multivariate Kolmogorov-Smirnov two-sample test as defined by Fasano and Franceschini (1987).</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>Fasano, G. <span class="sc">&amp;</span> Franceschini, <span class="fu">A.</span> (<span class="dv">1987</span>). A multidimensional version of the</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>Kolmogorov<span class="sc">-</span>Smirnov test. Monthly Notices of the Royal Astronomical Society,</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="dv">225</span><span class="sc">:</span><span class="dv">155</span><span class="fl">-170.</span> doi<span class="sc">:</span> <span class="fl">10.1093</span><span class="sc">/</span>mnras<span class="sc">/</span><span class="dv">225</span>.<span class="dv">1</span>.<span class="fl">155.</span></span></code></pre></div>
+<p>A manuscript accompanying this package was published in The R Journal.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>Puritz, C., Ness<span class="sc">-</span>Cohn, E., Braun, <span class="fu">R.</span> (<span class="dv">2023</span>). fasano.franceschini.test<span class="sc">:</span> An Implementation</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>of a Multivariate KS Test <span class="cf">in</span> R. The R Journal, <span class="dv">15</span>(<span class="dv">3</span>)<span class="sc">:</span><span class="dv">159</span><span class="fl">-171.</span> doi<span class="sc">:</span> <span class="fl">10.32614</span><span class="sc">/</span>RJ<span class="dv">-2023</span><span class="fl">-067.</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the released version of the <code>fasano.franceschini.test</code> package from <a href="https://cran.r-project.org/" class="external-link">CRAN</a> with:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"fasano.franceschini.test"</span><span class="op">)</span></span></code></pre></div>
-<p>The development version of the <code>fasano.franceschini.test</code> package can be installed from Github with:</p>
+<p>You can install the released version of the <code>fasano.franceschini.test</code> package from CRAN with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"fasano.franceschini.test"</span><span class="op">)</span></span></code></pre></div>
+<p>The development version of the <code>fasano.franceschini.test</code> package can be installed from GitHub with:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/" class="external-link">"devtools"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"braunlab-nu/fasano.franceschini.test"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -107,7 +111,7 @@
 <div class="section level4">
 <h4 id="underlying-distributions-are-the-same">Underlying distributions are the same<a class="anchor" aria-label="anchor" href="#underlying-distributions-are-the-same"></a>
 </h4>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/braunlab-nu/fasano.franceschini.test" class="external-link">fasano.franceschini.test</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># set seed for reproducibility</span></span>
@@ -129,7 +133,7 @@
 <div class="section level4">
 <h4 id="underlying-distributions-are-different">Underlying distributions are different<a class="anchor" aria-label="anchor" href="#underlying-distributions-are-different"></a>
 </h4>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># set seed for reproducibility</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
@@ -191,9 +195,9 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://arxiv.org/abs/2106.10539" class="external-link"><img src="https://img.shields.io/badge/arXiv-abs/2106.10539-yellow.svg"></a></li>
+<li><a href="https://doi.org/10.32614/RJ-2023-067" class="external-link"><img src="https://img.shields.io/badge/R%20Journal-10.32614/RJ--2023--067-yellow.svg"></a></li>
 <li><a href="https://cran.r-project.org/package=fasano.franceschini.test" class="external-link"><img src="https://www.r-pkg.org/badges/version/fasano.franceschini.test?color=orange"></a></li>
-<li><a href="https://github.com/braunlab-nu/fasano.franceschini.test" class="external-link"><img src="https://img.shields.io/badge/devel%20version-2.2.1-blue.svg"></a></li>
+<li><a href="https://github.com/braunlab-nu/fasano.franceschini.test" class="external-link"><img src="https://img.shields.io/badge/devel%20version-2.2.2-blue.svg"></a></li>
 <li><a href="https://cran.r-project.org/package=fasano.franceschini.test" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/fasano.franceschini.test?color=green"></a></li>
 <li><a href="https://github.com/braunlab-nu/fasano.franceschini.test/actions" class="external-link"><img src="https://github.com/braunlab-nu/fasano.franceschini.test/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 </ul>

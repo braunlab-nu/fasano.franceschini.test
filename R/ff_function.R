@@ -1,6 +1,6 @@
 #' Fasano-Franceschini Test
 #'
-#' Performs a two-sample multidimensional Kolmogorov-Smirnov test as described
+#' Performs a two-sample multivariate Kolmogorov-Smirnov test as described
 #' by Fasano and Franceschini (1987). This test evaluates the null hypothesis
 #' that two i.i.d. random samples were drawn from the same underlying
 #' probability distribution. The data can be of any dimension and of any

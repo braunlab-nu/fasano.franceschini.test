@@ -7,36 +7,42 @@
 
 <!-- badges: start -->
 
-[![](https://img.shields.io/badge/arXiv-abs/2106.10539-yellow.svg)](https://arxiv.org/abs/2106.10539)
+[![](https://img.shields.io/badge/R%20Journal-10.32614/RJ--2023--067-yellow.svg)](https://doi.org/10.32614/RJ-2023-067)
 [![](https://www.r-pkg.org/badges/version/fasano.franceschini.test?color=orange)](https://cran.r-project.org/package=fasano.franceschini.test)
-[![](https://img.shields.io/badge/devel%20version-2.2.1-blue.svg)](https://github.com/braunlab-nu/fasano.franceschini.test)
+[![](https://img.shields.io/badge/devel%20version-2.2.2-blue.svg)](https://github.com/braunlab-nu/fasano.franceschini.test)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/fasano.franceschini.test?color=green)](https://cran.r-project.org/package=fasano.franceschini.test)
 [![R build
 status](https://github.com/braunlab-nu/fasano.franceschini.test/workflows/R-CMD-check/badge.svg)](https://github.com/braunlab-nu/fasano.franceschini.test/actions)
 <!-- badges: end -->
 
 The `fasano.franceschini.test` package is an R implementation of the
-multidimensional Kolmogorov-Smirnov two-sample test as defined by Fasano
-and Franceschini (1987).
+multivariate Kolmogorov-Smirnov two-sample test as defined by Fasano and
+Franceschini (1987).
 
     Fasano, G. & Franceschini, A. (1987). A multidimensional version of the
     Kolmogorov-Smirnov test. Monthly Notices of the Royal Astronomical Society,
     225:155-170. doi: 10.1093/mnras/225.1.155.
 
+A manuscript accompanying this package was published in The R Journal.
+
+    Puritz, C., Ness-Cohn, E., Braun, R. (2023). fasano.franceschini.test: An Implementation
+    of a Multivariate KS Test in R. The R Journal, 15(3):159-171. doi: 10.32614/RJ-2023-067.
+
 ## Installation
 
 You can install the released version of the `fasano.franceschini.test`
-package from [CRAN](https://cran.r-project.org/) with:
+package from CRAN with:
 
 ``` r
 install.packages("fasano.franceschini.test")
 ```
 
 The development version of the `fasano.franceschini.test` package can be
-installed from Github with:
+installed from GitHub with:
 
 ``` r
-# install.packages("devtools")
+if (!require("devtools", quietly = TRUE))
+    install.packages("devtools")
 devtools::install_github("braunlab-nu/fasano.franceschini.test")
 ```
 
