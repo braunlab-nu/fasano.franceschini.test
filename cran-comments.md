@@ -2,7 +2,8 @@
 Submission of new version to CRAN.
 
 # Test environments
-* macOS 14.1 (64-bit) R 4.3.2 (local)
+* macOS 14.1, R 4.3.2 (local)
+* macOS 13.1.1, R 4.3.0 (mac-builder)
 * Windows, R-oldrelease (win-builder)
 * Windows, R-release (win-builder)
 * Windows, R-devel (win-builder)
@@ -13,25 +14,21 @@ Submission of new version to CRAN.
 # R CMD Check results
 These are the various notes outputted during checks.
 
-* checking CRAN incoming feasibility ... [8s/22s] NOTE
-Maintainer: ‘Connor Puritz <connorpuritz2025@u.northwestern.edu>’
-
 * checking for GNU extensions in Makefiles ... NOTE
 GNU make is a SystemRequirements.
 
 **GNU make is required by the RcppParallel package.**
 
-* checking HTML version of manual ... NOTE
-Skipping checking HTML validation: no command 'tidy' found
-
-**This seems to be an issue with R-hub as opposed to our package.**
-
 * checking for non-standard things in the check directory ... NOTE
 Found the following files/directories:
-
-**There are no files/directories printed, so it's not clear why this note is being raised.**
+  ''NULL''
 
 * checking for detritus in the temp directory ... NOTE
   'lastMiKTeXException'
   
-**This seems to be an issue with MiKTeX as opposed to our package.**
+* checking HTML version of manual ... NOTE
+Skipping checking HTML validation: no command 'tidy' found
+
+* checking for non-standard things in the check directory ... NOTE
+
+ **These all seem to be an issues with R-hub as opposed to our package.**
