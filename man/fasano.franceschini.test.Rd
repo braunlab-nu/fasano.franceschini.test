@@ -15,21 +15,23 @@ fasano.franceschini.test(
 )
 }
 \arguments{
-\item{S1}{\code{matrix} or \code{data.frame}.}
+\item{S1}{A \code{matrix} or \code{data.frame}. Each row represents one
+observation.}
 
-\item{S2}{\code{matrix} or \code{data.frame}.}
+\item{S2}{A \code{matrix} or \code{data.frame}. Each row represents one
+observation.}
 
-\item{nPermute}{A nonnegative \code{integer} setting the number of permutations
-to use for performing the permutation test. Default is \code{100}. If set to
-\code{0}, only the test statistic is computed.}
+\item{nPermute}{A nonnegative \code{integer} setting the number of
+permutations to use for performing the permutation test. Default is \code{100}.
+If set to \code{0}, only the test statistic is computed.}
 
 \item{threads}{A positive \code{integer} or \code{"auto"} setting the number
 of threads to use during the permutation test. If set to \code{"auto"}, the
 number of threads is determined by \code{RcppParallel::defaultNumThreads()}.
 Default is \code{1}.}
 
-\item{seed}{An optional integer to seed the PRNG used for the permutation test.
-A seed must be passed to reproducibly compute p-values.}
+\item{seed}{An optional integer to seed the PRNG used for the permutation
+test. A seed must be passed to reproducibly compute p-values.}
 
 \item{verbose}{A \code{boolean} indicating whether to display a progress bar.
 Default is \code{TRUE}. Only available when \code{threads = 1}.}
@@ -37,9 +39,9 @@ Default is \code{TRUE}. Only available when \code{threads = 1}.}
 \item{method}{An optional \code{character} indicating which method to use to
 compute the test statistic. The two methods are \code{'r'} (range tree) and
 \code{'b'} (brute force). Both methods return the same results but may vary in
-computation speed. If this argument is not passed, the sample sizes and dimension
-of the data are used to infer which method is likely faster. See the Details
-section for more information.}
+computation speed. If this argument is not passed, the sample sizes and
+dimension of the data are used to infer which method is likely faster. See the
+Details section for more information.}
 }
 \value{
 A list of class \code{htest} containing the following components:
