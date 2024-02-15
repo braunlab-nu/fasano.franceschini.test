@@ -53,15 +53,16 @@ devtools::install_github("braunlab-nu/fasano.franceschini.test")
 ``` r
 library(fasano.franceschini.test)
 
-# set seed for reproducibility
+# Set seed to draw reproducible samples
 set.seed(0)
 
-# create 2D samples from the same underlying distribution
+# Create 2D samples from the same underlying distribution
 S1 <- data.frame(x = rnorm(n = 50, mean = 0, sd = 1),
                  y = rnorm(n = 50, mean = 0, sd = 3))
 S2 <- data.frame(x = rnorm(n = 100, mean = 0, sd = 1),
                  y = rnorm(n = 100, mean = 0, sd = 3))
 
+# Set seed to generate reproducible p-values
 fasano.franceschini.test(S1, S2, seed = 0)
 #> 
 #>  Fasano-Franceschini Test
@@ -73,10 +74,10 @@ fasano.franceschini.test(S1, S2, seed = 0)
 #### Underlying distributions are different
 
 ``` r
-# set seed for reproducibility
+# Set seed to draw reproducible samples
 set.seed(1)
 
-# create 3D samples from different underlying distributions
+# Create 3D samples from different underlying distributions
 S1 <- cbind(rgamma(n = 43, shape = 2),
             rpois(n = 43, lambda = 5),
             rpois(n = 43, lambda = 3.5))
@@ -84,6 +85,7 @@ S2 <- cbind(rgamma(n = 72, shape = 2),
             rpois(n = 72, lambda = 5),
             rpois(n = 72, lambda = 5))
 
+# Set seed to generate reproducible p-values
 fasano.franceschini.test(S1, S2, seed = 1)
 #> 
 #>  Fasano-Franceschini Test
