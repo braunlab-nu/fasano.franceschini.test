@@ -2,7 +2,7 @@ Type: Package
 Package: fasano.franceschini.test
 Title: Fasano-Franceschini Test: A Multivariate Kolmogorov-Smirnov
     Two-Sample Test
-Version: 2.2.2
+Version: 2.2.3
 Authors@R: c(
     person("Connor", "Puritz", , "connorpuritz2025@u.northwestern.edu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7602-0444")),
