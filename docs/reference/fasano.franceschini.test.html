@@ -21,7 +21,7 @@ type (continuous, discrete, or mixed)."><meta property="og:image" content="/logo
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fasano.franceschini.test</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.2.3</span>
       </span>
     </div>
 
@@ -75,17 +75,19 @@ type (continuous, discrete, or mixed).</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>S1</dt>
-<dd><p><code>matrix</code> or <code>data.frame</code>.</p></dd>
+<dd><p>A <code>matrix</code> or <code>data.frame</code>. Each row represents one
+observation.</p></dd>
 
 
 <dt>S2</dt>
-<dd><p><code>matrix</code> or <code>data.frame</code>.</p></dd>
+<dd><p>A <code>matrix</code> or <code>data.frame</code>. Each row represents one
+observation.</p></dd>
 
 
 <dt>nPermute</dt>
-<dd><p>A nonnegative <code>integer</code> setting the number of permutations
-to use for performing the permutation test. Default is <code>100</code>. If set to
-<code>0</code>, only the test statistic is computed.</p></dd>
+<dd><p>A nonnegative <code>integer</code> setting the number of
+permutations to use for performing the permutation test. Default is <code>100</code>.
+If set to <code>0</code>, only the test statistic is computed.</p></dd>
 
 
 <dt>threads</dt>
@@ -96,8 +98,8 @@ Default is <code>1</code>.</p></dd>
 
 
 <dt>seed</dt>
-<dd><p>An optional integer to seed the PRNG used for the permutation test.
-A seed must be passed to reproducibly compute p-values.</p></dd>
+<dd><p>An optional integer to seed the PRNG used for the permutation
+test. A seed must be passed to reproducibly compute p-values.</p></dd>
 
 
 <dt>verbose</dt>
@@ -109,9 +111,9 @@ Default is <code>TRUE</code>. Only available when <code>threads = 1</code>.</p><
 <dd><p>An optional <code>character</code> indicating which method to use to
 compute the test statistic. The two methods are <code>'r'</code> (range tree) and
 <code>'b'</code> (brute force). Both methods return the same results but may vary in
-computation speed. If this argument is not passed, the sample sizes and dimension
-of the data are used to infer which method is likely faster. See the Details
-section for more information.</p></dd>
+computation speed. If this argument is not passed, the sample sizes and
+dimension of the data are used to infer which method is likely faster. See the
+Details section for more information.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -173,7 +175,7 @@ computes the test statistic.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Franceschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 280, p-value = 0.9415</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 280, p-value = 0.9384</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># perform test with more permutations</span></span></span>
@@ -182,7 +184,7 @@ computes the test statistic.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Franceschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 280, p-value = 0.9491</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 280, p-value = 0.9521</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># set seed for reproducible p-value</span></span></span>
@@ -199,7 +201,7 @@ computes the test statistic.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Franceschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 280, p-value = 0.9776</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 280, p-value = 0.9497</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># perform test using brute force method</span></span></span>
@@ -208,7 +210,7 @@ computes the test statistic.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Fasano-Franceschini Test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  S1 and S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D = 280, p-value = 0.9479</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D = 280, p-value = 0.9773</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># perform test using multiple threads to speed up p-value computation</span></span></span>

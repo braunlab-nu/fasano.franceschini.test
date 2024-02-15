@@ -1,4 +1,5 @@
 # fasano.franceschini.test 2.2.3
+* Minor documentation changes
 
 # fasano.franceschini.test 2.2.2
 * Minor documentation changes

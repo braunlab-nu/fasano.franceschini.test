@@ -9,7 +9,7 @@
 
 [![](https://img.shields.io/badge/R%20Journal-10.32614/RJ--2023--067-yellow.svg)](https://doi.org/10.32614/RJ-2023-067)
 [![](https://www.r-pkg.org/badges/version/fasano.franceschini.test?color=orange)](https://cran.r-project.org/package=fasano.franceschini.test)
-[![](https://img.shields.io/badge/devel%20version-2.2.2-blue.svg)](https://github.com/braunlab-nu/fasano.franceschini.test)
+[![](https://img.shields.io/badge/devel%20version-2.2.3-blue.svg)](https://github.com/braunlab-nu/fasano.franceschini.test)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/fasano.franceschini.test?color=green)](https://cran.r-project.org/package=fasano.franceschini.test)
 [![R build
 status](https://github.com/braunlab-nu/fasano.franceschini.test/workflows/R-CMD-check/badge.svg)](https://github.com/braunlab-nu/fasano.franceschini.test/actions)
